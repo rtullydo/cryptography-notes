@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--**************************************-->
 <!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-04-11T10:38:01-04:00    *-->
+<!--*    on 2019-04-11T12:56:09-04:00    *-->
 <!--*                                    *-->
 <!--*      https://pretextbook.org       *-->
 <!--*                                    *-->
@@ -160,10 +160,10 @@ var js_version = 0.11;
 </div></div>
 <nav id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
-<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-counting.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><span id="nextbutton" class="next-button button toolbar-item disabled">Next</span></span></div>
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-perm-comb.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><span id="nextbutton" class="next-button button toolbar-item disabled">Next</span></span></div>
 </div>
 <div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
-<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-counting.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><span class="next-button button toolbar-item disabled">Next</span>
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-perm-comb.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><span class="next-button button toolbar-item disabled">Next</span>
 </div>
 </div></nav></header><div class="page">
 <div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
@@ -219,24 +219,25 @@ var js_version = 0.11;
 </li>
 <li class="link">
 <a href="chapter-probability.html" data-scroll="chapter-probability"><span class="codenumber">6</span> <span class="title">Probability and non-deterministic methods</span></a><ul>
-<li><a href="section-counting.html" data-scroll="section-counting">Counting - Permutations and combinations*</a></li>
+<li><a href="section-counting.html" data-scroll="section-counting">Counting*</a></li>
+<li><a href="section-perm-comb.html" data-scroll="section-perm-comb">Permutations and combinations*</a></li>
 <li><a href="section-prime-testing.html" data-scroll="section-prime-testing" class="active">Primality testing</a></li>
 </ul>
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
 <main class="main"><div id="content" class="pretext-content"><section class="section" id="section-prime-testing"><h2 class="heading hide-type">
-<span class="type">Section</span> <span class="codenumber">6.2</span> <span class="title">Primality testing</span>
+<span class="type">Section</span> <span class="codenumber">6.3</span> <span class="title">Primality testing</span>
 </h2>
-<a href="section-prime-testing.html" class="permalink">¶</a><p id="p-190">One of the most important areas where non-deterministic methods are used in cryptography is in the area of producing and testing numbers that are highly likely to be prime - that is, it is quite expensive to determine with absolute certainty that a number \(n\) is prime, but it can be checked to any amount of desired likelihood. (Such primes are sometimes referred to as <dfn class="terminology">industrial-grade primes</dfn> - that is, good enough for application.) The idea is that even if the tests miss an occasional number that isn't prime, it happens so infrequently that the economic cost of looking for one is prohibitive.</p>
-<p id="p-191">Recall that a <dfn class="terminology">composite number</dfn> is a number that has two or more non-trivial factors. We'll begin by looking at conditions that prime numbers <em class="emphasis">always</em> satisfy. What springs to mind is Fermat's little theorem <a data-knowl="./knowl/thm-fermat.html" title="Theorem 2.6.1: (Fermat's little theorem)">Theorem 2.6.1</a>. We will adopt a slightly modified version that removes the restrictions on \(a\text{.}\)</p>
+<a href="section-prime-testing.html" class="permalink">¶</a><p id="p-199">One of the most important areas where non-deterministic methods are used in cryptography is in the area of producing and testing numbers that are highly likely to be prime - that is, it is quite expensive to determine with absolute certainty that a number \(n\) is prime, but it can be checked to any amount of desired likelihood. (Such primes are sometimes referred to as <dfn class="terminology">industrial-grade primes</dfn> - that is, good enough for application.) The idea is that even if the tests miss an occasional number that isn't prime, it happens so infrequently that the economic cost of looking for one is prohibitive.</p>
+<p id="p-200">Recall that a <dfn class="terminology">composite number</dfn> is a number that has two or more non-trivial factors. We'll begin by looking at conditions that prime numbers <em class="emphasis">always</em> satisfy. What springs to mind is Fermat's little theorem <a data-knowl="./knowl/thm-fermat.html" title="Theorem 2.6.1: (Fermat's little theorem)">Theorem 2.6.1</a>. We will adopt a slightly modified version that removes the restrictions on \(a\text{.}\)</p>
 <article class="theorem-like" id="thm-fermat-2"><h6 class="heading">
-<span class="type">Theorem</span> <span class="codenumber">6.2.1</span>. <span class="title">Modified Fermat's theorem.</span>
+<span class="type">Theorem</span> <span class="codenumber">6.3.1</span>. <span class="title">Modified Fermat's theorem.</span>
 </h6> Let \(p\) be prime, and let \(a\) be an integer. Then<div class="displaymath">
 \begin{equation*}
 a^p \equiv a \bmod p.
 \end{equation*}
-</div></article><p id="p-192">Fermat's little theorem gives us a test for compositeness: if \(a^p \neq a \bmod p\text{,}\) then \(p\) cannot be prime. For example, suppose that we want to know if \(n = 9\) is prime (presuming that we don't know how to factor it). On checking the Fermat condition for say \(a = 2\text{,}\) we see that</p>
+</div></article><p id="p-201">Fermat's little theorem gives us a test for compositeness: if \(a^p \neq a \bmod p\text{,}\) then \(p\) cannot be prime. For example, suppose that we want to know if \(n = 9\) is prime (presuming that we don't know how to factor it). On checking the Fermat condition for say \(a = 2\text{,}\) we see that</p>
 <div class="displaymath">
 \begin{equation*}
 2^9 \equiv 8 \bmod 9
@@ -249,22 +250,22 @@ a^p \equiv a \bmod p.
 \end{equation*}
 </div>
 <p>and yet 21 is obviously not prime.</p>
-<p id="p-193">We take the position that 2 “sees” the compositeness of 9, but that 6 does not see the compositeness of 21. In this light, we define the notion of a witness of compositeness.</p>
+<p id="p-202">We take the position that 2 “sees” the compositeness of 9, but that 6 does not see the compositeness of 21. In this light, we define the notion of a witness of compositeness.</p>
 <article class="definition-like" id="def-witness"><h6 class="heading">
-<span class="type">Definition</span> <span class="codenumber">6.2.2</span>.</h6>A number \(a\) is said to be a (Fermat) <dfn class="terminology">witness</dfn> for the compositeness of a composite number \(n\) if<div class="displaymath">
+<span class="type">Definition</span> <span class="codenumber">6.3.2</span>.</h6>A number \(a\) is said to be a (Fermat) <dfn class="terminology">witness</dfn> for the compositeness of a composite number \(n\) if<div class="displaymath">
 \begin{equation*}
 a^n \neq a \bmod n.
 \end{equation*}
-</div></article><p id="p-194">We're left with the following idea: If we suspect that a number \(n\) is prime, check lots of numbers \(a\) as potential witnesses of the compositeness of \(n\text{.}\) If we don't find any witnesses, perhaps we could conclude that \(n\) is prime. The issue with this approach is the existence of a set of numbers called <em class="emphasis">Carmichael numbers</em>, which have the property of possessing <em class="emphasis">no</em> Fermat witnesses. As an example, \(n = 531 = 3 \cdot 11 \cdot 17\) has the property that</p>
+</div></article><p id="p-203">We're left with the following idea: If we suspect that a number \(n\) is prime, check lots of numbers \(a\) as potential witnesses of the compositeness of \(n\text{.}\) If we don't find any witnesses, perhaps we could conclude that \(n\) is prime. The issue with this approach is the existence of a set of numbers called <em class="emphasis">Carmichael numbers</em>, which have the property of possessing <em class="emphasis">no</em> Fermat witnesses. As an example, \(n = 531 = 3 \cdot 11 \cdot 17\) has the property that</p>
 <div class="displaymath">
 \begin{equation*}
 a^{531} = a \bmod 531
 \end{equation*}
 </div>
 <p>for <em class="emphasis">every</em> integer \(a\text{,}\) and thus has no witnesses to the fact that it is composite. There are infintely many Carmichael numbers, and so it behooves us to develop a test so that every composite \(n\) has lots of witnesses.</p>
-<p id="p-195">One such test is called the Miller-Rabin test, which relies on Fermat's little theorem as its background assumption but provides a further discrimination that gives every composite number lots of witnesses.</p>
+<p id="p-204">One such test is called the Miller-Rabin test, which relies on Fermat's little theorem as its background assumption but provides a further discrimination that gives every composite number lots of witnesses.</p>
 <article class="theorem-like" id="thm-mr-condition"><h6 class="heading">
-<span class="type">Theorem</span> <span class="codenumber">6.2.3</span>.</h6>Let \(p\) be an odd prime. Write<div class="displaymath">
+<span class="type">Theorem</span> <span class="codenumber">6.3.3</span>.</h6>Let \(p\) be an odd prime. Write<div class="displaymath">
 \begin{equation*}
 p - 1 = 2^k q \text{ where } q \text{ is odd.}
 \end{equation*}
@@ -272,7 +273,7 @@ p - 1 = 2^k q \text{ where } q \text{ is odd.}
 <li id="li-187">\(a^q \equiv 1 \bmod p;\)</li>
 <li id="li-188">A number in the list<div class="displaymath">
 \begin{equation}
-a^q, a^{2q}, a^{4q} \ldots, a^{2^{k-1}q}\label{eq-mr-list}\tag{6.2.1}
+a^q, a^{2q}, a^{4q} \ldots, a^{2^{k-1}q}\label{eq-mr-list}\tag{6.3.1}
 \end{equation}
 </div>is congruent to \(-1 \bmod p\text{.}\)</li>
 </ol></article><article class="hiddenproof" id="proof-7"><a data-knowl="" class="id-ref" data-refid="hk-proof-7"><h6 class="heading"><span class="type">Proof.</span></h6></a></article><div id="hk-proof-7" class="hidden-content tex2jax_ignore"><article class="hiddenproof">The basic idea of the proof is that \(\sqrt{1} = \pm 1\text{.}\) By Fermat's theorem, we know that<div class="displaymath">
@@ -284,12 +285,12 @@ a^{2^k q} = a^{p-1} \equiv 1 \mod p.
 a^q, a^{2q}, \ldots, a^{2^{k-1}q}, a^{2^k q} = 1
 \end{equation*}
 </div>is a list of repeated squarings. Since the last number is 1, the previous number must have been 1 or -1. If the previous number is -1, we're finished. If the previous number is 1, then the number prior to that much have been 1 or -1 and so on down the chain. If we reach the first number in the list, it must be 1 or -1 because the next number was 1. If it is -1, then we're done. If it is 1, we're in the first condition, completing the proof.</article></div> The theorem gives the underlying condition for the Miller-Rabin test for compositeness. <article class="definition-like" id="def-mr-witness"><h6 class="heading">
-<span class="type">Definition</span> <span class="codenumber">6.2.4</span>.</h6>Let \(n\) be odd and write \(n-1 = 2^k q\) with \(q\) odd. An integer \(a\) with \(\gcd(a,n) = 1\) is a <dfn class="terminology">Miller-Rabin witness</dfn> for the compositeness of \(n\) if <ol class="decimal">
+<span class="type">Definition</span> <span class="codenumber">6.3.4</span>.</h6>Let \(n\) be odd and write \(n-1 = 2^k q\) with \(q\) odd. An integer \(a\) with \(\gcd(a,n) = 1\) is a <dfn class="terminology">Miller-Rabin witness</dfn> for the compositeness of \(n\) if <ol class="decimal">
 <li id="li-189">\(a^q \neq 1 \bmod n \) and</li>
 <li id="li-190">\(a^{2^i q} \neq -1 \bmod n\) for any \(i = 1, \ldots, k-1\)</li>
-</ol></article><p id="p-196">By <a data-knowl="./knowl/thm-mr-condition.html" title="Theorem 6.2.3">Theorem 6.2.3</a>, if \(n\) has a Miller-Rabin witness then it must be composite. Thus, we can formulate the Miller-Rabin test:</p>
+</ol></article><p id="p-205">By <a data-knowl="./knowl/thm-mr-condition.html" title="Theorem 6.3.3">Theorem 6.3.3</a>, if \(n\) has a Miller-Rabin witness then it must be composite. Thus, we can formulate the Miller-Rabin test:</p>
 <article class="theorem-like" id="algo-mr"><h6 class="heading">
-<span class="type">Algorithm</span> <span class="codenumber">6.2.5</span>.</h6>Let \(n\) be the integer to be tested, and let \(a\) be the proposed witness. <ol class="decimal">
+<span class="type">Algorithm</span> <span class="codenumber">6.3.5</span>.</h6>Let \(n\) be the integer to be tested, and let \(a\) be the proposed witness. <ol class="decimal">
 <li id="li-191">If \(n\) is even, then \(n\) is composite.</li>
 <li id="li-192">If \(1 \lt \gcd(a, n) \lt n\text{,}\) then \(n\) is composite.</li>
 <li id="li-193">Write \(n - 1 = 2^k q\)</li>
@@ -299,10 +300,10 @@ a^q, a^{2q}, \ldots, a^{2^{k-1}q}, a^{2^k q} = 1
 <li id="li-197">If \(i \lt k-1\text{,}\) set \(a = a^2 \mod n\text{,}\) increment \(i\text{,}\) and return to 6.</li>
 <li id="li-198">Else \(n\) is composite.</li>
 </ol></article> Composite numbers have lots of Miller-Rabin witnesses. <article class="theorem-like" id="proposition-4"><h6 class="heading">
-<span class="type">Proposition</span> <span class="codenumber">6.2.6</span>.</h6>Let \(n\) be an odd composite number. Then at least 75% of integers \(1 \lt a \leq n-1\) are Miller-Rabin witnesses for the compositeness of \(n\text{.}\)</article><p id="p-197">In some sense, we have the basis for a nondeterministic test for the primeness of an integer now. We know that if \(n\) is composite, we have at least a 75% chance of finding a witness for any given \(a\) that we test. That is, we have a 25% chance at most to fail. If we try lots of values, and they all fail to be witnesses for \(n\text{,}\) then it becomes increasingly likely that \(n\) is prime.</p>
-<p id="p-198">The situation is slighly complicated by the fact that the probabilities are what as known as <em class="emphasis">conditional</em>: that is, when \(n\) is composite, 25% of numbers fail to be witnesses, but when \(n\) is prime, 100% of numbers fail to be witnesses. Nevertheless, the basic intuition should be something like “If \(n\) is composite, then the probability that 10 numbers fail to be Miller-Rabin witnesses for \(n\) is \(.25^10 \approx 10^-6\text{.}\)”. That is, getting 10 or 100 or 1000 failed witnesses makes it exceedingly unlikely that \(n\) is composite. The exact calculation of the probability will have to wait until we have looked more closely at conditional probability.</p>
-<p id="p-199">One might reasonably ask if there are efficient ways of generating candidate primes. In fact, there are many formulas that are much more likely to produce a prime than a random number generator. Further, we can exclude many possible values for \(n\) with divisibilty rules and quick divisions (say by every number up to 10000) before we apply a computationally expensive MR-test.</p>
-<p id="p-200">Finally, I'll point out that there are deterministic methods for checking that a number is prime that run in polynomial time <em class="emphasis">but</em> these algorithms require that we assume the truth of perhaps the most famous and important unsolved problems in mathematics, the <dfn class="terminology">Riemann hypothesis</dfn>, which concerns the distribution of prime numbers in the real line. More than 150 years of work has gone into proving or disproving the hypothesis, which to the present has resisted giving up its secrets.</p>
+<span class="type">Proposition</span> <span class="codenumber">6.3.6</span>.</h6>Let \(n\) be an odd composite number. Then at least 75% of integers \(1 \lt a \leq n-1\) are Miller-Rabin witnesses for the compositeness of \(n\text{.}\)</article><p id="p-206">In some sense, we have the basis for a nondeterministic test for the primeness of an integer now. We know that if \(n\) is composite, we have at least a 75% chance of finding a witness for any given \(a\) that we test. That is, we have a 25% chance at most to fail. If we try lots of values, and they all fail to be witnesses for \(n\text{,}\) then it becomes increasingly likely that \(n\) is prime.</p>
+<p id="p-207">The situation is slighly complicated by the fact that the probabilities are what as known as <em class="emphasis">conditional</em>: that is, when \(n\) is composite, 25% of numbers fail to be witnesses, but when \(n\) is prime, 100% of numbers fail to be witnesses. Nevertheless, the basic intuition should be something like “If \(n\) is composite, then the probability that 10 numbers fail to be Miller-Rabin witnesses for \(n\) is \(.25^10 \approx 10^-6\text{.}\)”. That is, getting 10 or 100 or 1000 failed witnesses makes it exceedingly unlikely that \(n\) is composite. The exact calculation of the probability will have to wait until we have looked more closely at conditional probability.</p>
+<p id="p-208">One might reasonably ask if there are efficient ways of generating candidate primes. In fact, there are many formulas that are much more likely to produce a prime than a random number generator. Further, we can exclude many possible values for \(n\) with divisibilty rules and quick divisions (say by every number up to 10000) before we apply a computationally expensive MR-test.</p>
+<p id="p-209">Finally, I'll point out that there are deterministic methods for checking that a number is prime that run in polynomial time <em class="emphasis">but</em> these algorithms require that we assume the truth of perhaps the most famous and important unsolved problems in mathematics, the <dfn class="terminology">Riemann hypothesis</dfn>, which concerns the distribution of prime numbers in the real line. More than 150 years of work has gone into proving or disproving the hypothesis, which to the present has resisted giving up its secrets.</p>
 <section class="exercises" id="exercises-19"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>

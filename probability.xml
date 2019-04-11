@@ -2,10 +2,77 @@
       <title> Probability and non-deterministic methods </title>
 
       <section xml:id="section-counting">
-        <title>Counting - Permutations and combinations*</title>
-        <p> We are going to be interested in measuring how likely certain events are to occur; for example, we might want to know the likelihood that a certain number is prime, or the likelihood that a certain process will detect a solution to a discrete log problem. In order to make these measurements rigorous, we need to establish the basics of <em>counting</em> (yes, you've traveled for more than a decade to this advanced material, and only now do you get to learn how to count).
+        <title>Counting* </title>
+        <p> We are going to be interested in measuring how likely certain events are to occur; for example, we might want to know the likelihood that a certain number is prime, or the likelihood that a certain process will detect a solution to a discrete log problem. In order to make these measurements rigorous, we need to establish the basics of <em>counting</em> (yes, you've traveled for more than a decade to this advanced material, and only now do you get to learn how to count).</p>
 
+        <p>You are probably familiar with the next concept, though perhaps have not ever seen it formalized. As a motivating example, suppose you are have three shirts to choose from and four pairs of pants. How many different outfits can you make? It should be clear that we have to multiply the number of options to get the correct answer of eight (each shirt could be combined with four different pairs of pants). That choices or options multiply is such a central fact of counting that we give it a name.</p>
+
+        <theorem xml:id = "thm-fund-princ-count">
+          <title>The fundamental principle of counting</title>
+          Suppose two different experiments take place, the first with <m>m</m> possible outcomes and the second with <m>n</m> possible outcomes. Then the total number of outcomes to both experiments is <m>mn</m>.
+        </theorem>
+
+        <p>An immediate consequence of this principle is that (by mathematical induction) any number of experiments can be performed, and all of their possible outcomes can be multipled to get the total number of possible outcomes. That is, <m>k</m> experiments having <m>n_k</m> possible outcomes respectively will have a total of <m>n_1 n_2 \ldots n_k</m> total combined possible outcomes.</p>
+
+        <p>Counting is important because it underlies our intuitive understanding of what probability is: the likelihood of an event is the ratio of the number of ways that even can happen to the total number of possible results in an experiement. The probability of a flipped coin landing on heads is 1/2 because there is one way that a coin can land heads up out of two possible outcomes to a flip. The probability of drawing a face card (J, Q, K) from a deck of a card is 12/52 because there are 12 face cards and 52 total cards that could be drawn. Thus, counting the number of events and the total number of possible outcomes is necessary to develop a theory of probability.</p>
       </section>
+
+
+
+      <section xml:id="section-perm-comb">
+        <title> Permutations and combinations*</title>
+        <p>We begin with the idea of permutations - that is arrangements of objects. We'll use python to see if we can find a pattern. The package that we need is called <c>itertools</c>, which we will need to import to use the command <c>permutations</c>. </p>
+
+        <sage language="python">
+          <input>
+            from itertools import permutations
+
+            perm1 = permutations([1])
+            for i in list(perm1):
+              print i
+
+            perm2 = permutations([1,2])
+            for i in list(perm2):
+              print i
+
+            perm3 = permutations([1,2,3])
+            for i in list(perm3):
+              print i
+          </input>
+        </sage>
+
+        If we keep this going, the lists will get very long. We aren't going to be working directly with the arrangements typically-- we're counting. So what we really need to know is <em>how many</em> arrangements are in each list.
+
+        <sage language="python">
+          <input>
+            from itertools import permutations
+
+            for n in range(1,6):
+              obj = list(range(1,n+1))
+              perm = permutations(obj)
+              count = len(list(perm))
+              print("Objects: %d    Arrangements: %d" %(n, count))
+          </input>
+        </sage>
+
+        <p>These numbers may be familiar to you: they are the <em>factorials</em>. Recall that <m>n! = 1\cdot 2 \cdot 3 \cdot \ldots \cdot (n-1) \cdot n</m>. </p>
+
+        <theorem xml:id="thm-permutations">
+          The number of arrangements or permutations of <m>n</m> objects is <m>n!</m>.
+        </theorem>
+
+        <p>We can change the problem slightly. Imagine that from a pool of <m>n</m>objects, we select <m>r</m> of them and make arrangements. For example, I might want to know how many ways I can choose a class president, vice president, and secretary from a group of 30 students. One way of looking at this is in terms of choice: I have 30 possible choices for president, 29 for vice-president after I've selected the president, and 28 for the secretary. By the fundamental principle of counting, I have <m>30 \cdot 29 \cdot 28</m> possible choices. This is a perfectly valid way of counting permutations of a subset, but we're looking for something that can be generalized and not treated case by case. A simple computational trick (essentially cleverly unsimplifying a fraction) will let us write this in a more useful form:
+          <me>
+            30 \cdot 29 \cdot 28 = \frac{30 \cdot 29 \cdot 28 \cdot (27 \cdot \ldots \cdot 1)}{(27 \cdot \ldots \cdot 1)} = \frac{30!}{27!} = \frac{30!}{(30 - 3)!}
+          </me></p>
+
+        <p>This motivates the observation that the number of <term>permutations of <m>n</m> objects taken <m>r</m> at a time</term> is 
+          <me>
+            n P r = \frac{n!}{(n-r)!}
+          </me>.</p>
+
+        <p>In many cases, we want to know how many ways to choose <m>r</m> objects from a collection of <m>n</m> total objects, but we aren't concerned with the order of the choosing. For example, playing a card game, typically the cards in the players hand can be ordered in the hand any way the player wishes. This type of unordered selection is called a <term>combination of <m>n</m> objects taken <m>r</m> at a time</term>.</p>
+      </section> 
       
       <section xml:id="section-prime-testing">
         <title>Primality testing</title>

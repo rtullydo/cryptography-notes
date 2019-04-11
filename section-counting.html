@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--**************************************-->
 <!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-04-11T10:38:01-04:00    *-->
+<!--*    on 2019-04-11T12:56:09-04:00    *-->
 <!--*                                    *-->
 <!--*      https://pretextbook.org       *-->
 <!--*                                    *-->
@@ -9,7 +9,7 @@
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Counting - Permutations and combinations*</title>
+<title>Counting*</title>
 <meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 <script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
@@ -160,10 +160,10 @@ var js_version = 0.11;
 </div></div>
 <nav id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
-<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="chapter-probability.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-prime-testing.html" title="Next">Next</a></span></div>
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="chapter-probability.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-perm-comb.html" title="Next">Next</a></span></div>
 </div>
 <div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
-<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="chapter-probability.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-prime-testing.html" title="Next">Next</a>
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="chapter-probability.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-perm-comb.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
 <div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
@@ -219,16 +219,22 @@ var js_version = 0.11;
 </li>
 <li class="link">
 <a href="chapter-probability.html" data-scroll="chapter-probability"><span class="codenumber">6</span> <span class="title">Probability and non-deterministic methods</span></a><ul>
-<li><a href="section-counting.html" data-scroll="section-counting" class="active">Counting - Permutations and combinations*</a></li>
+<li><a href="section-counting.html" data-scroll="section-counting" class="active">Counting*</a></li>
+<li><a href="section-perm-comb.html" data-scroll="section-perm-comb">Permutations and combinations*</a></li>
 <li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
 </ul>
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
 <main class="main"><div id="content" class="pretext-content"><section class="section" id="section-counting"><h2 class="heading hide-type">
-<span class="type">Section</span> <span class="codenumber">6.1</span> <span class="title">Counting - Permutations and combinations*</span>
+<span class="type">Section</span> <span class="codenumber">6.1</span> <span class="title">Counting*</span>
 </h2>
-<a href="section-counting.html" class="permalink">¶</a></section></div></main>
+<a href="section-counting.html" class="permalink">¶</a><p id="p-190">We are going to be interested in measuring how likely certain events are to occur; for example, we might want to know the likelihood that a certain number is prime, or the likelihood that a certain process will detect a solution to a discrete log problem. In order to make these measurements rigorous, we need to establish the basics of <em class="emphasis">counting</em> (yes, you've traveled for more than a decade to this advanced material, and only now do you get to learn how to count).</p>
+<p id="p-191">You are probably familiar with the next concept, though perhaps have not ever seen it formalized. As a motivating example, suppose you are have three shirts to choose from and four pairs of pants. How many different outfits can you make? It should be clear that we have to multiply the number of options to get the correct answer of eight (each shirt could be combined with four different pairs of pants). That choices or options multiply is such a central fact of counting that we give it a name.</p>
+<article class="theorem-like" id="thm-fund-princ-count"><h6 class="heading">
+<span class="type">Theorem</span> <span class="codenumber">6.1.1</span>. <span class="title">The fundamental principle of counting.</span>
+</h6> Suppose two different experiments take place, the first with \(m\) possible outcomes and the second with \(n\) possible outcomes. Then the total number of outcomes to both experiments is \(mn\text{.}\)</article><p id="p-192">An immediate consequence of this principle is that (by mathematical induction) any number of experiments can be performed, and all of their possible outcomes can be multipled to get the total number of possible outcomes. That is, \(k\) experiments having \(n_k\) possible outcomes respectively will have a total of \(n_1 n_2 \ldots n_k\) total combined possible outcomes.</p>
+<p id="p-193">Counting is important because it underlies our intuitive understanding of what probability is: the likelihood of an event is the ratio of the number of ways that even can happen to the total number of possible results in an experiement. The probability of a flipped coin landing on heads is 1/2 because there is one way that a coin can land heads up out of two possible outcomes to a flip. The probability of drawing a face card (J, Q, K) from a deck of a card is 12/52 because there are 12 face cards and 52 total cards that could be drawn. Thus, counting the number of events and the total number of possible outcomes is necessary to develop a theory of probability.</p></section></div></main>
 </div>
 <div class="login-link"><span id="loginlogout" class="login">login</span></div>
 <script src="https://pretextbook.org/js/0.11/login.js"></script>

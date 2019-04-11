@@ -1,0 +1,420 @@
+<chapter xml:id="chapter-groups">
+      <title>Group based methods</title>
+
+      <section xml:id="section-naive">
+        <title>A naïve cryptosystem and some related questions</title>
+
+        <p>Let us suppose that, armed as we are with our knowledge of modular arithmetic and the algebra of finite fields, we are going to attempted to send information using that mathematics. Our friends Alice and Bob, intending to avoid the scrutiny of the devious Eve, are going to use this system to send information to teach other. To simplify matters, we will assume that the system that we are designing is <term>symmetric</term> -- that is, that Alice and Bob share a secret piece of information. </p>
+
+        <ol>
+          <li> Alice and Bob choose a large prime <m>p</m> (say on the order of <m>2^{512}</m>) and an integer <m>k \in \mathbb F_p\ad</m>, the <term>private key</term> <m>k_{priv}</m>, that they both know.</li>
+          <li>As an encryption function, Alice uses multiplication by <m>k \bmod p</m>. She knows that multiplication is one-to-one, since <m>\F_p\ad</m> is a field, so each message <m>m \in \F_p\ad</m> will be sent to a unique <m>c \in \F_p\ad</m> by the function
+          <me>
+            e_k(m) = k\cdot m \bmod p.
+          </me></li>
+          <li>Alice and Bob feel confident that Eve will not have an easy time figuring out what <m>k</m> and <m>m</m> are given <m>c</m>. In fact, they are correct: for each value of <m>k</m>, there will be an <m>m</m> so that <m>km =c</m>. This means that Eve will have to check every single pair <m>(k,m)</m> to uncover the message. </li>
+          <li>On receiving <m>c</m> from Alice, Bob first calculates <m>k\inv \bmod p</m> using the euclidean algorithm or fast inverse. He then applies the function
+          <me>
+            d_k(c) = k\inv \cdot c = k\inv \cdot (k \cdot m) = m \bmod p.
+          </me></li>
+        </ol>
+
+        <p>This scheme, as simple as it looks, has some powerful properties.</p>
+
+        <ol>
+          <li>Calculating <m>e_k(m)</m> is easy, even for enormous primes.</li>
+          <li>Calculating <m>d_k(c)</m> is <q>easy</q> using one of the inverse methods we've discussed in <m>\F_p\ad</m>.</li>
+          <li>The central mathematical problem is indeed quite hard - to discover which particular pair <m>(k,m)</m> have been used to compute <m>c</m>, given that any number in <m>\F_p\ad</m> could be produced by some <m>m</m> and an appropriate <m>k</m>. </li>
+        </ol>
+
+        <p>However, as a cryptographic scheme, this method has some flaws. If Eve can get her hands on a single plaintext pair <m>(m,c)</m> so that <m>c</m> is the encryption of <m>m</m>, then she can use the same computational methods to calculate <m>k</m>. This is called a <term>plaintext attack</term> and our scheme is sadly vulnerable to it. A single pair is enough to break the entire system. Of course, if Alice and Bob could choose a new key each time, then the problem would be surmounted, but that goes to the question of HOW they can exchange a symmetric key each time they need a new one. (An answer to this question is the famous Diffie-Hellman key exchange to be discussed in the next section.)</p>
+
+        <p>Our example does sketch the main properties we want from a secure cryptographic scheme. First, we make the assumption that attacker Eve knows everything about the system except <m>k</m>. We design cryptographic methods on the principle that <em>security should depend only on the secrecy of the key, not the algorithm</em>.
+        </p>
+
+        <p>Let <m>\mathcal K</m> be the <term>keyspace</term>, <m>\mathcal M</m> be the space of possible messages, <m>\mathcal C</m> be the space of ciphertexts, <m>e</m> be the encryption function, and <m>d</m> be the decryption function. What properties will make <m>(\mathcal K, \mathcal M, \mathcal C, e, d)</m> secure?</p>
+
+        <p>A secure cryptosystem should have the following properties:
+        <ol>
+          <li>For any <m>k, m</m>, the function <m>e_k(m)</m> should be easy to compute.</li>
+          <li>For any <m>k, c</m>, the function <m>d_k(c)</m> should be easy to compute.</li>
+          <li>Given any number of ciphertexts <m>c_1, \ldots, c_n \in \mathcal C</m>,  the ciphertexts <m>d_k(c_1), \ldots, d_k(c_n)</m> must be <em>difficult</em> to compute without knowledge of the key <m>k</m>.</li>
+          <li>(Good but harder to achieve) Given a set known pairs <m>(m_1, c_1), \ldots, (m_n, c_n)</m>, it must be difficult to decrypt new ciphers without knowing <m>k</m>. This is called resistance to plaintext attacks. </li>
+          <li>(Better but even more difficult) For <em>any</em> list of known pairs <m>(m_1, c_1), \ldots, (m_n,c_n)</m>, it must be difficult to decrypt new ciphertexts without knowing <m>k</m>. (The point here is that Eve can choose the pairs). This is called resistance to <term>chosen plaintext attack</term>.</li>
+        </ol></p>
+
+
+        <p>We should pause for a moment to talk about what we mean by easy and hard in the context of computational difficulty. We consider a calculation easy if it can be performed in seconds or less by a desktop computer. We consider a computation hard if the expected computation time is ten years or more harnessing all available computer power in world. There are two key points to make about this. One, we use the word <em>expected</em> - that is, there is a notion of probability involved. We could, in theory, solve a brute force check of a list with <m>2^{1000}</m> entries on the first try, but the probability is astronomically low. </p>
+
+        <p>The second thing to notice is that the definition of hard changes constantly with the development of new computational technology and techniques. Moore's Law is the observation that the number of transistors on dense integrated circuits (CPUs) has doubled every two years for decades. To keep computational problems hard, the size of keyspaces needs to increase accordingly. On the other hand, the invention of new technology can also change what is hard. It has been shown, for example, that working quantum computers will reduce some of the most important difficult math problems at the heart of modern cryptography into trivialities. This underscores the need to continue to develop new techniques in addition to enlarging the computational spaces.
+        </p>
+      </section>
+
+      <section xml:id="section-discretelog">
+        <title>Discrete logarithms</title>
+
+        <p>The core of mathematical cryptography is the existence of problems that are extremely hard to compute without an additional piece of information. One such problem takes advantage of the mixing effect of modular exponentiation in <m>\F_p\ad</m>. </p>
+
+        <definition>
+        Let <m>g</m> be a generator for <m>\F_p</m> and let <m>h</m> be a nonzero element of <m>\F_p</m>. The <term>Discrete Logarithm Problem (DLP)</term> is the problem of finding an integer <m>x</m> so that
+        <me>
+        g^x \equiv h \bmod p.
+        </me>
+        <m>x</m> is called the discrete logarithm base <m>g</m> of <m>h</m>. We use the notation of the classical logarithm and write <m>\log_g(h) = x</m>.
+        </definition>
+
+        <remark>
+          While we stated the discrete log problem for a generator <m>g</m>, (which has order <m>p-1</m>), we'll in practice need to use elements in <m>\F_p</m> with large prime order to avoid a clever attack called the Pohlig-Hellman algorithm, to be discussed later. The main point of the Pohlig-Hellman algorithm is that <m>p-1</m> is always composite when <m>p</m> is a large prime, and potentially can have lots of small factors (say a pile of <m>2</m>'s, for example). Thus, choosing an element with large prime order is necessary (though again, this makes the size of the spaces involved that much larger to compensate).
+        </remark>
+
+        <exercises>
+          <exercise>
+            Show that the discrete log has the property of turning multiplication into addition. That is, show that
+            <me>
+            \log_g(hk) = \log_g(h) + \log_g(k)
+            </me>
+            Are the other properties of logarithms true of the discrete log?
+          </exercise>
+        </exercises>
+      </section>
+
+      <section xml:id="section-dh">
+        <title>Diffie-Hellman key exchange</title>
+
+        <p>A central issue in cryptography is how to share the private piece of information (the key) that Alice and Bob will use to send each other information. Once Alice and Bob share a key, they can use one of the many, fast methods of symmetric encryption in use (AES, for example). In their 1978 paper <q>New Directions in Cryptography</q>, Diffie and Hellman described a method of sharing a secret key that relies on the difficulty of solving the discrete log problem. The method is now known as <term>Diffie-Hellman key exchange</term>.</p>
+
+        <p>The basic scheme is as follows: Alice and Bob agree to a large prime number <m>p</m> and an element <m>g \in \F_p\ad</m> with large prime order. Alice selects a private key <m>a \in \F_p\ad</m> and likewise Bob chooses <m>b \in \F_p\ad</m>. Alice and Bob respectively compute the quantities <m>A = g^a</m> and <m>B = g^b</m>. Alice and Bob send each other these quantities. On receiving <m>B</m> from Bob, Alice computes <m>k = B^a = g^{ab}</m> and Bob computes <m>k = A^b = g^{ab}</m>. The quantity <m>k</m> is the shared key.</p>
+
+        <p>Suppose that Eve wants to recover the value of <m>k</m>. We assume that she knows <m>p, g, A</m> and <m>B</m>. If she could solve the discrete log problem
+        <me>
+          A = g^x \bmod p 
+        </me>
+        for <m>x</m>, then she would have <m>a</m> and thus be able to compute <m>k</m>. This is quite difficult if the values of the parameters involved are large enough. But this isn't the problem that she actually needs to solve.</p>
+
+        <definition>
+          The <term>Diffie-Hellman Problem</term> in <m>\F_p\ad</m> is to find, given known values of <m>g^a</m> and <m>g^b</m> in <m>\F_p\ad</m>, the value of <m>g^{ab}</m>.
+        </definition>
+
+        <p>The DHP provides an excellent illustration of the caution that needs to be taken when designing and evaluating a new cryptographic method. We should convince ourselves that the DHP is at least as difficult as the DLP. If Eve can solve the DLP, then she can obviously solve the DHP, since explicitly finding <m>a,b</m> would allow her to directly compute <m>g^{ab}</m>. That is to say, the DHP is at least as difficult as the DLP. (Note that the converse to this question is still unknown.)</p>
+
+        <algorithm xml:id="alg-dh-key">
+          <title>Diffie-Hellman key exchange</title>
+          <ol>
+            <li> (public) Alice and Bob choose a large prime <m>p</m> and an element <m>g</m> of large prime order in <m>\F_p\ad</m>.</li>
+            <li> (private) Alice computes <m>A = g^a</m> and Bob computes <m>B = g^b</m>.</li>
+            <li> (public) Alice and Bob exchange the numbers <m>A</m> and <m>B</m>.</li>
+            <li> (private) Alice computes <m>k = B^a</m>. Bob computes <m>k = A^b</m>.</li>
+            <li> (private) Alice and Bob now possess a shared secret key <m>k</m>.</li>
+          </ol>
+        </algorithm>
+      </section> 
+
+      <section xml:id="section-elgamal">
+        <title>The Elgamal cryptosystem</title>
+        <p>In their 1978 paper, Diffie and Hellman proposed a scheme called public key encryption, though they didn't provide an implementation. Two successful schemes that followed immediately from their work are the RSA family of methods (which are based on modular square roots) and the Elgamal family of methods (which are based on modular exponentiation). While RSA came first historically, the Elgamal cryptosystem is directly related to Diffie-Hellman key exchange, and so we are motivated to discuss it first. The Elgamal system is also readily adapted to more complicated setups, like groups on elliptic curves, which will be discussed later in this chapter.</p>
+
+        <p>An <term>asymmetric</term> or <term>public key</term> system is a one-way encrpytion scheme. That is, Alice provides certain information - the particular algorithm to be used, information about the keyspace and message space, and a public key <m>k_{pub}</m>. Bob uses that information to encrypt a message <m>m</m> as a ciphertext <m>c</m> that he sends to Alice. Alice then uses a piece of secret information, the private key <m>k_{priv}</m>, to decrypt the ciphertext back into the message.</p>
+
+        <p> The Elgamal system works as follows: Alice chooses a large prime <m>p</m> and an element <m>g</m> of large prime order in <m>\F_p\ad</m>. She then selects her private key, <m>a \in \F_p\ad</m>. She uses her key to compute her public key <m>A = g^a</m> and publishes <m>p, g, A</m>.</p>
+
+        <p>Bob chooses a plaintext <m>m \in \F_p\ad</m>. He generates a <em> one-use only</em> random element <m>k \in F_p\ad</m> (to emphasize that this is to be used only once, we sometimes refer to it as an <em>ephemeral key</em>), and he computes <m>c_1 = g^k</m> and <m>c_2 = mA^k</m>. He then sends the pair <m>(c_1, c_2)</m> to Alice.</p>
+
+        <p>To decrypt the message, Alice computes the quantity
+          <me>
+            c_2 (c_1^a)\inv = m'.
+          </me>
+        Then <m>m' = m</m>.</p>
+
+        <algorithm xml:id="alg-elgamal"><title>Elgamal</title>
+          <ol>
+            <li> Alice chooses a large prime <m>p</m>, <m>g \in F_p\ad</m> of large prime order and <m>a \in F_p\ad</m>.</li>
+            <li>Alice computes <m>A = g^a</m>.</li>
+            <li> Alice publishes <m>p, g, A</m>.</li>
+            <li> Bob selects a plaintext <m>m</m>. He generates a random element <m>k</m>.</li>
+            <li>Bob computes <m> c_1 = g^k, c_2 = mA^k</m>.</li>
+            <li> Bob sends <m>(c_1, c_2)</m> to Alice.</li>
+            <li> Alice computes <m> c_2 (c_1^a)\inv</m>.</li>
+          </ol>
+        </algorithm>
+
+        <p>How do we decide if the Elgamal system is secure? One method of proof is to show that the problem is equivalent in difficulty to the DHP, which we know to be at least as hard as the DLP. To prove this, we will use the concept of an <term>oracle</term>, a thought-experiement black box that we can endow with any particular ability that we choose. For the purpose of the next argument, we will posit the existence of an Elgamal oracle - that is, a function that takes as input <m>p, g, A, (c_1, c_2)</m> and produces a plaintext <m>m</m>. (Notice that the magic of the oracle is in not requiring knowledge of the private key <m>a</m>.) </p>
+
+        <proposition>
+          Fix <m>p, g</m>. Suppose that Eve has an Elgamal oracle. Then she can solve the DHP. Conversely, if she can solve the DHP, then she can decrypt any Elgamal ciphertext.
+        </proposition>
+
+        <proof>
+          <p>Suppose that Eve has an Elgamal oracle, and that she wishes to compute the value of <m>g^{ab}</m> given known values of <m>g^a</m> and <m>g^b</m>. She knows that if she feeds the oracle a ciphertext <m>(c_1, c_2)</m> that the oracle will return the quantity <m>c2 (c_1^a)\inv</m>. If Eve feeds the oracle the ciphertext <m>(g^b, 1)</m>, then the oracle will return the quantity <m>1\cdot(g^{ab})\inv.</m> The fast inverse computation methods will allow Eve to calculate <m>g^{ab}</m> with little difficulty.</p>
+
+          <p> On the other hand, if Eve can solve the DHP, then she can compute <m>g^{ak}</m> from <m>c_1 = g^k</m> and <m>A = g^a</m>. Then it is straightforward for her to compute <m>c_2 \cdot (g^{ak})\inv = m</m>.</p>
+
+          <p>Thus, breaking Elgamal has equivalent difficulty to solving the DHP.</p>
+        </proof>
+
+        <exercises>
+          <exercise>
+            Prove that <m>m' = m</m> in the Elgamal cryptosystem.
+          </exercise>
+          <exercise>
+            Implement the Elgamal system in python. You should have an encryption function <m>e</m> that takes <m>g, p, A, m</m> and produces a pair <m>(c_1, c_2)</m>. You should have a decryption function <m>d</m> that takes as input <m>g, p, a, (c_1, c_2)</m> and produces a plaintext <m>m</m>. The implementation should use your previous implementations of the fast powering algorithm and the inverse finding algorithm. 
+          </exercise>
+        </exercises>
+      </section>
+
+      <section xml:id="section-groups">
+        <title>Groups</title>
+
+        <p>The idea behind the Elgamal cryptosystem works for any object that has the structure of <m>\F_p\ad</m>: that is, a collection of objects equipped with an operation that has certain mathematical properties. We introduce the notion of a <term>group</term>, and state the properties that the operation on a group should have first with reference to the group of units <m>\F_p\ad</m>.</p>
+
+        <p>For the group of units <m>F_p\ad</m>, the operation of multiplication takes two elements <m>a, b\in \F_p\ad</m> and produces a new element <m>ab \in F_p\ad</m>. Multiplication mod <m>p</m> in <m>F_p\ad</m> has the following properties:
+        <ol>
+          <li> There is an element in <m>1 \in \F_p\ad</m>, called the identity, with the property that 
+          for all <m>a \in \F_p\ad</m>, we have
+          <me>
+            a\cdot 1= 1 \cdot a = a.
+          </me></li>
+          <li> For every element <m>a \in \F_p\ad</m>, there is an element <m>a\inv</m>, called the inverse of <m>a</m>, with the property that 
+          <me>
+            a \cdot a\inv = a\inv \cdot a = 1.
+          </me></li>
+          <li> For any elements <m>a, b, c \in \F_p\ad</m>, we have
+          <me>
+            a\cdot(b\cdot c) = (a\cdot b)\cdot c.
+          </me></li>
+          <li> For any elements <m>a, b \in \F_p\ad</m>, we have
+          <me>
+            a \cdot b = b \cdot a.
+          </me></li>
+        </ol></p>
+
+        <p>We now generalize these properties to an abstract set <m>G</m>. </p>
+        <definition xml:id="def-group">
+          <p>Let <m>G</m> be a set of elements, and let <m>\star: G \times G \to G</m> be an operation that combines two elements of <m>G</m> into a single element in <m>G</m>. We say that <m>G</m> is a <term>group</term> under <m>\star</m> if the operation <m>\star</m> has the following three properties.</p>
+
+          <ol>
+            <li> Identity: there exists an element <m>e\in G</m> such that for all <m>g \in G</m>, we have
+            <me>
+              g\star e = e \star g = g.
+            </me></li>
+            <li> Inverses: for all <m>g \in G</m>, there exists an element <m>g\inv \in G</m> so that 
+            <me>
+              g \star g\inv = g\inv \star g = e.
+            </me></li>
+            <li> Associativity: For all <m>a, b, c \in G</m>, we have
+            <me>
+              a \star (b \star c) = (a \star b) \star c.
+            </me></li>
+          </ol>
+          If in addition it is the case that for all <m>a, b \in G</m> we have
+          <me>
+            a \star b = b \star a
+          </me>
+          then <m>G</m> is called a <term>commutative group</term>.
+        </definition>
+
+        The definition above presents groups with the language of multiplication. It is also common to view certain groups as equipped with addition-like operations under the structure of addition. You should think about how the properties above would change if the operation under consideration was <m>\oplus</m>.
+
+        The following are some common examples of groups:
+        <ul>
+          <li> <m>\Z_n</m> with the operation of addition mod n.</li>
+          <li> <m>\Z</m> with the operation of addition.</li>
+          <li> <m>\F_p\ad</m> with the operation of multiplication mod <m>p</m>.</li>
+          <li> <m>GL_2</m>: The set of <m>2\times 2</m> invertible matricies with the operation of matrix multiplication - note that this group is <em>not</em> commutative.</li>
+          <li> The set <m>\{1, -1, i, -i\}</m> with complex multiplication.</li>
+        </ul>
+
+        <definition>
+          The <term>order of a group</term>, denoted <m>\#G</m> or <m>\abs{G}</m>, is the number of elements in <m>G</m>.
+        </definition>
+
+        <definition>
+          The <term>order of an element</term> in a group <m>G</m>, if it exists, is the smallest integer <m>n</m> so that <m>g^n = e</m>.
+        </definition>
+
+        We call a group a <em>finite group</em> if <m>\abs G \lt \infty</m>, that is, if <m>G</m> has a finite number of elements.
+
+        <proposition xml:id="prop-finite-order">
+          Let <m>G</m> be a finite group. Then every element of <m>G</m> has finite order. Further, if <m>a \in G</m> has order <m>d</m> then <m>d\mid k</m> whenever
+          <me>
+            a^k = e.
+          </me>
+        </proposition>
+
+        <proof>
+          Left as an exercise. Use the division algorith.
+        </proof>
+
+        The following theorem is one of the most important structural theorems in group theory.
+
+        <theorem><title>Lagrange's theorem</title>
+          Let <m>G</m> be a finite group, and let <m>a  \in G</m>. Then the order of <m>a</m> divides the order of <m>G</m>.
+        </theorem>
+
+        <proof>
+          To be added. The basic idea is that the previous proposition gives both that the orders are finite AND that the orders divide any power that brings the element back to <m>e</m>. In the commutative case, take G and aG, show the elements are distinct, mash into giant products, use commutativity to resort, get a^n = e and then invoke prop.
+        </proof>
+
+        <exercises>
+          <exercise>
+            Rewrite <xref ref="def-group" /> using an additive operation <m>\oplus</m>.
+          </exercise>
+          <exercise>
+            Prove <xref ref="prop-finite-order" />.
+          </exercise>
+          <exercise>
+            <p>Let 
+            <me>
+            G = \left\{\bbm a \amp a \\ a \amp a\ebm: a \in \R, a \neq 0\right\}.
+            </me>
+            Show that <m>G</m> is a group with the operation of matrix multiplication. What are the inverses? What is the identity element? (Hint: It can't be <m>I = \bbm 1 \amp 0 \\ 0 \amp 1\ebm</m> because that isn't even in the set!)</p>
+          </exercise>
+        </exercises>
+      </section>
+
+      <section xml:id="section-attack-dlp">
+        <title>Attacking the discrete log problem</title>
+        <p>Part of understanding cryptography is understanding how attacks on cryptographic systems are performed. Since this is a mathematical cryptography course, we'll focus on mathematical attacks. Diffie-Hellman key exchange and the related Elgamal encryption system rely on the difficulty of the DLP for security. In this section, we'll look at some of the methods used to reduce the difficulty of attacking the DLP from the brute force case.</p>
+
+        <p>To make our study of difficulty precise, we need a way to quantify how hard a problem is to solve. In the cryptographic setting, difficulty will always scale in some way with the size of the numbers being used to construct a system, and we need a representation for how that scaling affects methods of solution. We'll use the notion of the <term>order</term> of a function, usually called <q>big oh notation</q>, which is used to describe relationships depending on large quanitites. The information contained in a big O relationship is <em>asymptotic</em> - that is, it tells us what happens as values of the inputs get large, but shouldn't be expected to have any bearing on the relationship of quantities in small cases. </p>
+
+        <definition>
+          Let <m>f(x)</m> and <m>g(x)</m> be positive functions. Then we say that <m> f = \mathcal O(g(x))</m> if there exist positive constants <m>c, C</m> so that 
+          <me>
+            f(x) \leq cg(x) \text{ for all } x \geq C.
+          </me>
+          That is, <m>f</m> is eventually always smaller than a constant multiple of <m>g</m>.
+        </definition>
+
+        <p>The concept of order relationships has usage all over mathematics and computer science. For our purposes, we are going to relate the size of our inputs to the number of steps required to perform some algorithmic process. We will compare input size <em>in bits</em> to the number of steps.</p>
+
+        <ol>
+          <li><p>Polynomial time: input <m>\mathcal O(k)</m>, output <m>\mathcal O(k^A)</m> for some <m>A</m>. Different values of <m>A</m> give different running times:
+          <ol>
+            <li> <m>A = 1:</m> linear time</li>
+            <li> <m>A = 2:</m> quadratic time</li>
+            <li> <m>\vdots</m></li>
+          </ol>
+          Polynomial time computations are <q>easy</q>.</p></li>
+          <li> Exponential time: input <m>\mathcal O(k)</m>, output <m>\mathcal O(e^{ck})</m> for some constant <m>c</m>. Exponential time computations are <q>slow</q>.</li>
+          <li> Subexponential time: somewhere in between. Example: output <m>\mathcal O(e^{c\sqrt{ k \log k}})</m></li>
+        </ol>
+
+        <p>The preference in cryptography is for methods that take exponential time to brute force. So how hard is the discrete logarithm problem in <m>\F_p\ad</m>?</p>
+
+        <algorithm>
+          <title>Naive</title>
+          Let <m>p</m> be a prime between <m>2^k</m> and <m>2^{k+1}</m>. The DLP in <m>\F_p\ad</m> is stated in terms of <m>p, g, h</m>, which comprises <m>3k</m> bits of storage. Thus, the problem can be stated in <m>\mathcal O(k)</m> bits. To find <m>x</m> so that
+          <me>
+            g^x \equiv h \bmod p,
+          </me>
+          check every value of <m>x</m> from <m>1, \ldots, p-1</m>. That is, an <m>\mathcal O(k)</m> input requires an <m>\mathcal O(p) = \mathcal O(2^k)</m> steps to find; that is, the brute force is exponential.
+        </algorithm>
+
+        <p>The first reduction that we can make is a <term>collision algorithm</term>: we make lists and look for a match that unlocks the problem. The method, due to Shank in the 1960s, prefigures the rise of the DLP as a cryptographic theme.</p>
+
+        <algorithm>
+          <title>babystep-giantstep</title>
+          <p>Let <m>G</m> be a group, <m>g\in G</m> an element of order <m>N\geq 2</m>. The following procedure solves the DLP <m>g^x = h</m> in <m>\mathcal O(\sqrt{N} \log N)</m> steps.
+          <ol>
+            <li>Let <m>n = 1 + \lfloor N \rfloor</m> where <m>\lfloor \cdot \rfloor</m> is the floor function. </li>
+            <li> Create two lists:
+              <me>
+                \begin{array}{ccccccc}
+                e \amp g \amp g^2 \amp g^3 \amp \ldots \amp g^n \amp \text{:babystep} \\
+                h \amp h\cdot g^{-n} \amp h\cdot g^{-2n}\amp h\cdot g^{-3n} \amp \ldots \amp h\cdot g^{-n^2} \amp \text{:giantstep}
+                \end{array}
+              </me></li>
+              <li>The list will contain a collision. Suppose that
+                <me>
+                  g^i = h\cdot g^{-jn} \text{ for integers } i,j.
+                </me>
+              </li>
+              <li> Then <m>g^{i+jn} = h</m> and so set <m>x = i+nj</m>.</li>
+          </ol></p>
+        </algorithm>
+
+        <p>Some obvious questions should arise on seeing this algorithm. The first is why we should expect a match at all? The answer is in the application of the humble yet consistently useful division algorithm. Suppose that <m>x</m> was the exponent so that <m>g^x = h</m>. Divide <m>x</m> by <m>n</m> and write <m>x = nq + r</m>, where <m>0 \leq r \lt n</m>, and further note that <m>0 \leq q \lt n</m>. To see this, since <m>1\leq x \lt N</m> (the order of an element in a finite group divides and thus is no larger than the order of the group)
+        <me>
+          q = \frac{x - r}{n} \lt \frac{N}{n} \lt n
+        </me>
+        where the last inequality follows from the fact that <m>n \gt \sqrt{N}</m>. Then since <m>g^x = h</m>, we get <m>g^r = h\cdot g^{-nq}</m>, where <m>g^r</m> is in the babystep list, and <m>h \cdot g^{-nq}</m> is in the giantstep list.</p>
+
+        <p>The second question concerns the speed of the computation. Step 2 takes <m>2n</m> multiplications, and sorting the lists in Step 3 to find a match can be done in <m>n \log n</m> steps. Combined, then, steps 2 and 3 are
+        <me>
+          \mathcal O(n) + \mathcal O(n\log n) = \mathcal O(n \log n) = \mathcal O(\sqrt{N}\log\sqrt{N}) = \mathcal O(\sqrt{N} \log N).
+        </me>
+        Convincing yourself that the estimates above are valid will go along way to clarifying the concept of big O notation.</p>
+
+        <p>The resulting algorithm is still exponential: since <m>N</m> is on the order of <m>2^k</m>, the routine is <m>\mathcal O(\sqrt{2^k} \log 2^k) = \mathcal O(k \cdot 2^{k/2})</m>. However, when dealing with numbers on the order of the constants typically involved in cryptography, <m>N</m> to <m>\sqrt{N}</m> is a significant savings.</p>
+
+        <exercises>
+          <exercise>
+            Implement the babystep-giantstep algorithm. The function should take as input a prime <m>p</m>, a base <m>g</m>, and a number <m>h = g^x</m>, and as output should produce the exponent <m>x</m>.
+          </exercise>
+        </exercises>
+      </section>
+
+      <section xml:id="section-chinese">
+        <title>The Chinese Remainder theorem and Pohlig-Hellman*</title>
+      </section>
+
+      <section xml:id="section-homomorphism">
+        <title>Homomorphisms and the lunchtime attack</title>
+
+        <p>Let <m>G</m> and <m>G'</m> be groups. We're going to introduce the notion of a very special type of function that relates the two groups, a function that <em>preserves the structure</em> of the first group in the second.</p>
+
+        <definition>
+          Let <m>G, G'</m> be groups with operations <m>\star_G, \star_{G'}</m> respectively (viewed in the multiplicative sense). A function <m>f:G \to G'</m> is called a <term>homomorphism</term> if for all <m>a, b \in G</m>, 
+          <me>
+            f(a \star_G b) = f(a) \star_{G'} f(b).
+          </me>
+        </definition>
+
+        <p>As an example of a homomorphism, consider the function <m>f:\Z \to \Z</m> given by <m>f(n) = 2n</m>. Let <m>m, n \in \Z</m>. Then
+          <me>
+            f(m+n) = 2(m+n) = 2m + 2n = f(m) + f(n),
+          </me>
+        which shows that <m>f</m> is a homomorphism. That is, we can add before or after applying <m>f</m> and get the same result.</p>
+
+        <p>Homomorphisms are one of the most important tools for understanding the relationships between different groups and also studying the structure of groups. It turns out that certain cryptographic functions also have the property of acting like homomorphisms, a property that is both useful and potentially dangerous, as it leads directly to some mathematically founded attacks in certain contexts.</p>
+
+        <p>Elgamal encryption can be seen to have a homomorphic property, in the following sense. Let <m>m_1, m_2</m> be plaintext messages, and suppose that <m>e_k(m)</m> is the Elgamal encrpytion function on <m>F_p\ad</m> for some large prime <m>p</m> and base <m>g</m>. Then 
+        <md>
+          <mrow> e_{k_1}(m_1) = (g^{k_1}, m_1 A^{k_1}) </mrow>
+          <mrow> e_{k_2}(m_2) = (g^{k_2}, m_2 A^{k_2}) </mrow>
+        </md></p>
+
+        <p>Now, define the product of the encryptions by coordinate-wise multiplication in <m>\F_p\ad \times \F_p\ad</m>:
+        <me>
+          e(m_1)\star e(m_2) = (g^{k_1}, m_1 A^{k_1}) \star (g^{k_2}, m_1 A^{k_2}) = (g^{k_1+ k_2}, m_1 m_2 A^{k_1 + k_2}) = e_{k_1 + k_2}(m_1 m_2).
+        </me>
+        That is, the product of the encryptions of <m>m_1, m_2</m> is the encrpytion of the product <m>m_1 m_2</m>. In this sense, we say that Elgamal encrpytion has the <term>homomorphic property</term>. (In fact, this is also posessed by RSA). </p>
+
+        <p>The homomorphic property has potentially many interesting uses. For example, consider the construction of a secure, anonymous voting system. A vote counter program produces an encrpytion <m>e(1)</m> of the number one. Each voter runs a program that produces <m>e(2)</m> if they vote yes and <m>e(1)</m> of they vote no, and they send their vote to the vote counter. The vote counter multiplies all of the pairs together
+        <me>
+          e(v_1)e(v_2)\ldots(v_n) = e(v_1 v_2 \ldots v_n) = e(2^i).
+        </me>
+        On decrypting the final pair, the vote counter recovers an expression of the form <m>2^i</m> where <m>i</m> is the number of yes votes.</p>
+
+        <p>The homomorphic property allows many such applications to be designed that allow inputs to be contributed to a total without allowing any of the contributors to see the data. For example, multiple companies may wish to adjust the price of a product (taxes, customs, exchange rates) but without having access to the actual price of the product being adjusted.</p>
+
+        <p>Here again we see one of the main tensions in cryptograpy. Almost always when we gain convenience, we sacrifice security. The tradeoff for the utility of the homomorphic property is that cryptosystems that possess it become vulnerable to what is known as a <em>lunchtime</em> or <term>chosen ciphertext attack</term>. (There are actually two forms of chosen ciphertext attack. The example we give here is a nonadapative chosen ciphertext attack and presumes a limited window (a lunchtime) for the attacker Eve.)</p>
+
+        <p>Suppose that Eve has access to an Elgamal decryption oracle (like Alice's unlocked computer, for example). Then Eve can decrypt any ciphertext <m>(c_1, c_2)</m> sent to Alice (even if the messages are in a list of previously decrypted texts are so are rejected by the oracle) by exploiting the homomorphic property. What should Eve send the oracle? Eve selects a plaintext <m>m_e</m> and encrypts it using Alice's parameters <m>p, g, A</m> to get <m>e(m_e)</m>. Using the homomorphic property, she multiplies the pairs
+        <me>
+          e(m_e) e(m) = e(m_e m)
+        </me>
+        and gets a valid encryption. She submits the encrpytion to the oracle and receives the output <m>m' = m_e m</m>. Finally, since she knows the value of <m>m_e</m>, she computes
+        <me>
+          m' \cdot m_e\inv = m_e \cdot m\cdot m_e\inv = m
+        </me>
+        and recovers the message <m>m</m>.</p>
+
+        <exercises>
+          <exercise>
+            Write a short program that implements a lunchtime attack against Elgamal. You can assume the existence of an Elgamal oracle to provide input. You might consider using your own Elgamal decrpyter to serve in that role.
+          </exercise>
+        </exercises>
+      </section>
+
+    </chapter>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-04-11T10:38:01-04:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modular arithmetic and the ring of integers modulo \(n\)</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['\\(','\\)']]
+    },
+    asciimath2jax: {
+        ignoreClass: ".*",
+        processClass: "has_am"
+    },
+    jax: ["input/AsciiMath"],
+    extensions: ["asciimath2jax.js"],
+    TeX: {
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        // scrolling to fragment identifiers is controlled by other Javascript
+        positionToHash: false,
+        equationNumbers: { autoNumber: "none", useLabelIds: true, },
+        TagSide: "right",
+        TagIndent: ".8em",
+    },
+    // HTML-CSS output Jax to be dropped for MathJax 3.0
+    "HTML-CSS": {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+    CommonHTML: {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+});
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
+<script>var logged_in = false;
+var role = 'student';
+var guest_access = true;
+var login_required = false;
+var js_version = 0.11;
+</script>
+</head>
+<body class="mathbook-book has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+\DeclareMathOperator{\IM}{Im}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\intr}{int}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator\re{\mathrm {Re~}}
+\DeclareMathOperator\im{\mathrm {Im~}}
+\newcommand\dd{\mathrm d}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\hilbert}{\mathcal{H}}
+\newcommand{\s}{\mathcal{S}_2}
+\newcommand{\A}{\mathcal{A}}
+\newcommand\h{\mathcal{H}}
+\newcommand{\J}{\mathcal{J}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\BOP}{\mathbf{B}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\BH}{\mathbf{B}(\mathcal{H})}
+\newcommand{\KH}{\mathcal{K}(\mathcal{H})}
+\newcommand{\pick}{\mathcal{P}_2}
+\newcommand{\schur}{\mathcal{S}_2}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Complex}{\mathbb{C}}
+\newcommand{\Field}{\mathbb{F}}
+\newcommand{\RPlus}{\Real^{+}}
+\newcommand{\Polar}{\mathcal{P}_{\s}}
+\newcommand{\Poly}{\mathcal{P}(E)}
+\newcommand{\EssD}{\mathcal{D}}
+\newcommand{\Lop}{\mathcal{L}}
+\newcommand{\cc}[1]{\overline{#1}}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\seq}[1]{\left\lt#1\right&gt;}
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\essnorm}[1]{\norm{#1}_{\ess}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\ran}[1]{\operatorname{ran}#1}
+\newcommand{\nt}{\stackrel{\mathrm {nt}}{\to}}
+\newcommand{\pnt}{\xrightarrow{pnt}}
+\newcommand{\ip}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\ad}{^\ast}
+\newcommand{\inv}{^{-1}}
+\newcommand{\adinv}{^{\ast -1}}
+\newcommand{\invad}{^{-1 \ast}}
+\newcommand\Pick{\mathcal P}
+\newcommand\Ha{\mathbb{H}}
+\newcommand{\HH}{\Ha\times\Ha}
+\newcommand\Htau{\mathbb{H}(\tau)}
+\newcommand{\vp}{\varphi}
+\newcommand{\ph}{\varphi}
+\newcommand\al{\alpha}
+\newcommand\ga{\gamma}
+\newcommand\de{\delta}
+\newcommand\ep{\varepsilon}
+\newcommand\la{\lambda}
+\newcommand\up{\upsilon}
+\newcommand\si{\sigma}
+\newcommand\beq{\begin{equation}}
+\newcommand\ds{\displaystyle}
+\newcommand\eeq{\end{equation}}
+\newcommand\df{\stackrel{\rm def}{=}}
+\newcommand\ii{\mathrm i}
+\newcommand{\vectwo}[2]
+{
+   \begin{pmatrix} #1 \\ #2 \end{pmatrix}
+}
+\newcommand{\vecthree}[3]
+{
+   \begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}
+}
+\newcommand\blue{\color{blue}}
+\newcommand\black{\color{black}}
+\newcommand\red{\color{red}}
+\newcommand\nn{\nonumber}
+\newcommand\bbm{\begin{bmatrix}}
+\newcommand\ebm{\end{bmatrix}}
+\newcommand\bpm{\begin{pmatrix}}
+\newcommand\epm{\end{pmatrix}}
+\numberwithin{equation}{section}
+\newcommand\nin{\noindent}
+\newcommand{\nCr}[2]{\,_{#1}C_{#2}} 
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\)</div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="cryptography.html"><span class="title">Mathematical Cryptography</span></a></h1>
+<p class="byline">Ryan Tully-Doyle</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-euclidean.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-numbertheory.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-fastpower.html" title="Next">Next</a></span></div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-euclidean.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-numbertheory.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-fastpower.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link">
+<a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
+<li><a href="foreward.html" data-scroll="foreward">The course</a></li>
+<li><a href="motivation.html" data-scroll="motivation">Why “mathematical” cryptography?</a></li>
+<li><a href="shift.html" data-scroll="shift">A simple example: the shift cipher</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-numbertheory.html" data-scroll="chapter-numbertheory"><span class="codenumber">2</span> <span class="title">Number theory</span></a><ul>
+<li><a href="divisibility.html" data-scroll="divisibility">Integers and divisibility</a></li>
+<li><a href="section-euclidean.html" data-scroll="section-euclidean">Common divisors and the Euclidean algorithm</a></li>
+<li><a href="section-modular.html" data-scroll="section-modular" class="active">Modular arithmetic and the ring of integers modulo \(n\)</a></li>
+<li><a href="section-fastpower.html" data-scroll="section-fastpower">The fast powering algorithm</a></li>
+<li><a href="section-finite-fields.html" data-scroll="section-finite-fields">Finite fields</a></li>
+<li><a href="section-fermat.html" data-scroll="section-fermat">Fermat's little theorem and computing inverses</a></li>
+<li><a href="section-ch2-conclusion.html" data-scroll="section-ch2-conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-groups.html" data-scroll="chapter-groups"><span class="codenumber">3</span> <span class="title">Group based methods</span></a><ul>
+<li><a href="section-naive.html" data-scroll="section-naive">A naïve cryptosystem and some related questions</a></li>
+<li><a href="section-discretelog.html" data-scroll="section-discretelog">Discrete logarithms</a></li>
+<li><a href="section-dh.html" data-scroll="section-dh">Diffie-Hellman key exchange</a></li>
+<li><a href="section-elgamal.html" data-scroll="section-elgamal">The Elgamal cryptosystem</a></li>
+<li><a href="section-groups.html" data-scroll="section-groups">Groups</a></li>
+<li><a href="section-attack-dlp.html" data-scroll="section-attack-dlp">Attacking the discrete log problem</a></li>
+<li><a href="section-chinese.html" data-scroll="section-chinese">The Chinese Remainder theorem and Pohlig-Hellman*</a></li>
+<li><a href="section-homomorphism.html" data-scroll="section-homomorphism">Homomorphisms and the lunchtime attack</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-elliptic-curves.html" data-scroll="chapter-elliptic-curves"><span class="codenumber">4</span> <span class="title">Elliptic curves and applications</span></a><ul>
+<li><a href="section-ec-intro.html" data-scroll="section-ec-intro">Introduction to elliptic curves</a></li>
+<li><a href="section-elliptic-addition.html" data-scroll="section-elliptic-addition">Elliptic addition on \(E\text{.}\)</a></li>
+<li><a href="section-ec-finite-fields.html" data-scroll="section-ec-finite-fields">Elliptic curves over finite fields</a></li>
+<li><a href="section-ecdlp.html" data-scroll="section-ecdlp">Discrete logs and the ECDLP</a></li>
+<li><a href="section-ec-elgamal.html" data-scroll="section-ec-elgamal">Elliptic curve Diffie-Hellman key exchange and El Gamal</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-digital-signatures.html" data-scroll="chapter-digital-signatures"><span class="codenumber">5</span> <span class="title">Digital signatures</span></a><ul>
+<li><a href="section-dsa-intro.html" data-scroll="section-dsa-intro">Introduction to digital signatures</a></li>
+<li><a href="section-elgamal-ds.html" data-scroll="section-elgamal-ds">Elgamal digital signatures</a></li>
+<li><a href="section-subgroups.html" data-scroll="section-subgroups">Subgroups and cyclic subgroups</a></li>
+<li><a href="section-dsa-ecdsa.html" data-scroll="section-dsa-ecdsa">DSA and Elliptic Curve DSA</a></li>
+<li><a href="section-bitcoin.html" data-scroll="section-bitcoin">Bitcoin - an application of ECDSA*</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-probability.html" data-scroll="chapter-probability"><span class="codenumber">6</span> <span class="title">Probability and non-deterministic methods</span></a><ul>
+<li><a href="section-counting.html" data-scroll="section-counting">Counting - Permutations and combinations*</a></li>
+<li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+</ul>
+</li>
+</ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-modular"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">2.3</span> <span class="title">Modular arithmetic and the ring of integers modulo \(n\)</span>
+</h2>
+<a href="section-modular.html" class="permalink">¶</a><p id="p-40">We will now examine the main space of numbers used in early modern mathematical cryptographic methods like RSA and Elgamal.</p>
+<article class="definition-like" id="definition-4"><h6 class="heading">
+<span class="type">Definition</span> <span class="codenumber">2.3.1</span>.</h6>Two integers \(a\) and \(b\) are <dfn class="terminology">congruent modulo \(n\)</dfn> if their difference \(a - b\) is divisible by \(n\text{.}\) In symbols, we write<div class="displaymath">
+\begin{equation*}
+a \equiv b\bmod n \text{ if and only if } n\mid (a - b)
+\end{equation*}
+</div></article><p id="p-41">The division algorithm and the above definition give another characterization of this congruence: \(a \equiv b \bmod n\) if and only if the remainders of \(a\) and \(b\) after division by \(n\) are equal.</p>
+<article class="example-like" id="question-1"><a data-knowl="" class="id-ref" data-refid="hk-question-1"><h6 class="heading">
+<span class="type">Question</span> <span class="codenumber">2.3.2</span>.</h6></a></article><div id="hk-question-1" class="hidden-content tex2jax_ignore"><article class="example-like">Show that the two characterizations are logically equivalent.</article></div>
+<p id="p-42">Congruence mod \(n\) is an example of a special kind of relation called an <dfn class="terminology">equivalence relation</dfn>, which is a major object of study in number theory and modern algebra. Here, we'll satisfy ourselves with the statement that equivalence relations behave much like equality; in particular, modular arithmetic almost gives a completely consistent structure for doing the usual algebra of the integers, as the next theorem states:</p>
+<article class="theorem-like" id="thm-modular-arith"><h6 class="heading">
+<span class="type">Theorem</span> <span class="codenumber">2.3.3</span>.</h6>Let \(m \geq 1\) be an integer. <ol class="decimal">
+<li id="li-43">
+<p id="p-43">If \(a_1 \equiv a_2 \bmod n\) and \(b_1 \equiv b_2 \bmod n\) then</p>
+<div class="displaymath">
+\begin{equation*}
+a_1 \pm b_1 \equiv a_2 \pm b_2 \bmod n \text{ and } a_1 \cdot b_1 \equiv a_2 \cdot b_2 \bmod n.
+\end{equation*}
+</div>
+</li>
+<li id="li-44">
+<p id="p-44">Let \(a\) be an integer. Then</p>
+<div class="displaymath">
+\begin{equation*}
+a \cdot b \equiv 1 \bmod n \text{ for some integer  if and only if } \gcd(a,n) = 1. 
+\end{equation*}
+</div>
+<p>If \(b\) exists, it is unique, and it is called the <dfn class="terminology">inverse</dfn> of \(a\text{.}\)</p>
+</li>
+</ol></article><p id="p-45">Part (2) of Theorem 3.3 essentially characterizes which integers \(a\) have multiplicative inverses modulo \(n\text{.}\) Since the inverse is unique, we give it a special symbol, \(a\inv\text{.}\) Note that this is NOT the inverse in the rational numbers given by the reciprocal of \(a\text{.}\) For example, since \(2 \cdot 3 \equiv 1 \bmod 5\text{,}\) we can say \(2\inv = 3\) and \(3\inv = 2\text{.}\) This leads to amusing notational oddities of statements like \(\frac{4}{3} \equiv 4 \cdot 3\inv \equiv 4 \cdot 2 \equiv 3 \bmod 5\text{.}\)</p>
+<p id="p-46">The extended Euclidean algorithm, <a data-knowl="./knowl/thm-eea.html" title="Theorem 2.2.5: (extended Euclidean algorithm)">Theorem 2.2.5</a>, explicitly computes inverses modulo \(n\) when they exist. To see this, assume that \(\gcd(a,n) = 1\) so that \(a\) possesses an inverse \(\bmod n\text{.}\) Applying Theorem <a data-knowl="./knowl/thm-eea.html" title="Theorem 2.2.5: (extended Euclidean algorithm)">Theorem 2.2.5</a> produces integers \(u, v\) so that</p>
+<div class="displaymath">
+\begin{equation*}
+a u + n v = 1.
+\end{equation*}
+</div>
+<p>Then</p>
+<div class="displaymath">
+\begin{equation*}
+a u - 1 = n v
+\end{equation*}
+</div>
+<p>which implies that \(n \mid (au - 1)\text{.}\) Then by the definition of congruence mod \(n\text{,}\) we get \(au \equiv 1 \pmod n\text{,}\) and thus we can take \(a\inv = u\text{.}\)</p>
+<p id="p-47">Thinking about congruence mod \(n\) as measuring the remainder when an integer is divided by \(n\text{,}\) it should be clear that every integer must be congruent mod \(n\) to one of the positive integers \(0, \ldots, n-1\) (as these are all of the possible remainders after dividing by \(n\)). Furthermore, <a data-knowl="./knowl/thm-modular-arith.html" title="Theorem 2.3.3">Theorem 2.3.3</a> tells us that addition, subtraction, and multiplication are well-defined operations on the set \(\{0, \ldots, n-1\}\text{,}\) in the sense that these operations allow arithmetic and a good deal of algebra to be performed on the set. With this in mind, we define the <dfn class="terminology">ring of integers modulo \(n\)</dfn>, denoted by the symbol \(\Z_n\) by</p>
+<div class="displaymath">
+\begin{equation*}
+\Z_n = \{0, 1, \ldots, n-1\} \text{ with addition and multiplication} \pmod n.
+\end{equation*}
+</div>
+<article class="remark-like" id="note-1"><h6 class="heading">
+<span class="type">Note</span> <span class="codenumber">2.3.4</span>.</h6>
+<p id="p-48">The term ring refers to a set equipped with two operations, + and \(\cdot\text{,}\) that satisfy a certain number of algebraic properties characteristic of addition and multiplication in \(\Z\text{.}\) (Perhaps the most distinguishing characteristic is that there is a distributive property that intertwines the operations.) Rings are a central object in the study of modern algebra, along with groups, which are sets equipped with a single operation. In fact, we are just about to meet an extremely important group that lives inside \(\Z_n\ldots\)</p></article><article class="definition-like" id="definition-5"><h6 class="heading">
+<span class="type">Definition</span> <span class="codenumber">2.3.5</span>.</h6>
+<p id="p-49">An integer \(a\) is a <dfn class="terminology">unit</dfn> in \(\Z_n\) if \(a\) has an inverse \(a\inv\) modulo \(n\text{.}\)</p></article><p id="p-50">The units of \(\Z_n\) are important because they are the objects in \(\Z_n\) that can be “divided”, in the sense of algebraic cancellation. Living inside \(\Z_n\) is the smaller set consisting of the units in \(\Z_n\text{.}\) Because the product of two units is a unit (you should convince yourself that this is the case), the set of units are closed under multiplication and thus form a <dfn class="terminology">group</dfn> with identity element 1.</p>
+<article class="definition-like" id="definition-6"><h6 class="heading">
+<span class="type">Definition</span> <span class="codenumber">2.3.6</span>.</h6>
+<p id="p-51">The <dfn class="terminology">group of units</dfn> in \(\Z_n\) is the set of units in \(\Z_n\) with operation multiplication \(\pmod n\text{.}\) It is denoted \(\Z_n\ad\text{.}\)</p></article><p id="p-52">We are going to be interested in counting how many units a particular \(\Z_n\) contains. This will be possible after observing that</p>
+<ol class="decimal">
+<li id="li-45">\(a\) is a unit if it has an inverse mod \(n\)</li>
+<li id="li-46">\(a\) has an inverse mod \(n\) if it is relatively prime with \(n\) (<a data-knowl="./knowl/thm-modular-arith.html" title="Theorem 2.3.3">Theorem 2.3.3</a>)</li>
+</ol>
+<p>Thus, to count the units in \(Z_n\text{,}\) we need to count the integers \(a\) with \(0 \leq a \lt n\) and \(\gcd(a,n) = 1\text{.}\) The classical function used to denote this count is called the <dfn class="terminology">Euler phi function</dfn> or the totient function, and is denoted</p>
+<div class="displaymath">
+\begin{equation*}
+\phi(n) = \text{ number of elements in } \{a \in \Z, 0\leq a \lt n: \gcd(a, n) = 1\}.
+\end{equation*}
+</div>
+<section class="exercises" id="exercises-4"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise-like" id="exercise-10"><h6 class="heading"><span class="codenumber">1.</span></h6>Show part (1) of <a data-knowl="./knowl/thm-modular-arith.html" title="Theorem 2.3.3">Theorem 2.3.3</a> using the definition of congruence.</article><article class="exercise-like" id="exercise-11"><h6 class="heading"><span class="codenumber">2.</span></h6>
+<p id="p-53">Show that the product of two units in \(\Z_m\) is itself a unit.</p></article></section></section></div></main>
+</div>
+<div class="login-link"><span id="loginlogout" class="login">login</span></div>
+<script src="https://pretextbook.org/js/0.11/login.js"></script>
+</body>
+</html>

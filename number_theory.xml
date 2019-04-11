@@ -1,0 +1,590 @@
+ <chapter xml:id="chapter-numbertheory">
+    <title>Number theory</title>
+    <introduction> Number theory is the mathematical foundation of mathematical cryptography. Even methods based on elliptic curves (part of algebraic geometry) or lattices (part of linear algebra) still developed out of and in response to questions in number theory.</introduction>
+
+    <section xml:id="divisibility">
+      <title>Integers and divisibility </title>
+      <p>The symbol <m>\Z</m> (from a German word for number) represents the \dfn{integers}, the space of positive and negative whole numbers. 
+      <me>
+      \Z = \{ \ldots, -3, -2, -1, 0, 1, 2, 3, \ldots\}
+      </me>
+      <em>Number theory</em> is the area of mathematics concerned with the properties and behavior of the numbers in . <m>\Z</m> is an interesting object of study because of the structures that it contains. </p>
+
+      <p>First, let's lay out some basic definitions. The <term>additive identity in <m>\Z</m></term> is the number <m>0</m>, since <m>a + 0 = a</m>. The <term>multiplicative identity in <m>\Z</m></term> is <m>1</m>, since <m>a \cdot 1 = a</m>. The integers have the following structural properties:
+      <ol>
+        <li> <m>\Z</m> is closed under addition: if <m>a, b \in \Z</m>, then <m>a + b \in \Z</m>.</li>
+        <li> <m>\Z</m> is closed under multiplication: if <m>a, b \in \Z</m>, then <m>ab \in Z</m>.</li>
+        <li> Every integer has an additive inverse:  if <m>a \in \Z</m>, then there exists a <m>b \in \Z</m> so that <m>a + b = 0</m>. </li>
+      </ol></p>
+
+      <p>Essentially, this means that addition, subtraction, and multiplication are nicely defined, completely consistent operations in <m>\Z</m>. But, almost no elements of <m>\Z</m> have a multiplicative inverse <em>in <m>\Z</m></em>: that is, for a given <m>a \in \Z</m>, it is almost never the case that there is a <m>b \in \Z</m> so that <m>ab = 1</m>.</p>
+
+
+
+      <p>This essentially means that division is an operation that sometimes is not well-defined in <m>\Z</m> and related sets of numbers. Quite a bit of interesting and useful math involves the study of when division is possible. </p>
+
+      <definition xml:id="def_division">
+        <p>Let <m>a, b \in \Z</m>. Say that <q><m>b</m> <term>divides</term> <m>a</m></q> or <q><m>a</m> is divisible by <m>b</m></q> if there exists an integer <m>q \in \Z</m>, called the <term>quotient</term>, so that 
+        <me>
+          a = bq.
+        </me>
+        When <m>b</m> divides <m>a</m>, we write <m>b\mid a</m>. When <m>b</m> does not divide <m>a</m>, we write <m>b \nmid a</m>. </p>
+      </definition>
+
+      <p>Divisibility has several simple but extremely useful properties. </p>
+      <theorem xml:id="thm_division_properties">
+      <p>Let <m>a, b, c \in \Z</m>. 
+      <ol>
+        <li> If <m>a \mid b</m> and <m>b \mid c</m> then <m>a \mid c</m>.</li>
+        <li> If <m>a \mid b</m> and <m>b \mid a</m> then <m>a = \pm b</m>.</li>
+        <li> If <m>a \mid b</m> and <m>a \mid c</m> then <m>a \mid (b + c)</m> and <m>a \mid (b -c)</m>.</li>
+      </ol></p>
+      </theorem>
+
+
+      <p>We close this section with a seemingly basic but extremely important definition usually called the division algorithm. The division algorithm gives a decomposition of any integer <m>a</m> after division by <m>b</m>, even when <m>a</m> and <m>b</m> do not have a divisibility relationship. </p>
+      <definition xml:id="def_division_alg"><title>(Division algorithm)</title>
+      <p>
+        Let <m>a, b \in \Z</m>. Then there exist a unique integer <m>q</m> and a unique positive integer <m>r</m> with <m>0 \leq r \lt b</m> so that 
+        <me>
+          a = bq + r.
+        </me>
+        <m>q</m> is called the <term>quotient</term> and <m>r</m> is called the <term>remainder</term>.</p>
+      </definition>
+
+      <p>The python function <c>divmod(a,b)</c> will find quotients and remainders, though we're going to look at implementing our own functions in the sequel section on the Euclidean algorithm.</p>
+
+      <sage language="python">
+        <input>
+          a = 137;
+          b = 60;
+          q, r = divmod(a,b);
+          print(b*q + r == a)
+        </input>
+        <output>
+          True
+        </output>
+      </sage>
+
+
+      <exercises>
+        <exercise>
+          Show that the only elements of <m>\Z</m> with multiplicative inverses are <m>1</m> and <m>-1</m>. 
+        </exercise>
+        <exercise>
+          What are the elements of <m>\Z_{12}</m> that have inverses?
+        </exercise>
+        <exercise>
+          Prove <xref ref="thm_division_properties" /> using the definition of divisibility.
+        </exercise>
+      </exercises>
+
+
+
+
+    </section>
+
+    <section xml:id="section-euclidean">
+      <title>Common divisors and the Euclidean algorithm</title>
+
+      <p>It turns out that the straightforward idea of numbers possessing divisors in common has important consequences for the construction of secure mathematical encryption schemes. </p>
+
+      <definition xml:id="def-common-div">
+      Let <m>a, b \in \Z</m>. A number <m>d</m> is called a <term>common divisor</term> of <m>a</m> and <m>b</m> if <m>d \mid a</m> and <m>d \mid b</m>.
+      </definition>
+      <exercise>  
+        Why must such a number always exist?
+      </exercise>
+
+      <p>As a common divisor can be no larger than either of the numbers <m>a</m> and <m>b</m>, there always must be a largest such <m>d</m>, called the <term>greatest common divisor</term>. We denote the greatest common divisor of <m>a</m> and <m>b</m> with the symbol <m>\gcd(a,b)</m>. Finding a gcd is straightforward task in the case that the numbers are small - we can perform a factorization of the numbers, compare factors, and construct the gcd by multiplying all of the factors that the numbers have in common. For example, <m>\gcd(128, 36) = 4</m> because <m>128 = 2^7</m> and <m>36 = 2^2 3^2</m>, and thus the numbers share <m>2^2</m> as a common factor. However, at the scale of numbers used in cryptography, this is not an efficient method for finding a gcd.</p>
+      <exercise>
+        What is <m>\gcd(2^{50} - 1, 2^{52} -1)</m>?
+      </exercise>
+
+      <p>We need an alternative approach. Fortunately, an easy observation about the division algorithm will provide the foundation for a significantly more efficient method. Let <m>a, b \in \Z</m>. By the division algorithm, there are unique numbers <m>q, r \in \Z</m> with <m>0 \leq r \lt b</m> so that 
+      <me>
+      a = bq + r.
+      </me></p>
+
+      <p>Observe that if <m>d \mid a</m> and <m>d \mid b</m> then <m>d \mid r</m>. (Why?) Observe that if <m>e \mid b</m> and <m>e \mid r</m> then <m>e \mid a</m>. (Why?) This means that the common divisors of <m>a</m> and <m>b</m> are the same as the common divisors of <m>b</m> and <m>r</m>. We conclude that <m>\gcd(a,b) = \gcd(b, r)</m>. This reduction of complexity gives us the core step in what is known as the <term>Euclidean algorithm</term>. Finally, observe that since every nonzero integer divides <m>0</m>, we have <m>\gcd(n, 0) = n</m>.</p>
+
+      <theorem xml:id="thm-euclidean"><title>(Euclidean algorithm)</title>
+      <p>Let <m>a, b</m> be postive integers with <m>a \geq b</m>. Then <m>\gcd(a,b) = \gcd(r_{n-1},0) = r_{n-1}</m> where the remainder <m>r_{n-1}</m> is the remainder in the penultimate step in the process
+      <ol>
+        <li> <m>a = bq_1 + r_1</m> (reduces problem to finding <m>\gcd(b, r_1)</m>)</li>
+        <li><m>b = r_1 q_2 + r_2</m> (reduces problem to finding <m>\gcd(r_1, r_2)</m>)</li>
+        <li> <m>r_1 = r_2 q_3 + r_3</m> (reduces problem to finding <m>\gcd(r_2, r_3)</m>).</li>
+        <li> <m>\vdots</m></li>
+        <li> <m>r_{n-3} = r_{n-2} q_{n-1} + r_{n-1}</m> (reduces problem to <m>\gcd(r_{n-2}, r_{n-1}))</m>)</li>
+        <li> <m>r_{n-2} = r_{n-1} q_n + 0</m> (reduces to <m>\gcd(r_{n-1}, 0) = r_{n-1}</m>).</li> 
+        </ol>
+      </p>
+      </theorem>
+
+
+      <md>
+        <mrow> 2024 \amp= 748 \cdot 2 + 528 </mrow>
+        <mrow>748 \amp= 528 \cdot 1 + 220 </mrow>
+        <mrow>528 \amp= 220 \cdot 2 + 88 </mrow>
+        <mrow>220 \amp= 88 \cdot 2 + 44 \leftarrow \gcd = 44 </mrow>
+        <mrow>88 \amp= 44 \cdot 2 + 0</mrow>
+      </md>
+
+      <p>There is actually more information contained in the calculation above. Let <m>a = 2024</m> and <m>b = 748</m>. Using a series of cascading substitutions, we can show that 
+      <me>
+      44 = -7a + 19b
+      </me></p>
+
+
+
+      <p>In fact, it is always the case that <m>\gcd(a,b)</m> can be written as an integer linear combination of <m>a</m> and <m>b</m>, a result known as the <em>extended Euclidean algorithm</em>.</p>
+
+      <theorem xml:id="thm-eea"><title>(extended Euclidean algorithm)</title>
+        Let <m>a, b</m> be positive integers. Then the equation
+        <me>
+        au + bv = \gcd(a,b)
+        </me>
+        always has a solution in integers <m>u</m> and <m>v</m>. 
+
+        Moreover, given a solution <m>(u_0, v_0)</m>, every solution <m>(u,v)</m> is of the form
+        <me>
+        u = u_0 + \frac{bk}{\gcd(a,b)} \text{ and } v = v_0 - \frac{ak}{\gcd(a,b)} \text{ for } k \in \Z.
+        </me>
+      </theorem>
+
+      In the special case that <m>\gcd(a,b) = 1</m>, there is a straightforward algorithm for computing a solution <m>u, v</m>.
+
+      <ol>
+      <li>Use the Euclidean algorithm to find the string of quotients <m>q_1, \ldots, q_n</m> appearing in the descending equations, where <m>n</m> is the number of steps required to reach remainder 0.</li>
+      <li><p>Construct two recursive sequences, <m>P</m> and <m>Q</m>.
+        <ol>
+        <li>Set <m>P_0 = 1, P_1 = q_1</m> and <m>P_{k} = q_k \cdot P_{k-1} + P_{k-2}</m> for <m>2 \leq k \leq n</m>. The sequence will terminate with <m>P_n = a</m>.</li>
+        <li>Set <m>Q_0 = 0, Q_1 = 1</m> and <m>Q_{k} = q_k \cdot Q_{k-1} + Q_{k-2}</m> for <m>2 \leq k \leq n</m>. The sequence will terminate with <m>Q_n = b</m>.</li>
+        </ol></p></li>
+      <li>The final terms of the sequence will satisfy the equation
+        <me>
+        a Q_{n-1} - b P_{n-1} = (-1)^n.
+        </me>
+        Dividing through by <m>(-1)^n</m> will give
+        <me>
+        a ((-1)^n Q_{n-1}) - b ((-1)^n P_{n-1}) = 1,
+        </me>
+        which gives <m>u</m> and <m>v</m>.</li>
+      </ol>
+
+
+      <p>You should notice that the algorithm can actually be used on any pair <m>a, b</m> by dividing through by the gcd.</p>
+
+      <exercise>
+      Why does this work? What if <m>\gcd(a,b) \neq 1</m>? (Hint: modify the problem.)
+      </exercise>
+
+      <p>You can make a nice visual representation of the algorithm with an array:</p>
+
+
+
+      <table>
+        <tabular>
+          <row bottom="medium">
+            <cell></cell><cell></cell><cell><m>q_1</m></cell><cell><m>q_2</m></cell><cell></cell><cell><m>q_{n-1}</m></cell><cell><m>q_n</m></cell></row>
+          <row bottom="medium">
+           <cell left="medium" right="medium"><m>0</m></cell><cell right="medium"><m>1</m></cell><cell right="medium"><m>P_1</m></cell>
+          <cell right="medium"><m>P_2</m></cell><cell right="medium"><m>\ldots</m></cell><cell right="medium"><m>P_{n-1}</m></cell><cell right="medium"><m>P_n = a</m></cell></row>
+          <row bottom="medium">
+           <cell left="medium" right="medium"><m>1</m></cell><cell right="medium"><m>0</m></cell><cell right="medium"><m>Q_1</m></cell>
+          <cell right="medium"><m>Q_2</m></cell><cell right="medium"><m>\ldots</m></cell><cell right="medium"><m>Q_{n-1}</m></cell><cell right="medium"><m>Q_n = a</m></cell></row>
+        </tabular>
+      </table>
+
+      <p>The above algorithm is powerful, but requires storing potentially lots of information. There are more efficient approaches, though you may wish to implement the algorithm above.</p>
+
+      <example>
+      <p>Find <m>u</m> and <m>v</m> so that <m>82 u + 17 v = gcd(82,17)</m>. First, we perform the Euclidean algorithm to get the list of quotients that we need to perform the extension. 
+      <md>
+        <mrow>82 \amp= 17 \times 4 + 14 </mrow>
+        <mrow>17 \amp= 14\times 1 + 3 </mrow>
+        <mrow>14 \amp= 3\times 4 + 2 </mrow>
+        <mrow>3 \amp= 2\times 1 + 1 </mrow>
+        <mrow>2 \amp= 1\times 2 + 0 </mrow>
+      </md></p>
+
+      <p>The array version of the algorithm looks like
+      <me>
+        \begin{array}{ccccccc}
+        \amp \amp 4 \amp 1 \amp 4 \amp 1 \amp 2 \\
+        0 \amp 1 \amp 4 \amp 5 \amp 24 \amp 29 \amp 82 \\
+        1 \amp 0 \amp 1 \amp 1 \amp 5 \amp 6 \amp 17 
+        \end{array}
+      </me>
+      </p>
+      From the last four boxes, we get 
+      <me>
+      82\cdot 6 - 17\cdot 29 = (-1)^5
+      </me>
+      and so <m>u = -6</m> and <m>v = 17</m> gives a solution to <m>au + bv = 1</m>.
+      </example>
+
+      <exercises>
+        <exercise>
+          <p>Write a python function that computes <m>\gcd(a,b)</m> for <m>a, b \in \Z</m>.</p>
+        </exercise>
+        <exercise>
+          <p>An efficient algorithm for computing a solution to <m> au + bv = \gcd(a,b)</m> is given below:
+          <ol>
+            <li>Set <m>u = 1, g = a, x = 0</m> and <m>y = b</m>.</li>
+            <li>If <m>y = 0</m>, set <m>v = (g - au)/b</m> and return values <m>(g, u, v)</m>.</li>
+            <li>Divide <m>g</m> by <m>y</m> to get <m>g = qy + t</m> with <m>0 \leq t \lt y</m>, store <m>q</m> and <m>t</m>.</li>
+            <li>Set <m>s = u - qx</m>.</li>
+            <li>Set <m>u = x</m> and <m>g = y</m>.</li>
+            <li>Set <m>x = s</m> and <m>y = t</m>.</li>
+            <li>Go to Step (b).</li>
+          </ol></p>
+          <p>Your tasks are:
+          <ol>
+            <li>Convince me that <m>g = \gcd(a,b)</m> and <m>au + bv = g</m>.</li>
+            <li>Implement this algorithm in a python function.</li>
+          </ol></p>
+          </exercise>
+        </exercises>
+    </section>
+
+
+    <section xml:id="section-modular">
+      <title>Modular arithmetic and the ring of integers modulo <m>n</m></title>
+
+      <p>We will now examine the main space of numbers used in early modern mathematical cryptographic methods like RSA and Elgamal.
+      </p>
+
+      <definition>
+      Two integers <m>a</m> and <m>b</m> are <term>congruent modulo <m>n</m></term> if their difference <m>a - b</m> is divisible by <m>n</m>. In symbols, we write 
+      <me>
+      a \equiv b\bmod n \text{ if and only if } n\mid (a - b)
+      </me>
+      </definition>
+
+      <p>The division algorithm and the above definition give another characterization of this congruence: <m>a \equiv b \bmod n</m> if and only if the remainders of <m>a</m> and <m>b</m> after division by <m>n</m> are equal.</p>
+
+      <question>
+        Show that the two characterizations are logically equivalent.
+      </question>
+
+      <p>Congruence mod <m>n</m> is an example of a special kind of relation called an <term>equivalence relation</term>, which is a major object of study in number theory and modern algebra. Here, we'll satisfy ourselves with the statement that equivalence relations behave much like equality; in particular, modular arithmetic almost gives a completely consistent structure for doing the usual algebra of the integers, as the next theorem states:</p>
+
+      <theorem xml:id="thm-modular-arith">
+        Let <m>m \geq 1</m> be an integer. 
+        <ol>
+          <li><p>If <m>a_1 \equiv a_2 \bmod n</m> and <m>b_1 \equiv b_2 \bmod n</m> then
+          <me>
+          a_1 \pm b_1 \equiv a_2 \pm b_2 \bmod n \text{ and } a_1 \cdot b_1 \equiv a_2 \cdot b_2 \bmod n.
+          </me></p></li>
+          <li><p> Let <m>a</m> be an integer. Then
+          <me>
+          a \cdot b \equiv 1 \bmod n \text{ for some integer <m>b</m> if and only if } \gcd(a,n) = 1. 
+          </me>
+          If <m>b</m> exists, it is unique, and it is called the <term>inverse</term> of <m>a</m>.</p></li>
+        </ol>
+      </theorem>
+
+
+      <p>Part (2) of Theorem 3.3 essentially characterizes which integers <m>a</m> have multiplicative inverses modulo <m>n</m>. Since the inverse is unique, we give it a special symbol, <m>a\inv</m>. Note that this is NOT the inverse in the rational numbers given by the reciprocal of <m>a</m>. For example, since <m>2 \cdot 3 \equiv 1 \bmod 5</m>, we can say <m>2\inv = 3</m> and <m>3\inv = 2</m>. This leads to amusing notational oddities of statements like <m> \frac{4}{3} \equiv 4 \cdot 3\inv \equiv 4 \cdot 2 \equiv 3 \bmod 5</m>.
+      </p>
+
+      <p>The extended Euclidean algorithm, <xref ref="thm-eea" />, explicitly computes inverses modulo <m>n</m> when they exist. To see this, assume that <m>\gcd(a,n) = 1</m> so that <m>a</m> possesses an inverse <m>\bmod n</m>. Applying Theorem <xref ref="thm-eea" /> produces integers <m>u, v</m> so that 
+      <me>
+        a u + n v = 1.
+      </me>
+      Then 
+      <me>
+        a u - 1 = n v
+      </me>
+      which implies that <m>n \mid (au - 1)</m>. Then by the definition of congruence mod <m>n</m>, we get <m>au \equiv 1 \pmod n</m>, and thus we can take <m>a\inv = u</m>.</p>
+
+      <p>Thinking about congruence mod <m>n</m> as measuring the remainder when an integer is divided by <m>n</m>, it should be clear that every integer must be congruent mod <m>n</m> to one of the positive integers <m>0, \ldots, n-1</m> (as these are all of the possible remainders after dividing by <m>n</m>). Furthermore, <xref ref="thm-modular-arith" /> tells us that addition, subtraction, and multiplication are well-defined operations on the set <m>\{0, \ldots, n-1\}</m>, in the sense that these operations allow arithmetic and a good deal of algebra to be performed on the set. With this in mind, we define the <term>ring of integers modulo <m>n</m></term>, denoted by the symbol <m>\Z_n</m> by 
+      <me>
+        \Z_n = \{0, 1, \ldots, n-1\} \text{ with addition and multiplication} \pmod n.
+      </me></p>
+
+
+      <note>
+        <p>The term ring refers to a set equipped with two operations, + and <m>\cdot</m>, that satisfy a certain number of algebraic properties characteristic of addition and multiplication in <m>\Z</m>. (Perhaps the most distinguishing characteristic is that there is a distributive property that intertwines the operations.) Rings are a central object in the study of modern algebra, along with groups, which are sets equipped with a single operation. In fact, we are just about to meet an extremely important group that lives inside <m>\Z_n\ldots</m></p>
+      </note>
+
+      <definition>
+        <p>An integer <m>a</m> is a <term>unit</term> in <m>\Z_n</m> if <m>a</m> has an inverse <m>a\inv</m> modulo <m>n</m>.</p>
+      </definition>
+
+      <p>The units of <m>\Z_n</m> are important because they are the objects in <m>\Z_n</m> that can be <q>divided</q>, in the sense of algebraic cancellation. Living inside <m>\Z_n</m> is the smaller set consisting of the units in <m>\Z_n</m>. Because the product of two units is a unit (you should convince yourself that this is the case), the set of units are closed under multiplication and thus form a <term>group</term> with identity element 1. </p>
+
+
+
+
+      <definition>
+        <p>The <term>group of units</term> in <m>\Z_n</m> is the set of units in <m>\Z_n</m> with operation multiplication <m>\pmod n</m>. It is denoted <m>\Z_n\ad</m>.</p>
+      </definition>
+
+      <p>We are going to be interested in counting how many units a particular <m>\Z_n</m> contains. This will be possible after observing that 
+      <ol>
+        <li><m>a</m> is a unit if it has an inverse mod <m>n</m></li> and 
+        <li><m>a</m> has an inverse mod <m>n</m> if it is relatively prime with <m>n</m> (<xref ref="thm-modular-arith" />)</li>. 
+      </ol>
+        Thus, to count the units in <m>Z_n</m>, we need to count the integers <m>a</m> with <m>0 \leq a \lt n</m> and <m>\gcd(a,n) = 1</m>. The classical function used to denote this count is called the <term>Euler phi function</term> or the totient function, and is denoted
+      <me>
+        \phi(n) = \text{ number of elements in } \{a \in \Z, 0\leq a \lt n: \gcd(a, n) = 1\}.
+      </me></p>
+
+      <exercises>
+        <exercise>
+          Show part (1) of <xref ref="thm-modular-arith" /> using the definition of congruence.
+        </exercise>
+        <exercise>
+        <p>Show that the product of two units in <m>\Z_m</m> is itself a unit.</p>
+        </exercise>
+      </exercises>
+      </section>
+
+      <section xml:id="section-fastpower">
+        <title>The fast powering algorithm</title>
+
+
+        <p>Cryptosystems depend on operations with deeply asymmetric computability: in one direction we want the computations to be <q>easy</q> and in the other, essentially impossible. We will see that one such operation is taking repeated multiplications by the same integer <m>g</m>, the process of exponentiation. The idea is to take an integer <m>g</m> inside of <m>\Z_n</m> and raise <m>g</m> to some large power <m>M</m>. </p>
+
+        <p>The naive approach to this problem is to performs this process recursively: <m>g_1 = g, g_2 = g\cdot g_1, \ldots, g_k = g \cdot g_{k-1} = g^k</m>.</p>
+
+        <p>When the exponent in question is large, say on the order of <m>2^{1000}</m>, this process requires lengths of time on the order of the age of the universe. Indeed, this quality is why it is difficult to reverse a modular exponent (a process called a discrete logarithm that we will discuss in more detail soon).
+        </p>
+
+        <p>To perform exponentiation quickly, we will use a binary expansion of the exponent combined with the observation that we can use repeated squarings to compute the total exponent. For example, consider the problem of computing <m>3^{11} \bmod 13</m>. First, we decompose the exponent <m>11</m> into a binary representation (this can by done in python with the <c>bin</c> command, which gives the binary form of the number).
+        </p>
+        <p><me>
+          11 = 2^0 + 2^1 + 2^3.
+        </me>
+        Thus, 
+        <me>
+          3^{11} = 3^{2^0 + 2^1 + 2^3} = 3^{2^0} \cdot 3^{2^1} \cdot 3^{2^3}.
+        </me>
+        It is easy to compute the sequence 
+        <me>
+          3^{2^0}, 3^{2^1}, 3^{2^2}, \ldots
+        </me>
+        because each term is the square of the previous term. Furthermore, while exponential functions grow in size very quickly (easily outside the typical storage available in a computer in as few as 200 or so squarings), we can take the results mod 13 at each step.</p>
+
+        <p>Thus, our sequence would read
+        <me>
+        3^{2^0} = 3, \hspace{10pt} 3^{2^1} = 3^2 = 9, \hspace{10pt} 3^{2^2} = 9^2 = 81 = 3, \hspace{10pt} 3^{2^3} = 3^2 = 9.
+        </me>
+        Now, we perform the computation
+        <me>
+        3^{11} = 3^{2^0} \cdot 3^{2^1} \cdot 3^{2^3} = 3 \cdot 9 \cdot 9 \bmod 13 = 9 \bmod 13.
+        </me></p>
+
+        <p>Now, look at the result of the same computation in python using the <c>bin</c> command:</p>
+
+
+        <p>We can codify this idea in the Fast Powering Algorithm:</p>
+
+        <algorithm xml:id="alg-fast-power"><title>(Fast Powering Algorithm)</title>
+          <p>Consider the exponential <m>g^k \bmod N</m>.</p>
+          <ol>
+            <li><p> Compute the binary expansion of the exponent <m>k</m>:
+            <me>
+            k = k_0 + k_1 \cdot 2 + k_2 \cdot 2^2 + \ldots + k_r \cdot 2^r
+            </me>
+            where the coefficients <m>k_i</m> can be either 0 or 1, and we assume that <m>k_r = 1</m>.</p></li>
+            <li><p>Compute the powers <m>g^{2^i} \bmod N</m> for <m>0 \leq i \leq r</m> by repeating squaring:
+            <md>
+              <mrow> a_0 \amp= g \bmod N </mrow>
+              <mrow> a_1 \amp= a_0^2 = g^2 \bmod N </mrow>
+              <mrow> a_2 \amp= a_1^2 = g^{2^2} \bmod N</mrow>
+              <mrow> \vdots \amp </mrow>
+              <mrow> a_r \amp= a_{r-1}^2 = g^{2^r} \bmod N. </mrow>
+            </md></p></li>
+            <li><p>Compute <m>g^k</m> with
+            <me>
+              g^k = a_0^{k_0} \cdot a_1^{k_1} \cdot \ldots \cdot a_r^{k_r}
+            </me>
+            where the exponents <m>k_i</m> determine if a particular power of <m>g</m> is present in the computation, as <m>k_i</m> is either 1 or 0.</p></li>
+          </ol>
+        </algorithm>
+
+        <p>In python, using the example of <m>3^{11} \bmod 13</m>, we could write the following program:</p>
+
+        <sage language="python">
+          <input>
+            n = 11;
+            g = 3;
+            x = bin(n);
+            print(x)
+          </input>
+          <output>0b1011</output>
+        </sage>
+
+        <p>Working with binary numbers in python from a computation standpoint is going to require removing the <q>0b</q> segment at the front of the number (the string indicates that the format of the number is binary). Python makes it easy to strip this segment using array slicing. (The previous cell must have been executed to run the next one.)</p>
+
+        <sage language="python">
+          <input>
+            x = x[2:] #keep every entry of x from index 2 on
+            print(x)
+          </input>
+        </sage>
+
+        <sage language="python">
+          <input>
+            squares =[g];
+            for i in range(0,3):
+              squares.append(squares[i]**2%13) #append adds a new element to an array
+            print(squares)
+          </input>
+        </sage>
+
+        <p>Now we can pick out the array elements we need. Note that there is a complication arising from the fact that the squares array begins with <m>3^{2^0}</m>, but the binary representation of <m>11</m> reads the opposite direction, from <m>2^3</m> down to <m>2^0</m>.</p>
+
+        <sage language = "python">
+          <input>
+            total = squares[3]*squares[1]*squares[0]%13;
+            print(total)
+          </input>
+        </sage>
+
+        <exercises>
+          <exercise>
+            <p>Implement the fast powering algorithm in python as a function that takes as input a base <m>g</m>, a power <m>x</m>, and a mod <m>n</m> and produces as output <m>g^x \bmod n</m>. You may wish to use the python function <c>bin(n)</c> which returns the binary representation as a string of 1s and 0s. (You can view this string as the values of the coefficients <m>k_i</m> in the description of the algorithm above. ) </p>
+          </exercise>
+        </exercises>
+      </section>
+
+      <section xml:id="section-finite-fields">
+        <title>Finite fields </title>
+
+        <p>Prime numbers underlie a significant amount of modern cryptographic methods. We introduce them here to establish the concept of finite fields. We begin with a standard definition.
+        </p>
+        <definition>
+          A positive integer <m>p</m> is called <term>prime</term> if its only positive divisors are <m>1</m> and <m>p</m>. That is, for a prime <m>p</m>, if <m>d \mid p</m> then <m>d = 1</m> or <m>d = p</m>.
+        </definition>
+
+        <p>It is fortunate that the supply of primes cannot be exhausted. The following theorem is ancient, and appears in Euclid's <em> Elements</em>.</p>
+
+        <theorem>
+        There are infinitely many primes.
+        </theorem>
+
+        <question>
+          There are many proofs of the following theorem, but perhaps the most standard is a proof by contradiction that uses the definition of divisibility. Look up a proof of the following theorem and try to explain it in plain language to a friend. You will have succeeded if they understand your argument.
+        </question>
+
+        <p>When <m>p</m> is prime, the ring of integers <m>\Z_p</m> has the property that every nonzero integer modulo <m>p</m> has a multiplicative inverse, which means that arithmetic becomes completely consistent: we can add, subtract, multiply <em> and divide</em> just like in the real numbers. </p>
+
+        <theorem>
+          Let <m>p</m> be a prime. Every nonzero element <m>a \in \Z_p</m> has a multiplicative inverse, in the sense that there exists <m>b</m> so that 
+          <me>
+            ab \equiv 1 \bmod p.
+          </me>
+          Since <m>b</m> is unique, we denote <m>b</m> by <m>a\inv \bmod p</m> or just <m>a\inv</m> if the set in question is clear.
+        </theorem>
+
+        <proof>
+        If <m>a \in \Z_p</m> is nonzero, then <m>0 \lt a \lt p</m>. Since <m>p</m> is prime, we have <m>\gcd(a,p) = 1</m>, which implies that <m>a</m> has an inverse mod <m>p</m>.
+        </proof>
+
+        <p>You should notice that you can use the extended Euclidean algorithm to compute the inverse of <m>a \bmod p</m>: Since <m>\gcd{a,p} = 1</m>, there exists <m>u, v</m> so that
+        <me>
+          au + pv \equiv 1 \bmod p.
+        </me>
+        But then <m>p \mid (1 - au)</m> (why?) and so by the definition of congruence, 
+        <me>
+          au \equiv 1 \bmod p.
+        </me>
+        Thus, we can take <m>a\inv = u</m>.</p>
+
+
+
+
+        <p><m>\Z_p</m> is a (commutative) ring with the property that every nonzero element has a multiplicative inverse. Such an object is called a <term>field</term> (examples include the real numbers <m>\R</m>, the rational numbers <m>\mathbb Q</m>, and the complex numbers <m>\C</m>). Because <m>\Z_p</m> has only <m>p</m> elements, it is an example of a <term>finite field</term>, and usually denoted <m>\F_p</m>. Finite fields are an area of study of enormous importance in both pure and applied mathematics, and understanding them is one of the labors of mastering high level cryptography. </p>
+
+        <p>From <m>\F_p</m>, we can form the group of units <m>\F_p\ad</m> by just removing <m>0</m>, since every nonzero element in <m>\F_p</m> has a multiplicative inverse modulo <m>p</m>. The group of units <m>\F_p\ad</m> is perhaps the <em> central</em> object of study for the next part of the course. </p>
+
+        <exercises>
+          <exercise>
+            Prove the prime number theorem. Try to write the proof so that you could convince a non-mathematical friend that it was true.
+          </exercise>
+          <exercise>
+            Use the function you wrote to calculate <m>u</m> and <m>v</m> in the extended Euclidean algorithm to find the inverse of <m>a \bmod p</m> given <m>a</m> and a prime <m>p</m>.
+          </exercise>
+        </exercises>
+      </section>
+
+      <section xml:id="section-fermat">
+        <title>Fermat's little theorem and computing inverses</title>
+
+        <p>Exponents in <m>\F_p\ad</m> have several useful and noteworthy properties. First, we have Fermat's little theorem, which essentially states that multiplying some element <m>g</m> in <m>\F_p\ad</m> by itself <m>p</m> times will always return to <m>g</m>.</p>
+
+        <theorem xml:id="thm-fermat"><title>(Fermat's little theorem)</title>
+        Let <m>p</m> be prime and <m>a</m> be an integer. Then if <m>p \nmid a</m>, 
+        <me>
+        a^{p-1} \equiv 1 \bmod p.
+        </me>
+        </theorem>
+
+        <proof>
+          To be added, need to choose one that fits with the course.
+        </proof>
+
+        <p>Fermat's little theorem gives us the ability to perform a relatively fast computation of inverses with the help of the fast powering algorithm. </p>
+
+        <algorithm xml:id="alg-fast-inverse"><title>Fast inverse mod <m>p</m></title>
+          Let <m>a \in \F_p\ad</m>.
+          <ol>
+            <li>Since <m>a</m> then must be smaller than <m>p</m>, <m>p \nmid a</m>, and so <m>a^{p-1} = 1</m> in <m>\F_p\ad</m>. </li>
+            <li> But then <m>a^{p-2} \equiv a\inv</m>.</li>
+            <li> Apply the fast powering algorithm to compute <m>a^{p-2}</m>. The result is <m>a\inv</m>.</li>
+          </ol>
+        </algorithm>
+
+        <p>Our final observation to close out this first unit of the course is to note that it is possible for an element to have a power <m>c</m> smaller than <m>p - 1</m> such that <m>a^c = 1</m> in <m>\F_p\ad</m>. </p>
+
+        <definition>
+          The <term>order</term> of <m>a</m> in <m>\F_p\ad</m> is the smallest positive integer <m>k</m> so that <m>a^k = 1</m>.
+        </definition>
+
+        <p>The following proposition follows directly from Fermat's little theorem (you should try to prove it!)</p>
+
+        <proposition xml:id="prop-order-divide">
+        Let <m>p</m> be prime and let <m>a</m> be an element of <m>F_p\ad</m>. Suppose that <m>a^k = 1</m> in <m>\F_p\ad</m>. Then <m>k \mid (p-1)</m>.
+        </proposition>
+
+        <p>Elements with order <m>p - 1</m> in <m>F_p\ad</m> are special, and of fundamental importance in cryptography.</p>
+
+        <theorem xml:id="thm-primitive-root"><title>(Primitive root theorem)</title>
+          Let <m>p</m> be a prime number. Then there exists an element <m>g \in \F_p\ad</m> whose powers give every element of <m>F_p\ad</m>. That is, 
+          <me>
+            \F_p\ad = \{1, g, g^2, \ldots, g_{p-2}\}.
+          </me>
+          Such a <m>g</m> is called a <term>generator</term> or <term>primitive root</term> of <m>F_p\ad</m>.
+        </theorem>
+
+        <p>For sufficiently large <m>p</m>, <m>F_p\ad</m> has lots of generators. (In fact equal to the totient function of <m>p-1</m>.) Be careful thinking about successive powers of <m>g</m>: while the symbols have increasing exponents, the numbers themselves will not in general be increasing, as they are subject to the mixing effect of repeated multiplication mod <m>p</m>.</p>
+
+        <image source="mixing.jpg" />
+
+        <exercises>
+          <exercise>
+            Prove Proposition <xref ref="prop-order-divide" />.
+          </exercise>
+          <exercise>
+            Implement a fast inverse function using your fast powering function from the previous exercise. 
+          </exercise>
+        </exercises>
+      </section>
+
+      <section xml:id="section-ch2-conclusion"><title>Conclusion</title>
+
+        <p>From the first unit of the course, you should take away an understanding of the structure of the number systems built on modular arithmetic. From a practical standpoint, to build cryptographic systems in the next unit, you will need the following functions:
+        <ol>
+          <li>A <c>gcd</c> function (homegrown preferably).</li>
+          <li>A <c>extended_euclidean</c> function.</li>
+          <li>A <c>fastpower</c> function.</li>
+          <li>A <c>fastinverse</c> function.</li>
+        </ol></p>
+
+        <p>Optionally, if you'd like to compare speed of computation, you might also like an inverse function <c>eea_inverse</c> based on the extended Euclidean algorithm.</p>
+      </section>
+    </chapter>

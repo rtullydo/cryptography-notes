@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-04-11T10:38:01-04:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Discrete logs and the ECDLP</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['\\(','\\)']]
+    },
+    asciimath2jax: {
+        ignoreClass: ".*",
+        processClass: "has_am"
+    },
+    jax: ["input/AsciiMath"],
+    extensions: ["asciimath2jax.js"],
+    TeX: {
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        // scrolling to fragment identifiers is controlled by other Javascript
+        positionToHash: false,
+        equationNumbers: { autoNumber: "none", useLabelIds: true, },
+        TagSide: "right",
+        TagIndent: ".8em",
+    },
+    // HTML-CSS output Jax to be dropped for MathJax 3.0
+    "HTML-CSS": {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+    CommonHTML: {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+});
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
+<script>var logged_in = false;
+var role = 'student';
+var guest_access = true;
+var login_required = false;
+var js_version = 0.11;
+</script>
+</head>
+<body class="mathbook-book has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+\DeclareMathOperator{\IM}{Im}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\intr}{int}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator\re{\mathrm {Re~}}
+\DeclareMathOperator\im{\mathrm {Im~}}
+\newcommand\dd{\mathrm d}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\hilbert}{\mathcal{H}}
+\newcommand{\s}{\mathcal{S}_2}
+\newcommand{\A}{\mathcal{A}}
+\newcommand\h{\mathcal{H}}
+\newcommand{\J}{\mathcal{J}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\BOP}{\mathbf{B}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\BH}{\mathbf{B}(\mathcal{H})}
+\newcommand{\KH}{\mathcal{K}(\mathcal{H})}
+\newcommand{\pick}{\mathcal{P}_2}
+\newcommand{\schur}{\mathcal{S}_2}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Complex}{\mathbb{C}}
+\newcommand{\Field}{\mathbb{F}}
+\newcommand{\RPlus}{\Real^{+}}
+\newcommand{\Polar}{\mathcal{P}_{\s}}
+\newcommand{\Poly}{\mathcal{P}(E)}
+\newcommand{\EssD}{\mathcal{D}}
+\newcommand{\Lop}{\mathcal{L}}
+\newcommand{\cc}[1]{\overline{#1}}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\seq}[1]{\left\lt#1\right&gt;}
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\essnorm}[1]{\norm{#1}_{\ess}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\ran}[1]{\operatorname{ran}#1}
+\newcommand{\nt}{\stackrel{\mathrm {nt}}{\to}}
+\newcommand{\pnt}{\xrightarrow{pnt}}
+\newcommand{\ip}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\ad}{^\ast}
+\newcommand{\inv}{^{-1}}
+\newcommand{\adinv}{^{\ast -1}}
+\newcommand{\invad}{^{-1 \ast}}
+\newcommand\Pick{\mathcal P}
+\newcommand\Ha{\mathbb{H}}
+\newcommand{\HH}{\Ha\times\Ha}
+\newcommand\Htau{\mathbb{H}(\tau)}
+\newcommand{\vp}{\varphi}
+\newcommand{\ph}{\varphi}
+\newcommand\al{\alpha}
+\newcommand\ga{\gamma}
+\newcommand\de{\delta}
+\newcommand\ep{\varepsilon}
+\newcommand\la{\lambda}
+\newcommand\up{\upsilon}
+\newcommand\si{\sigma}
+\newcommand\beq{\begin{equation}}
+\newcommand\ds{\displaystyle}
+\newcommand\eeq{\end{equation}}
+\newcommand\df{\stackrel{\rm def}{=}}
+\newcommand\ii{\mathrm i}
+\newcommand{\vectwo}[2]
+{
+   \begin{pmatrix} #1 \\ #2 \end{pmatrix}
+}
+\newcommand{\vecthree}[3]
+{
+   \begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}
+}
+\newcommand\blue{\color{blue}}
+\newcommand\black{\color{black}}
+\newcommand\red{\color{red}}
+\newcommand\nn{\nonumber}
+\newcommand\bbm{\begin{bmatrix}}
+\newcommand\ebm{\end{bmatrix}}
+\newcommand\bpm{\begin{pmatrix}}
+\newcommand\epm{\end{pmatrix}}
+\numberwithin{equation}{section}
+\newcommand\nin{\noindent}
+\newcommand{\nCr}[2]{\,_{#1}C_{#2}} 
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\)</div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="cryptography.html"><span class="title">Mathematical Cryptography</span></a></h1>
+<p class="byline">Ryan Tully-Doyle</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-ec-finite-fields.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-elliptic-curves.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-ec-elgamal.html" title="Next">Next</a></span></div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-ec-finite-fields.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-elliptic-curves.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-ec-elgamal.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link">
+<a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
+<li><a href="foreward.html" data-scroll="foreward">The course</a></li>
+<li><a href="motivation.html" data-scroll="motivation">Why “mathematical” cryptography?</a></li>
+<li><a href="shift.html" data-scroll="shift">A simple example: the shift cipher</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-numbertheory.html" data-scroll="chapter-numbertheory"><span class="codenumber">2</span> <span class="title">Number theory</span></a><ul>
+<li><a href="divisibility.html" data-scroll="divisibility">Integers and divisibility</a></li>
+<li><a href="section-euclidean.html" data-scroll="section-euclidean">Common divisors and the Euclidean algorithm</a></li>
+<li><a href="section-modular.html" data-scroll="section-modular">Modular arithmetic and the ring of integers modulo \(n\)</a></li>
+<li><a href="section-fastpower.html" data-scroll="section-fastpower">The fast powering algorithm</a></li>
+<li><a href="section-finite-fields.html" data-scroll="section-finite-fields">Finite fields</a></li>
+<li><a href="section-fermat.html" data-scroll="section-fermat">Fermat's little theorem and computing inverses</a></li>
+<li><a href="section-ch2-conclusion.html" data-scroll="section-ch2-conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-groups.html" data-scroll="chapter-groups"><span class="codenumber">3</span> <span class="title">Group based methods</span></a><ul>
+<li><a href="section-naive.html" data-scroll="section-naive">A naïve cryptosystem and some related questions</a></li>
+<li><a href="section-discretelog.html" data-scroll="section-discretelog">Discrete logarithms</a></li>
+<li><a href="section-dh.html" data-scroll="section-dh">Diffie-Hellman key exchange</a></li>
+<li><a href="section-elgamal.html" data-scroll="section-elgamal">The Elgamal cryptosystem</a></li>
+<li><a href="section-groups.html" data-scroll="section-groups">Groups</a></li>
+<li><a href="section-attack-dlp.html" data-scroll="section-attack-dlp">Attacking the discrete log problem</a></li>
+<li><a href="section-chinese.html" data-scroll="section-chinese">The Chinese Remainder theorem and Pohlig-Hellman*</a></li>
+<li><a href="section-homomorphism.html" data-scroll="section-homomorphism">Homomorphisms and the lunchtime attack</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-elliptic-curves.html" data-scroll="chapter-elliptic-curves"><span class="codenumber">4</span> <span class="title">Elliptic curves and applications</span></a><ul>
+<li><a href="section-ec-intro.html" data-scroll="section-ec-intro">Introduction to elliptic curves</a></li>
+<li><a href="section-elliptic-addition.html" data-scroll="section-elliptic-addition">Elliptic addition on \(E\text{.}\)</a></li>
+<li><a href="section-ec-finite-fields.html" data-scroll="section-ec-finite-fields">Elliptic curves over finite fields</a></li>
+<li><a href="section-ecdlp.html" data-scroll="section-ecdlp" class="active">Discrete logs and the ECDLP</a></li>
+<li><a href="section-ec-elgamal.html" data-scroll="section-ec-elgamal">Elliptic curve Diffie-Hellman key exchange and El Gamal</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-digital-signatures.html" data-scroll="chapter-digital-signatures"><span class="codenumber">5</span> <span class="title">Digital signatures</span></a><ul>
+<li><a href="section-dsa-intro.html" data-scroll="section-dsa-intro">Introduction to digital signatures</a></li>
+<li><a href="section-elgamal-ds.html" data-scroll="section-elgamal-ds">Elgamal digital signatures</a></li>
+<li><a href="section-subgroups.html" data-scroll="section-subgroups">Subgroups and cyclic subgroups</a></li>
+<li><a href="section-dsa-ecdsa.html" data-scroll="section-dsa-ecdsa">DSA and Elliptic Curve DSA</a></li>
+<li><a href="section-bitcoin.html" data-scroll="section-bitcoin">Bitcoin - an application of ECDSA*</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-probability.html" data-scroll="chapter-probability"><span class="codenumber">6</span> <span class="title">Probability and non-deterministic methods</span></a><ul>
+<li><a href="section-counting.html" data-scroll="section-counting">Counting - Permutations and combinations*</a></li>
+<li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+</ul>
+</li>
+</ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-ecdlp"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">4.4</span> <span class="title">Discrete logs and the ECDLP</span>
+</h2>
+<a href="section-ecdlp.html" class="permalink">¶</a><p id="p-157">What will be the hard problem at the center of elliptic curve cryptographic methods? We'll take the discrete log problem in \(F_p\ad\) and modify it to take account of the additive structure of \(E(\F_p)\text{.}\) We begin with a computational algorithm.</p>
+<p id="p-158">Recall that</p>
+<div class="displaymath">
+\begin{equation*}
+nP = \underbrace{P + P + \ldots + P}_{n \text{ times}}.
+\end{equation*}
+</div>
+<p>The <dfn class="terminology">double-and-add</dfn> algorithm is the exact analogue of the square-and-multiply fast powering algorithm presented in <a data-knowl="./knowl/alg-fast-power.html" title="Algorithm 2.4.1: (Fast Powering Algorithm)">Algorithm 2.4.1</a>.</p>
+<article class="theorem-like" id="algo-double-add"><h6 class="heading">
+<span class="type">Algorithm</span> <span class="codenumber">4.4.1</span>. <span class="title">Double-and-add.</span>
+</h6> Let \(E(\F_p)\) be an elliptic curve over the finite field \(\F_p\text{.}\) Let \(P \in E(\F_p)\) and consider the multiplication \(nP\text{.}\) <ol class="decimal">
+<li id="li-128">Compute the binary expansion of \(n\text{:}\)<div class="displaymath">
+\begin{equation*}
+n = n_0 + n_1 \cdot 2 + \ldots + n_r \cdot 2^r
+\end{equation*}
+</div>where the coefficents \(n_i \in \{0, 1\}\) and we assume that \(n_r = 1\text{.}\)</li>
+<li id="li-129">Compute the multiples \(2^i P\) for \(0\leq i \leq r\) by repeated doubling:<div class="displaymath">
+\begin{align*}
+A_0 \amp = P\\
+A_1 \amp = 2 A_0\\
+A_2 \amp = 2 A_1 = 2^2 A_0\\
+\amp \vdots\\
+A_r \amp = 2 A_{r-1} = 2^{r} A_0.
+\end{align*}
+</div>
+</li>
+<li id="li-130">Compute \(nP\) with<div class="displaymath">
+\begin{equation*}
+nP = n_0 A_0 + n_1 A_1 + \ldots + n_r A_r
+\end{equation*}
+</div>where the coeffients \(n_i\) determine if a particular term is present in the expansion of \(m\text{.}\)</li>
+</ol></article><p id="p-159">This algorithm provides the basis for using elliptic curves in cryptographic applications. On the one hand, the forward computation of \(nP\) given knowledge of \(n, P\) is easy. On the other hand, we have another discrete log problem.</p>
+<article class="definition-like" id="definition-17"><h6 class="heading">
+<span class="type">Definition</span> <span class="codenumber">4.4.2</span>.</h6>The <dfn class="terminology">elliptic curve discrete log problem</dfn> is to find, given points \(P, Q \in E(\F_p)\text{,}\) a number \(n\) so that<div class="displaymath">
+\begin{equation*}
+Q = nP \in E(\F_p).
+\end{equation*}
+</div>Notationally, we say that \(n\) is the discrete log of \(Q\) with respect to \(P\) and write<div class="displaymath">
+\begin{equation*}
+n = \log_P Q.
+\end{equation*}
+</div></article><p id="p-160">There are some notable issues with treating the ECDLP like its namesake in \(\R\text{.}\) For one, in \(E(\F_p)\) there are points \(P, Q\) for which there is <em class="emphasis">no</em> integer \(n\) so that \(nP = Q\text{.}\) Also, if there is one such \(n\text{,}\) than many exist. Why should this be the case? The structure of \(F_p\) guarantees it.</p>
+<p id="p-161">Here we start to brush up against an important area of algebra concerning what are known as <dfn class="terminology">cyclic subgroups</dfn>, to be considered in detail in a later section if you haven't seen them before. First, note that for any point \(P \in E(\F_p)\text{,}\) the equation \(sP = \mathcal O\) has a solution. Make a list</p>
+<div class="displaymath">
+\begin{equation*}
+P, 2P, 3P, \ldots.
+\end{equation*}
+</div>
+<p>At some point, an element in the list must repeat, since \(E(\F_p)\) is a finite set. Suppose that the repeat happens for integers \(j,k\) so that \(jP = kP\text{.}\) Then it must be the case that \((k-j)P = \mathcal O\text{,}\) and so \(s = k-j\) is a solution to \(s P = \mathcal O\text{.}\)The smallest such \(s\) is called the <dfn class="terminology">order</dfn> of \(P\) in \(E(\F_p)\text{.}\)</p>
+<p id="p-162">Now suppose that for some \(n_0\text{,}\) we have \(n_0 P = \mathcal Q\) (that is, that \(n_0\) is a discrete log of \(Q\) with respect to \(P\)). For any integer \(k\text{,}\) we have</p>
+<div class="displaymath">
+\begin{equation*}
+(n_0 + ks)P = n_0 P + ks P = Q + k(sP) = Q + \mathcal O = q
+\end{equation*}
+</div>
+<p>and so \(n_0 + ks\) is also a discrete log of \(Q\) with respect to \(P\) for all \(k \in \Z\text{.}\) That is, in the elliptic curve setting, logarithms live in \(\Z_s\text{.}\) With this observation, we can justify the name “logarithm” by showing the (odd looking) property</p>
+<div class="displaymath">
+\begin{equation}
+\log_P (Q_1 + Q_2) = \log_P Q_1 + \log_P Q_2\label{eq-eclog}\tag{4.4.1}
+\end{equation}
+</div>
+<p>where the proof is left as an exercise. (The usual logarithm satisfies \(\log(xy) = \log x + \log y\text{:}\) the difference in this case is that we're working in an additive group.)</p>
+<p id="p-163">We should make some points about why elliptic curves are a tempting universe in which to do cryptography. First, unlike in \(\F_p\ad\text{,}\) inverses are trivial: if \(P = (x,y)\) then \(-P = (x, -y)\text{,}\) which makes computations much faster in Elgamal type settings. Second, and more importantly, unlike systems build on the integers and factoring problems, the fastest known algorithms that solve the ECDLP are exponential (on the order of \(O(\sqrt{N})\)), which allows the keyspace to be much smaller than methods amenable to attack by index calculus techniques (to be discussed after we talk about RSA).</p>
+<section class="exercises" id="exercises-14"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise-like" id="exercise-27"><h6 class="heading"><span class="codenumber">1.</span></h6>Show that the elliptic curve discrete log has the additive property in <a data-knowl="./knowl/eq-eclog.html" title="Equation 4.4.1">(4.4.1)</a>.</article><article class="exercise-like" id="exercise-28"><h6 class="heading"><span class="codenumber">2.</span></h6>Implement the double-and-add function. The function should use your elliptic addition function as the core routine. It should accept \(n \in \Z\) and \(P \in E(\F_p)\) and return \(Q = nP\text{.}\)</article></section></section></div></main>
+</div>
+<div class="login-link"><span id="loginlogout" class="login">login</span></div>
+<script src="https://pretextbook.org/js/0.11/login.js"></script>
+</body>
+</html>

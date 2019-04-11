@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-04-11T10:38:01-04:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Elliptic addition on \(E\text{.}\)</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['\\(','\\)']]
+    },
+    asciimath2jax: {
+        ignoreClass: ".*",
+        processClass: "has_am"
+    },
+    jax: ["input/AsciiMath"],
+    extensions: ["asciimath2jax.js"],
+    TeX: {
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        // scrolling to fragment identifiers is controlled by other Javascript
+        positionToHash: false,
+        equationNumbers: { autoNumber: "none", useLabelIds: true, },
+        TagSide: "right",
+        TagIndent: ".8em",
+    },
+    // HTML-CSS output Jax to be dropped for MathJax 3.0
+    "HTML-CSS": {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+    CommonHTML: {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+});
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
+<script>var logged_in = false;
+var role = 'student';
+var guest_access = true;
+var login_required = false;
+var js_version = 0.11;
+</script>
+</head>
+<body class="mathbook-book has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+\DeclareMathOperator{\IM}{Im}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\intr}{int}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator\re{\mathrm {Re~}}
+\DeclareMathOperator\im{\mathrm {Im~}}
+\newcommand\dd{\mathrm d}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\hilbert}{\mathcal{H}}
+\newcommand{\s}{\mathcal{S}_2}
+\newcommand{\A}{\mathcal{A}}
+\newcommand\h{\mathcal{H}}
+\newcommand{\J}{\mathcal{J}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\BOP}{\mathbf{B}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\BH}{\mathbf{B}(\mathcal{H})}
+\newcommand{\KH}{\mathcal{K}(\mathcal{H})}
+\newcommand{\pick}{\mathcal{P}_2}
+\newcommand{\schur}{\mathcal{S}_2}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Complex}{\mathbb{C}}
+\newcommand{\Field}{\mathbb{F}}
+\newcommand{\RPlus}{\Real^{+}}
+\newcommand{\Polar}{\mathcal{P}_{\s}}
+\newcommand{\Poly}{\mathcal{P}(E)}
+\newcommand{\EssD}{\mathcal{D}}
+\newcommand{\Lop}{\mathcal{L}}
+\newcommand{\cc}[1]{\overline{#1}}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\seq}[1]{\left\lt#1\right&gt;}
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\essnorm}[1]{\norm{#1}_{\ess}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\ran}[1]{\operatorname{ran}#1}
+\newcommand{\nt}{\stackrel{\mathrm {nt}}{\to}}
+\newcommand{\pnt}{\xrightarrow{pnt}}
+\newcommand{\ip}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\ad}{^\ast}
+\newcommand{\inv}{^{-1}}
+\newcommand{\adinv}{^{\ast -1}}
+\newcommand{\invad}{^{-1 \ast}}
+\newcommand\Pick{\mathcal P}
+\newcommand\Ha{\mathbb{H}}
+\newcommand{\HH}{\Ha\times\Ha}
+\newcommand\Htau{\mathbb{H}(\tau)}
+\newcommand{\vp}{\varphi}
+\newcommand{\ph}{\varphi}
+\newcommand\al{\alpha}
+\newcommand\ga{\gamma}
+\newcommand\de{\delta}
+\newcommand\ep{\varepsilon}
+\newcommand\la{\lambda}
+\newcommand\up{\upsilon}
+\newcommand\si{\sigma}
+\newcommand\beq{\begin{equation}}
+\newcommand\ds{\displaystyle}
+\newcommand\eeq{\end{equation}}
+\newcommand\df{\stackrel{\rm def}{=}}
+\newcommand\ii{\mathrm i}
+\newcommand{\vectwo}[2]
+{
+   \begin{pmatrix} #1 \\ #2 \end{pmatrix}
+}
+\newcommand{\vecthree}[3]
+{
+   \begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}
+}
+\newcommand\blue{\color{blue}}
+\newcommand\black{\color{black}}
+\newcommand\red{\color{red}}
+\newcommand\nn{\nonumber}
+\newcommand\bbm{\begin{bmatrix}}
+\newcommand\ebm{\end{bmatrix}}
+\newcommand\bpm{\begin{pmatrix}}
+\newcommand\epm{\end{pmatrix}}
+\numberwithin{equation}{section}
+\newcommand\nin{\noindent}
+\newcommand{\nCr}[2]{\,_{#1}C_{#2}} 
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\)</div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="cryptography.html"><span class="title">Mathematical Cryptography</span></a></h1>
+<p class="byline">Ryan Tully-Doyle</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-ec-intro.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-elliptic-curves.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-ec-finite-fields.html" title="Next">Next</a></span></div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-ec-intro.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-elliptic-curves.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-ec-finite-fields.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link">
+<a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
+<li><a href="foreward.html" data-scroll="foreward">The course</a></li>
+<li><a href="motivation.html" data-scroll="motivation">Why “mathematical” cryptography?</a></li>
+<li><a href="shift.html" data-scroll="shift">A simple example: the shift cipher</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-numbertheory.html" data-scroll="chapter-numbertheory"><span class="codenumber">2</span> <span class="title">Number theory</span></a><ul>
+<li><a href="divisibility.html" data-scroll="divisibility">Integers and divisibility</a></li>
+<li><a href="section-euclidean.html" data-scroll="section-euclidean">Common divisors and the Euclidean algorithm</a></li>
+<li><a href="section-modular.html" data-scroll="section-modular">Modular arithmetic and the ring of integers modulo \(n\)</a></li>
+<li><a href="section-fastpower.html" data-scroll="section-fastpower">The fast powering algorithm</a></li>
+<li><a href="section-finite-fields.html" data-scroll="section-finite-fields">Finite fields</a></li>
+<li><a href="section-fermat.html" data-scroll="section-fermat">Fermat's little theorem and computing inverses</a></li>
+<li><a href="section-ch2-conclusion.html" data-scroll="section-ch2-conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-groups.html" data-scroll="chapter-groups"><span class="codenumber">3</span> <span class="title">Group based methods</span></a><ul>
+<li><a href="section-naive.html" data-scroll="section-naive">A naïve cryptosystem and some related questions</a></li>
+<li><a href="section-discretelog.html" data-scroll="section-discretelog">Discrete logarithms</a></li>
+<li><a href="section-dh.html" data-scroll="section-dh">Diffie-Hellman key exchange</a></li>
+<li><a href="section-elgamal.html" data-scroll="section-elgamal">The Elgamal cryptosystem</a></li>
+<li><a href="section-groups.html" data-scroll="section-groups">Groups</a></li>
+<li><a href="section-attack-dlp.html" data-scroll="section-attack-dlp">Attacking the discrete log problem</a></li>
+<li><a href="section-chinese.html" data-scroll="section-chinese">The Chinese Remainder theorem and Pohlig-Hellman*</a></li>
+<li><a href="section-homomorphism.html" data-scroll="section-homomorphism">Homomorphisms and the lunchtime attack</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-elliptic-curves.html" data-scroll="chapter-elliptic-curves"><span class="codenumber">4</span> <span class="title">Elliptic curves and applications</span></a><ul>
+<li><a href="section-ec-intro.html" data-scroll="section-ec-intro">Introduction to elliptic curves</a></li>
+<li><a href="section-elliptic-addition.html" data-scroll="section-elliptic-addition" class="active">Elliptic addition on \(E\text{.}\)</a></li>
+<li><a href="section-ec-finite-fields.html" data-scroll="section-ec-finite-fields">Elliptic curves over finite fields</a></li>
+<li><a href="section-ecdlp.html" data-scroll="section-ecdlp">Discrete logs and the ECDLP</a></li>
+<li><a href="section-ec-elgamal.html" data-scroll="section-ec-elgamal">Elliptic curve Diffie-Hellman key exchange and El Gamal</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-digital-signatures.html" data-scroll="chapter-digital-signatures"><span class="codenumber">5</span> <span class="title">Digital signatures</span></a><ul>
+<li><a href="section-dsa-intro.html" data-scroll="section-dsa-intro">Introduction to digital signatures</a></li>
+<li><a href="section-elgamal-ds.html" data-scroll="section-elgamal-ds">Elgamal digital signatures</a></li>
+<li><a href="section-subgroups.html" data-scroll="section-subgroups">Subgroups and cyclic subgroups</a></li>
+<li><a href="section-dsa-ecdsa.html" data-scroll="section-dsa-ecdsa">DSA and Elliptic Curve DSA</a></li>
+<li><a href="section-bitcoin.html" data-scroll="section-bitcoin">Bitcoin - an application of ECDSA*</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-probability.html" data-scroll="chapter-probability"><span class="codenumber">6</span> <span class="title">Probability and non-deterministic methods</span></a><ul>
+<li><a href="section-counting.html" data-scroll="section-counting">Counting - Permutations and combinations*</a></li>
+<li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+</ul>
+</li>
+</ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-elliptic-addition"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">4.2</span> <span class="title">Elliptic addition on \(E\text{.}\)</span>
+</h2>
+<a href="section-elliptic-addition.html" class="permalink">¶</a><p id="p-133">Let us briefly describe the generic case of adding two points in an elliptic curve \(E: Y^2 = X^3 + AX + B\text{.}\) Let \(E\) be a curve that doesn't self-intersect, and let \(P, Q \in E\) be distinct points with different \(x\)-coordinates. A fundamental feature of \(E\) is that the line connecting them passes through the curve \(E\) at precisely one additional point \(R\text{.}\) If the point \(R\) has coordinates \(R = (x,y)\text{,}\) then the reflection of \(R\) across the \(x\)-axis is the point \(R' = (x, -y)\text{.}\) We define the sum of \(P\) and \(Q\) in \(E\) by</p>
+<div class="displaymath">
+\begin{equation*}
+P \oplus Q = R'.
+\end{equation*}
+</div>
+<p id="p-134">Let us perform a sample computation. Let \(E: Y^2 = X^3 - 2X + 5\text{,}\) and let \(P = (1, 2)\) and \(Q = (2, -3)\text{.}\) First, we note that the line between \(P\) and \(Q\) has equation \(y = -5x + 7\text{.}\) To find where the line intersects \(E\text{,}\) we substitute in for \(Y\) to get</p>
+<div class="displaymath">
+\begin{align*}
+(-5x + 7)^2 \amp = x^3 - 2x + 5\\
+25x^2 - 70x + 49 \amp = x^3 - 2x + 5\\
+x^3 - 25x^2 +68x -44 \amp= 0
+\end{align*}
+</div>
+<p>which looks like a total nightmare to factor. But recall that we already know that \(x = 1\) and \(x = 2\) are roots of this equation. So we can use division to factor, and we get</p>
+<div class="displaymath">
+\begin{equation*}
+(x-1)(x-2)(x-22) = 0.
+\end{equation*}
+</div>
+<p id="p-135">By plugging in to the line, we get that the point \(R\) on the curve has coordinates \(R = (22, 10609)\text{,}\) and so \(P \oplus Q = R'\) where \(R' = (22, -10609)\text{.}\) Of course, most additions don't result in integer outputs, particularly since square roots are involved. (This is going to need to be addressed before we can use elliptic curves as the basis of cryptographic systems.)</p>
+<p id="p-136">Some questions should present themselves to you.</p>
+<ol class="decimal">
+<li id="li-103">What is \(P \oplus P\text{?}\) After all, there isn't a way to draw a unique line through \(P\) and itself.</li>
+<li id="li-104">What happens if we add \(P\) to its reflection \(P'\text{?}\) A vertical line won't intersect \(E\) at a third point.</li>
+</ol>
+<p>Both of the questions will need to be addressed in order to establish that the elliptic curve operation \(\oplus\) is actually a group addition.</p>
+<p id="p-137">To answer the first question, imagine that we draw a line from \(P\) to a nearby point \(Q\) and note the intersection \(R\) with the curve \(E\text{.}\) As we slide \(Q\) towards \(P\text{,}\) the line gets closer and closer to the tangent line of the elliptic curve at \(P\text{,}\) and the point \(R\) approaches the intersection of the tangent line at \(P\) with the curve \(E\text{.}\) This is how we define \(P \oplus P\text{.}\) We can use implicit differentiaion to get an expression for the slope of \(E\) at a point \((x,y)\text{.}\)</p>
+<div class="displaymath">
+\begin{equation*}
+2 Y \frac{dY}{dX} = 3X^2 + A
+\end{equation*}
+</div>
+<p>and so</p>
+<div class="displaymath">
+\begin{equation*}
+\frac{dY}{dX} = \frac{3X^2 + A}{2Y}
+\end{equation*}
+</div>
+<p>which gives us the slope of the tangent line at \(P\text{.}\) After writing out the equation of the tangent line, we can use substitution to find the intersection with \(E\) as we did before, but now the \(x\)-coordinate of \(P\) will be double root of the resulting cubic equation.</p>
+<p id="p-138">Finally, we deal with the case of adding a point \(P\) to its reflection \(P'\text{.}\) Since a vertical line will only ever intersect \(E\) at two points, we add a new point \(\mathcal O\text{,}\) called “the point at infinity”, which we imagine to be at the end of every vertical line. Since every vertical line passes through \(\mathcal O\text{,}\) we can use it to fix the problem of \(P \oplus P'\text{.}\) If we take \(P\) and add it to its reflection \(P'\text{,}\) we “intersect” \(E\) at \(\mathcal O\text{.}\) After reflecting \(\mathcal O\) across the \(x\)-axis, we still land at the infinite end of a vertical line, and so we define \(P \oplus P' = \mathcal O\text{.}\)</p>
+<p id="p-139">Since we've introduced a new point, we should see how it interacts with other points and addition. So what is \(P \oplus \mathcal O\text{?}\) The vertical line through \(P\) and \(\mathcal O\) intersects \(E\) at \(P'\text{,}\) the reflection of \(P\text{.}\) When we reflect \(P'\) across the \(x\)-axis, we end up back at \(P\text{.}\) That is to say, \(\mathcal O\) acts like the number 0. In fact, for all \(P\text{,}\) \(P \oplus \mathcal O = P\text{,}\) and so \(\mathcal O\) is the <dfn class="terminology">additive identity</dfn> of the operation \(\oplus\text{.}\)</p>
+<p id="p-140">Putting this together with the fact that \(P \oplus P' = \mathcal O\text{,}\) we see that the reflection \(P'\) of \(P\) is also the <dfn class="terminology">additive inverse</dfn> of \(P\) in the operation \(\oplus\text{.}\) Thus, we can safely use the symbol \(-P = P'\text{,}\) and so we have a notion of subtraction as well. Finally, we denote by \(nP\) the \(n\) times repeated addition \(P \oplus P \oplus \ldots \oplus P\text{.}\)</p>
+<p id="p-141">To summarize, we have shown that the operation \(\oplus\) on \(E\) is well-defined, has an identity, and has inverses. The last required property to be a group operation is that \(\oplus\) must be associative, but to prove that it is would require exhaustive analysis of cases, or deceptively inadequate pictures, or methods that are beyond the scope of this class. For now, we will take it on the assertion of experts that \(\oplus\) is indeed an associative operation.</p>
+<article class="theorem-like" id="thm-elliptic-addition"><h6 class="heading">
+<span class="type">Theorem</span> <span class="codenumber">4.2.1</span>.</h6>Let \(E\) be an elliptic curve. Elliptic curve addition \(\oplus\) has the following properties. <ol class="decimal">
+<li id="li-105">There exists an element \(\mathcal O\) so that<div class="displaymath">
+\begin{equation*}
+P \oplus \mathcal O = P
+\end{equation*}
+</div>for all \(P \in E\text{.}\)</li>
+<li id="li-106">For every element \(P\in E\text{,}\) there exists an element \(-P\) so that<div class="displaymath">
+\begin{equation*}
+P + (-P) = \mathcal O.
+\end{equation*}
+</div>
+</li>
+<li id="li-107">For all \(P, Q, R \in E\text{,}\)<div class="displaymath">
+\begin{equation*}
+P \oplus (Q \oplus R) = (P \oplus Q) \oplus R.
+\end{equation*}
+</div>
+</li>
+<li id="li-108">For all \(P, Q \in E\text{,}\)<div class="displaymath">
+\begin{equation*}
+P \oplus Q = Q \oplus P
+\end{equation*}
+</div>
+</li>
+</ol></article><p id="p-142">As we have now shown that elliptic addition follows the structure and rules of integer addition, we will drop the special notation \(P \oplus Q\) and simply refer to elliptic addition with \(+\text{,}\) i.e. \(P + Q\text{.}\)</p>
+<p id="p-143">We also have a natural notion of of a distributive property with respect to repeated addition (this is an exact analogue of the exponent rules in the multiplicative group setting). That is,</p>
+<div class="displaymath">
+\begin{align*}
+n(P + Q) \amp= \underbrace{(P+ Q) + \ldots + (P+Q)}_{n \text { times}}\\
+\amp= \underbrace{(P + \ldots + P)}_{n \text{ times}} + \underbrace{(Q + \ldots + Q)}_{n \text{ times}} \\
+\amp= nP + nQ 
+\end{align*}
+</div>
+<p>and similarly, \((m+n)P = mP + nP\text{.}\)</p>
+<p id="p-144">Finally, we present a set of implementable formulae that allow easy computation of elliptic curve addition.</p>
+<article class="theorem-like" id="thm-elliptic-add-algo"><h6 class="heading">
+<span class="type">Theorem</span> <span class="codenumber">4.2.2</span>. <span class="title">Elliptic curve addition.</span>
+</h6> Let \(E\) be an elliptic curve, and let \(P, Q\) be points in \(E\text{.}\) <ol class="decimal">
+<li id="li-109">If \(P = \mathcal O\text{,}\) then \(P+ Q = Q\text{.}\)</li>
+<li id="li-110">Else, if \(Q = \mathcal O\text{,}\) then \(P + Q = P\text{.}\)</li>
+<li id="li-111">Else, write the coordinates \(P = (x_1, y_1), Q = (x_2, y_2)\text{.}\)</li>
+<li id="li-112">If \(x_1 = x_2\) and \(y_1 = -y_2\) then \(P+ Q = \mathcal O\text{.}\)</li>
+<li id="li-113">
+<p id="p-145">Else, compute the slope \(m\text{.}\)</p>
+<ol class="lower-alpha">
+<li id="li-114">If \(P \neq Q\) then<div class="displaymath">
+\begin{equation*}
+m = \frac{y_2 - y_1}{x_2 - x_1}.
+\end{equation*}
+</div>
+</li>
+<li id="li-115">Else<div class="displaymath">
+\begin{equation*}
+m = \frac{3x_1^2 + A}{2y_1}.
+\end{equation*}
+</div>
+</li>
+</ol>
+</li>
+<li id="li-116">Then<div class="displaymath">
+\begin{gather*}
+x_3 = m^2 - x_1 - x_2,\\
+y_3 = m(x_1 - x_3) - y_1.
+\end{gather*}
+</div>and \(P + Q = (x_3, y_3).\)</li>
+</ol></article></section></div></main>
+</div>
+<div class="login-link"><span id="loginlogout" class="login">login</span></div>
+<script src="https://pretextbook.org/js/0.11/login.js"></script>
+</body>
+</html>

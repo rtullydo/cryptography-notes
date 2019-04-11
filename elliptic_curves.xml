@@ -1,0 +1,474 @@
+<chapter xml:id="chapter-elliptic-curves">
+      <title>Elliptic curves and applications</title>
+      <section xml:id="section-ec-intro">
+        <title>Introduction to elliptic curves</title>
+        <p> Elliptic curves are one of the most active areas of study in mathematics. A special sort of graph arising from a simple family of polynomials, elliptic curves have proven to be deeply interesting objects of study in number theory, algebraic geometry, and mathematical cryptography. One of the most striking features of elliptic curves is that they provide an example of a group that has an operation that has nothing to do with multiplication or addition on real numbers. Yet the structure of the group allows it to be plugged in to a variety of cryptographic frameworks with little modification, including Diffie-Hellman key exchange and Elgamal encrpytion. As we will see, elliptic curve methods are also in wide use in the area of digital signatures.</p>
+
+        <p>An elliptic curve is the set of solutions to a polynomial equation of the form
+          <me>
+          Y^2 = X^3 + AX + B
+        </me>
+        where <m>A</m> and <m>B</m> are real numbers. We denote the set of solutions <m>E</m> - that is, the elliptic curve is the set
+        <me>
+          E = \{(x,y) \in \R^2: y^2 = x^3 + Ax + B\}.
+        </me>
+        The constants <m>A, B</m> control certain features of the curve, including if the curve has an <q>island</q>. (See the pictures below for some examples.)</p>
+
+        <p>As long as the curve <m>E</m> doesn't self-intersect (and we will see that there is a condition called the discriminant that will let us avoid that), the set of points in <m>E</m> form a group (see <xref ref="def-group" />) but with a very different operation relating the points. It is most natural to use additive notation to describe elliptic curves, though the shift is only notational - the same rules apply, but we use <m>0</m> for the notion of additive identity and <m>-a</m> for the notion of additive inverse. While the discrete log problem in <m>\F_p\ad</m> is to undo a repeated multiplication, in <m>E</m>, the problem will be to undo a repeated addition. </p> 
+
+      </section>
+      <section xml:id="section-elliptic-addition">
+        <title>Elliptic addition on <m>E</m>.</title>
+        <p>Let us briefly describe the generic case of adding two points in an elliptic curve <m>E: Y^2 = X^3 + AX + B</m>. Let <m>E</m> be a curve that doesn't self-intersect, and let <m>P, Q \in E</m> be distinct points with different <m>x</m>-coordinates. A fundamental feature of <m>E</m> is that the line connecting them passes through the curve <m>E</m> at precisely one additional point <m>R</m>. If the point <m>R</m> has coordinates <m>R = (x,y)</m>, then the reflection of <m>R</m> across the <m>x</m>-axis is the point <m>R' = (x, -y)</m>. We define the sum of <m>P</m> and <m>Q</m> in <m>E</m> by 
+        <me>
+          P \oplus Q = R'.
+        </me></p>
+
+        <p>Let us perform a sample computation. Let <m>E: Y^2 = X^3 - 2X + 5</m>, and let <m>P = (1, 2)</m> and <m>Q = (2, -3)</m>. First, we note that the line between <m>P</m> and <m>Q</m> has equation <m>y = -5x + 7</m>. To find where the line intersects <m>E</m>, we substitute in for <m>Y</m> to get
+        <md>
+          <mrow> (-5x + 7)^2 \amp = x^3 - 2x + 5</mrow>
+          <mrow> 25x^2 - 70x + 49 \amp = x^3 - 2x + 5</mrow>
+          <mrow> x^3 - 25x^2 +68x -44 \amp= 0</mrow>
+        </md>
+        which looks like a total nightmare to factor. But recall that we already know that <m>x = 1</m> and <m>x = 2</m> are roots of this equation. So we can use division to factor, and we get
+        <me>
+          (x-1)(x-2)(x-22) = 0.
+        </me></p>
+
+        <p>By plugging in to the line, we get that the point <m>R</m> on the curve has coordinates <m>R = (22, 10609)</m>, and so <m>P \oplus Q = R'</m> where <m>R' = (22, -10609)</m>. Of course, most additions don't result in integer outputs, particularly since square roots are involved. (This is going to need to be addressed before we can use elliptic curves as the basis of cryptographic systems.) </p>
+
+        <p>Some questions should present themselves to you.
+          <ol>
+            <li>What is <m>P \oplus P</m>? After all, there isn't a way to draw a unique line through <m>P</m> and itself.</li>
+            <li>What happens if we add <m>P</m> to its reflection <m>P'</m>? A vertical line won't intersect <m>E</m> at a third point.</li>
+          </ol>
+          Both of the questions will need to be addressed in order to establish that the elliptic curve operation <m>\oplus</m> is actually a group addition.</p>
+
+        <p>To answer the first question, imagine that we draw a line from <m>P</m> to a nearby point <m>Q</m> and note the intersection <m>R</m> with the curve <m>E</m>. As we slide <m>Q</m> towards <m>P</m>, the line gets closer and closer to the tangent line of the elliptic curve at <m>P</m>, and the point <m>R</m> approaches the intersection of the tangent line at <m>P</m> with the curve <m>E</m>. This is how we define <m>P \oplus P</m>. We can use implicit differentiaion to get an expression for the slope of <m>E</m> at a point <m>(x,y)</m>.
+        <me>
+          2 Y \frac{dY}{dX} = 3X^2 + A
+        </me>
+        and so 
+        <me>
+          \frac{dY}{dX} = \frac{3X^2 + A}{2Y}
+        </me>
+        which gives us the slope of the tangent line at <m>P</m>. After writing out the equation of the tangent line, we can use substitution to find the intersection with <m>E</m> as we did before, but now the <m>x</m>-coordinate of <m>P</m> will be double root of the resulting cubic equation.</p>
+
+        <p>Finally, we deal with the case of adding a point <m>P</m> to its reflection <m>P'</m>. Since a vertical line will only ever intersect <m>E</m> at two points, we add a new point <m>\mathcal O</m>, called <q>the point at infinity</q>, which we imagine to be at the end of every vertical line. Since every vertical line passes through <m>\mathcal O</m>, we can use it to fix the problem of <m>P \oplus P'</m>. If we take <m>P</m> and add it to its reflection <m>P'</m>, we <q>intersect</q> <m>E</m> at <m>\mathcal O</m>. After reflecting <m>\mathcal O</m> across the <m>x</m>-axis, we still land at the infinite end of a vertical line, and so we define <m>P \oplus P' = \mathcal O</m>.</p>
+
+        <p>Since we've introduced a new point, we should see how it interacts with other points and addition. So what is <m>P \oplus \mathcal O</m>? The vertical line through <m>P</m> and <m>\mathcal O</m> intersects <m>E</m> at <m>P'</m>, the reflection of <m>P</m>. When we reflect <m>P'</m> across the <m>x</m>-axis, we end up back at <m>P</m>. That is to say, <m>\mathcal O</m> acts like the number 0. In fact, for all <m>P</m>, <m>P \oplus \mathcal O = P</m>, and so <m>\mathcal O</m> is the <term>additive identity</term> of the operation <m>\oplus</m>.</p>
+
+        <p>Putting this together with the fact that <m>P \oplus P' = \mathcal O</m>, we see that the reflection <m>P'</m> of <m>P</m> is also the <term>additive inverse</term> of <m>P</m> in the operation <m>\oplus</m>. Thus, we can safely use the symbol <m>-P = P'</m>, and so we have a notion of subtraction as well. Finally, we denote by <m>nP</m> the <m>n</m> times repeated addition <m> P \oplus P \oplus \ldots \oplus P</m>.</p>
+
+        <p>To summarize, we have shown that the operation <m>\oplus</m> on <m>E</m> is well-defined, has an identity, and has inverses. The last required property to be a group operation is that <m>\oplus</m> must be associative, but to prove that it is would require exhaustive analysis of cases, or deceptively inadequate pictures, or methods that are beyond the scope of this class. For now, we will take it on the assertion of experts that <m>\oplus</m> is indeed an associative operation.</p>
+
+        <theorem xml:id="thm-elliptic-addition">
+          Let <m>E</m> be an elliptic curve. Elliptic curve addition <m>\oplus</m> has the following properties.
+          <ol>
+            <li>There exists an element <m>\mathcal O</m> so that 
+            <me>
+              P \oplus \mathcal O = P
+            </me>
+            for all <m>P \in E</m>.</li>
+            <li> For every element <m>P\in E</m>, there exists an element <m>-P</m> so that
+            <me>
+              P + (-P) = \mathcal O.
+            </me></li>
+            <li> For all <m>P, Q, R \in E</m>,
+            <me>
+              P \oplus (Q \oplus R) = (P \oplus Q) \oplus R.
+            </me></li>
+            <li> For all <m>P, Q \in E</m>,
+            <me>
+              P \oplus Q = Q \oplus P</me>
+            </li>
+          </ol>
+        </theorem>
+
+        <p>As we have now shown that elliptic addition follows the structure and rules of integer addition, we will drop the special notation <m>P \oplus Q</m> and simply refer to elliptic addition with <m>+</m>, i.e. <m>P + Q</m>.</p>
+
+        <p>We also have a natural notion of of a distributive property with respect to repeated addition (this is an exact analogue of the exponent rules in the multiplicative group setting). That is, 
+            <md>
+              <mrow> n(P + Q) \amp= \underbrace{(P+ Q) + \ldots + (P+Q)}_{n \text { times}}</mrow>
+               <mrow> \amp= \underbrace{(P + \ldots + P)}_{n \text{ times}} + \underbrace{(Q + \ldots + Q)}_{n \text{ times}} </mrow>
+              <mrow> \amp= nP + nQ </mrow>
+            </md>
+          and similarly, <m>(m+n)P = mP + nP</m>.
+        </p>
+
+        <p>Finally, we present a set of implementable formulae that allow easy computation of elliptic curve addition.</p>
+        <theorem xml:id="thm-elliptic-add-algo">
+          <title>Elliptic curve addition</title>
+          Let <m>E</m> be an elliptic curve, and let <m>P, Q</m> be points in <m>E</m>.
+          <ol>
+            <li>If <m>P = \mathcal O</m>, then <m>P+ Q = Q</m>.</li>
+            <li>Else, if <m>Q = \mathcal O</m>, then <m>P + Q = P</m>.</li>
+            <li>Else, write the coordinates <m>P = (x_1, y_1), Q = (x_2, y_2)</m>.</li>
+            <li>If <m>x_1 = x_2</m> and <m>y_1 = -y_2</m> then <m>P+ Q = \mathcal O</m>.</li>
+            <li><p>Else, compute the slope <m>m</m>.
+              <ol>
+                <li>If <m>P \neq Q</m> then
+                  <me>
+                    m = \frac{y_2 - y_1}{x_2 - x_1}.
+                  </me>
+                </li>
+                <li>Else
+                  <me>
+                    m = \frac{3x_1^2 + A}{2y_1}.
+                  </me>
+                </li>
+              </ol></p>
+            </li>
+            <li>Then
+              <md>
+                <mrow> x_3 = m^2 - x_1 - x_2,</mrow>
+                <mrow> y_3 = m(x_1 - x_3) - y_1.</mrow>
+              </md>
+              and <m>P + Q = (x_3, y_3).</m>
+            </li>
+          </ol>
+        </theorem>
+
+      </section>
+
+      <section xml:id="section-ec-finite-fields">
+        <title>Elliptic curves over finite fields</title>
+        <p>As we showed in the previous section, given an elliptic curve <m>E: Y^2 = X^3 + AX + B</m>, we can form a group <m>G = E \cup \{\mathcal O\}</m> with the operation of elliptic addition. This object is a fascinating object of study. However, for cryptographic applications, and in particular groups of the size typical to cryptographic appliations, we have to reduce the group to a finite group. In the integer setting, we did this by reducing the integers <m>\Z</m> to the finite field <m>\F_p</m>. In the elliptic setting, we can perform the same maneuver by restricting an elliptic curve to just the points with integer coordinates in some finite field. </p>
+
+        <definition>
+          Let <m>p \geq 3</m> be a prime. Let <m>E</m> be the curve <m>E:Y^2 = X^3 + AX + B</m> with <m>4A^3 + 27B^3 \neq 0</m>. The <term>elliptic curve over <m>\F_p</m></term>, denoted <m>E(\F_p)</m>, is the set of points
+          <me>
+            E(\F_p) = \{(x,y): x, y \in \F_p \text{ and } y^2 = x^3 + Ax + B\}
+          </me>
+        </definition>
+
+        <p>It is a striking fact that this the points in this set form a group under the previous definition of elliptic addition <m>\pmod p</m>. Examine the computational algorithm given in <xref ref="thm-elliptic-add-algo" />. Notice that we use nothing more than addition, subtraction, multiplication and division of integers in the calculation of the sum of points <m>P, Q</m>. These operations easily translate to the finite field setting, as long as we're careful abouy interpretation. For example, consider the calculation of <m> m = \frac{y_2 - y_1}{x_2 - x_1}</m> in <m>\F_p</m>. Interpreting fractions as multiplication by inverses in <m>\F_p</m>, we get
+        <md>
+          <mrow> m \amp= \frac{y_2 - y_1}{x_2 - x_1} \pmod p</mrow>
+          <mrow> \amp= (y_2 - y_1)\frac{1}{x_2 - x_1} \pmod p</mrow>
+          <mrow> \amp= (y_2 - y_1)(x_2 - x_1)\inv \pmod p.</mrow>
+        </md>
+        </p>
+
+        <theorem xml:id="thm-finite-elliptic-add-algo">
+          <title>Elliptic curve addition over <m>\F_p</m></title>
+          Let <m>E</m> be an elliptic curve over the field <m>\F_p</m>, and let <m>P, Q</m> be points in <m>E</m>.
+          <ol>
+            <li>If <m>P = \mathcal O</m>, then <m>P+ Q = Q</m>.</li>
+            <li>Else, if <m>Q = \mathcal O</m>, then <m>P + Q = P</m>.</li>
+            <li>Else, write the coordinates <m>P = (x_1, y_1), Q = (x_2, y_2)</m>.</li>
+            <li>If <m>x_1 = x_2</m> and <m>y_1 = -y_2</m> then <m>P+ Q = \mathcal O</m>.</li>
+            <li><p>Else, compute the slope <m>m</m>.
+              <ol>
+                <li>If <m>P \neq Q</m> then
+                  <me>
+                    m = (y_2 - y_1)*(x_2 - x_1)\inv \bmod p.
+                  </me>
+                </li>
+                <li>Else
+                  <me>
+                    m = (3x_1^2 + A)*(2y_1)\inv \bmod p.
+                  </me>
+                </li>
+              </ol></p>
+            </li>
+            <li>Then
+              <md>
+                <mrow> x_3 = m^2 - x_1 - x_2 \pmod p,</mrow>
+                <mrow> y_3 = m(x_1 - x_3) - y_1 \pmod p.</mrow>
+              </md>
+              and <m>P + Q = (x_3, y_3).</m>
+            </li>
+          </ol>
+        </theorem>
+
+
+        <p>As an example, we'll compute the group <m>E(\F_7)</m> where <m>E: Y^2 = X^3 + 3X + 5</m>. Unlike the case where the inputs <m>X</m> can be elements in <m>\R</m>, we need to restrict the <m>x</m>-coordinates of the group to those elements that produce perfect squares in <m>F_7</m> in the expression <m>x^3 + 3x + 5</m> (else there can be no <m>y \in \F_7</m> that satisfies the curve condition). We start with a table of perfect squares in <m>\F_7</m>.</p>
+
+        <table>
+          <caption>Squares in <m>\F_7</m></caption>
+          <me>
+          \begin{array}{c|c}
+            g \amp g^2 \\
+            \hline
+            0 \amp 0 \\
+            1 \amp 1 \\
+            2 \amp 4 \\
+            3 \amp 9 = 2 \\
+            4 \amp 16 = 2 \\
+            5 \amp 25 = 4 \\
+            6 \amp 36 = 1
+          \end{array}
+        </me></table>
+
+        <p>Notice then that the perfect squares in <m>F_7</m> are 0, 1, 2, and 4. Each perfect square has two square roots (expected, since we know that in <m>\Z</m> that <m>\sqrt{x^2} = \pm x</m>).</p>
+
+        <p>To generate <m>E(\F_7)</m>, we'll plug in every number in <m>\F_7</m> into <m>X^3 + 3X + 5</m> and check for square roots.</p>
+
+        <table>
+          <caption>Computation of elements in <m>E(\F_7)</m> for <m>E:X^3 + 3X + 5</m></caption>
+          <me>
+            \begin{array}{c|c|c}
+            x \amp x^3 + 3x + 5 \amp y = \pm\sqrt{x^3 + 3x + 5} \\
+            \hline
+            0 \amp 5 \amp \\
+            1 \amp 2 \amp 3, 4 \\
+            2 \amp 5 \amp \\
+            3 \amp 6 \amp \\
+            4 \amp 4 \amp 2, 5 \\
+            5 \amp 5 \amp \\
+            6 \amp 1 \amp 1, 6
+            \end{array}
+          </me>
+        </table>
+
+        <p> That is, we now have a list of all of the points in <m>E(\F_7)</m>:
+        <me>
+          E(\F_7) = \{\mathcal O, (2, 3), (2,4), (4,2), (4,5), (1,1), (1,6)\}
+        </me></p>
+
+
+        <sage language="python">
+          <input>
+          #compute squares in F_p
+          p = 7;
+          squares = [[0]*2 for i in range(p)] #create 2xp array to hold computations
+          for i in range(p):
+              squares[i][0] = i;
+              squares[i][1] = (i**2)%p;
+          print(squares)
+        </input>
+        </sage>
+
+        <p>Once we've produced a list of squares, we can use it to generate an associated elliptic curve.</p>
+
+        <sage language = "python">
+          <input>
+          xcoords = list(range(p))
+          a = 3
+          b = 5
+          ef_p = [];
+          for x in xcoords:
+              ysquare = (x**3 + a*x + b)%p;
+              for i in range(p):
+                  if ysquare == squares[i][1]:
+                      ef_p.append([x, squares[i][0]])
+          print(ef_p)
+        </input>
+        </sage>
+
+        <p>Note that the method used here is extremely inefficient for large values of <m>p</m>, and is intended to illustrate the basic idea of using a computer program to produce mathematical objects.</p>
+
+
+
+        <theorem xml:id="thm-ff-ec-add">
+          Elliptic addition over a finite field <m>\F_p</m> is closed. Furthermore, it has the properties required from an additive group operation: identity, inverses, and associativity. Since elliptic addition is commutative, so is elliptic addition over <m>\F_p</m>.
+        </theorem>
+
+        <p> We will perform a sample computation and add <m>P(4,5) + Q(6,1)</m> in <m>E(\F_7)</m>. As <m>P</m> and <m>Q</m> are distint, we compute
+        <md>
+          <mrow> m \amp = \frac{y_2 - y_1}{x_2 - x_1}\bmod 7 </mrow>
+          <mrow> \amp = \frac{1 - 5}{6 - 4}\bmod 7 </mrow>
+          <mrow> \amp = (-4)(2)\inv \bmod 7</mrow>
+          <mrow> \amp = (-4)(4) \bmod 7 </mrow>
+          <mrow> \amp = -16 \bmod 7 </mrow>
+          <mrow> \amp = 5 \bmod 7</mrow>
+        </md>
+        Thus,
+        <me>
+          x_3 = m^2 - x_1 - x_2 = 5^2 - 4 - 6 = 1 \bmod 7
+        </me>
+        and
+        <me>
+          y_3 = m(x_1 - x_3) - y_1 = 5(4 - 1) - 5 = 3 \bmod 7
+        </me>
+        and so <m>(4,5) + (6,1) = (1,3)</m> in <m>E(\F_7)</m>.</p>
+
+        <p>For the purposes of cryptography, we need to know that <m>E(\F_p)</m> has many points. For any given <m>x \in \F_p</m>, one of three things can happen:
+        <ol>
+          <li> <m>x^3 + Ax + B</m> is a square in <m>\F_p</m>, which leads to two points in <m>E(\F_p)</m>. This happens about 50% of the time.</li>
+          <li> <m>x^3 + Ax + B = 0</m>. This can happen at most three times, as a cubic polynomial has at most three roots.</li>
+          <li> <m>x^3 + Ax + B</m> is <em>not</em> a square, meaning that <m>x</m> cannot be the <m>x</m>-coordinate of a point in <m>E(\F_p)</m>.</li>
+        </ol>
+        Thus,
+        <me>
+          \# E(\F_p) = 50\% \cdot 2p + 1 \approx p + 1
+        </me></p>
+
+        <exercises>
+          <exercise>
+            Let <m>E: Y^2 = X^3 + 3X + 5</m> over the field <m>\F_13</m>. Compute the squares in <m>\F_13</m>. Use the list of squares to find all of the points in <m>E(\F_13)</m>. Compute an example to test if your set is closed under modular elliptic addition.
+          </exercise>
+          <exercise>
+            Implement the code to generate an elliptic curve over a finite field efficiently: that is, do not search the entire list for matches. Compare the speed of your execution for a reasonably large prime, say <m>p = 10000019 </m>.
+          </exercise>
+        </exercises>
+      </section>
+
+      <section xml:id="section-ecdlp">
+        <title>Discrete logs and the ECDLP</title>
+        <p> What will be the hard problem at the center of elliptic curve cryptographic methods? We'll take the discrete log problem in <m>F_p\ad</m> and modify it to take account of the additive structure of <m>E(\F_p)</m>. We begin with a computational algorithm.</p>
+
+        <p>Recall that 
+        <me>
+          nP = \underbrace{P + P + \ldots + P}_{n \text{ times}}.
+        </me>
+        The <term>double-and-add</term> algorithm is the exact analogue of the square-and-multiply fast powering algorithm presented in <xref ref="alg-fast-power" />. 
+        </p>
+
+        <algorithm xml:id="algo-double-add">
+          <title>Double-and-add</title>
+          Let <m>E(\F_p)</m> be an elliptic curve over the finite field <m>\F_p</m>. Let <m>P \in E(\F_p)</m> and consider the multiplication <m>nP</m>.
+          <ol>
+            <li> Compute the binary expansion of <m>n</m>:
+              <me>
+                n = n_0 + n_1 \cdot 2 + \ldots + n_r \cdot 2^r
+              </me>
+              where the coefficents <m>n_i \in \{0, 1\}</m> and we assume that <m>n_r = 1</m>.
+            </li>
+            <li> Compute the multiples <m>2^i P</m> for <m>0\leq i \leq r</m> by repeated doubling:
+            <md>
+              <mrow> A_0 \amp = P</mrow>
+              <mrow> A_1 \amp = 2 A_0</mrow>
+              <mrow> A_2 \amp = 2 A_1 = 2^2 A_0</mrow>
+              <mrow> \amp \vdots</mrow>
+              <mrow> A_r \amp = 2 A_{r-1} = 2^{r} A_0.</mrow>
+            </md></li>
+            <li> Compute <m>nP</m> with
+            <me>
+              nP = n_0 A_0 + n_1 A_1 + \ldots + n_r A_r
+            </me>
+            where the coeffients <m>n_i</m> determine if a particular term is present in the expansion of <m>m</m>.</li>
+          </ol>
+        </algorithm>
+
+        <p>This algorithm provides the basis for using elliptic curves in cryptographic applications. On the one hand, the forward computation of <m>nP</m> given knowledge of <m>n, P</m> is easy. On the other hand, we have another discrete log problem.</p>
+
+        <definition>
+          The <term> elliptic curve discrete log problem</term> is to find, given points <m>P, Q \in E(\F_p)</m>, a number <m>n</m> so that
+          <me>
+            Q = nP \in E(\F_p).
+          </me>
+          Notationally, we say that <m>n</m> is the discrete log of <m>Q</m> with respect to <m>P</m> and write
+          <me>
+            n = \log_P Q.
+          </me>
+        </definition>
+
+        <p>There are some notable issues with treating the ECDLP like its namesake in <m>\R</m>. For one, in <m>E(\F_p)</m> there are points <m>P, Q</m> for which there is <em>no</em> integer <m>n</m> so that <m>nP = Q</m>. Also, if there is one such <m>n</m>, than many exist. Why should this be the case? The structure of <m>F_p</m> guarantees it. </p>
+
+        <p>Here we start to brush up against an important area of algebra concerning what are known as <term>cyclic subgroups</term>, to be considered in detail in a later section if you haven't seen them before. First, note that for any point <m>P \in E(\F_p)</m>, the equation <m>sP = \mathcal O</m> has a solution. Make a list 
+        <me>
+          P, 2P, 3P, \ldots.
+        </me>
+        At some point, an element in the list must repeat, since <m>E(\F_p)</m> is a finite set. Suppose that the repeat happens for integers <m>j,k</m> so that <m>jP = kP</m>. Then it must be the case that <m>(k-j)P = \mathcal O</m>, and so <m>s = k-j</m> is a solution to <m>s P = \mathcal O</m>.The smallest such <m>s</m> is called the <term>order</term> of <m>P</m> in <m>E(\F_p)</m>. </p>
+
+        <p>Now suppose that for some <m>n_0</m>, we have <m>n_0 P = \mathcal Q</m> (that is, that <m>n_0</m> is a discrete log of <m>Q</m> with respect to <m>P</m>). For any integer <m>k</m>, we have 
+        <me>
+          (n_0 + ks)P = n_0 P + ks P = Q + k(sP) = Q + \mathcal O = q
+        </me>
+        and so <m>n_0 + ks</m> is also a discrete log of <m>Q</m> with respect to <m>P</m> for all <m>k \in \Z</m>. That is, in the elliptic curve setting, logarithms live in <m>\Z_s</m>. With this observation, we can justify the name <q>logarithm</q> by showing the (odd looking) property
+        <men xml:id="eq-eclog">
+          \log_P (Q_1 + Q_2) = \log_P Q_1 + \log_P Q_2
+        </men>
+        where the proof is left as an exercise. (The usual logarithm satisfies <m>\log(xy) = \log x + \log y</m>: the difference in this case is that we're working in an additive group.) </p>
+
+        <p>We should make some points about why elliptic curves are a tempting universe in which to do cryptography. First, unlike in <m>\F_p\ad</m>, inverses are trivial: if <m>P = (x,y)</m> then <m>-P = (x, -y)</m>, which makes computations much faster in Elgamal type settings. Second, and more importantly, unlike systems build on the integers and factoring problems, the fastest known algorithms that solve the ECDLP are exponential (on the order of <m>O(\sqrt{N})</m>), which allows the keyspace to be much smaller than methods amenable to attack by index calculus techniques (to be discussed after we talk about RSA).</p>
+
+        <exercises>
+          <exercise>
+            Show that the elliptic curve discrete log has the additive property in <xref ref="eq-eclog" />.
+          </exercise>
+          <exercise>
+            Implement the double-and-add function. The function should use your elliptic addition function as the core routine. It should accept <m>n \in \Z</m> and <m>P \in E(\F_p)</m> and return <m>Q = nP</m>.
+          </exercise>
+        </exercises>
+      </section>
+
+      <section xml:id="section-ec-elgamal">
+        <title>Elliptic curve Diffie-Hellman key exchange and El Gamal</title>
+
+        <p>We are now prepared to give the elliptic curve versions of Diffie-Helman key exchange and the related Elgamal-type cryptosystem. These can be thought of as <q>positive</q> applications of elliptic curves in cryptography. It should be noted that the early use of elliptic curves in this setting was <q>negative</q> in the sense that several powerful factoring algorithms to attack problems in <m>\F_p</m> use elliptic curve methods.</p>
+
+        <p>Diffie-Hellman key exchance over <m>E(\F_p)</m> looks very similar to the algorithm presented in <xref ref="alg-dh-key" />, but with the operations shifted into the additive notation.</p>
+
+        <algorithm xml:id="alg-ec-dh-key">
+          <title>EC Diffie-Hellman</title>
+          <ol>
+            <li> (public) Alice and Bob choose an elliptic curve over a finite field <m>E(\F_p)</m> and an element <m>P</m> of large prime order <m>k</m> in <m>E(\F_p)></m>.</li>
+            <li> (private) Alice and Bob choose secret integers <m>1 \leq n_A, n_B \leq k</m>.</li>
+            <li> (private) Alice computes <m>A = n_a P</m> and Bob computes <m>B = n_b P</m>.</li>
+            <li> (public) Alice and Bob exchange the points <m>A</m> and <m>B</m>.</li>
+            <li> (private) Alice computes <m>Q = a B = a b P</m>. Bob computes <m>Q = b A = b a P</m>.</li>
+            <li> (private) Alice and Bob now possess a shared secret key <m>Q \in E(\F_p)</m>.</li>
+          </ol>
+        </algorithm>
+
+        <p>As in the case over <m>\F_p</m>, an attacker Eve can break the system if the can solve the ECDLP. But this isn't the problem that she actually needs to solve.</p>
+        <definition xml:id="def-ecdhp">
+          The <term>elliptic curve Diffie-Hellman problem</term> (ECDHP) is to find, given <m>E(\F_p)</m> and <m>P \in E(\F_p)</m>, the value of <m>n_a n_b P</m> from known values of <m>n_a P</m> and <m>n_b P</m>.
+        </definition>
+
+        <p>We've at least hinted at the appeal of elliptic curves: storage required for security is growing as computers continue to increase in speed. With that in mind, we point out another place where elliptic curves can be made more efficient. The point <m>A</m> that Alice sends Bob has two coordinates, but she really only needs to send Bob the <m>x</m>-coordinate, since Bob can compute the value of <m>y^2</m> from the knowledge of the elliptic curve <m>E</m>. A complication arises where Bob might compute the wrong square root of <m>y^2</m>, but in that case he can flip the sign on the <m>y</m>-coordinate to get the inverse. Of course, this leaves open the important question of <em>how</em> Bob can compute square roots in <m>E(\F_p)</m>, a question that we leave open for now.</p>
+
+        <question xml:id="question-square-roots">
+          How are square roots computed in elliptic curves over cryptographically scaled finite fields?
+        </question>
+
+        <p>The trade-off is computation for storage, which is going to end up a running theme in the second half of the course. The issues start to arise because of the way that key sizes have scaled with CPU power and mathematical advances. Currently, the high security standard for the symmetric AES cryptosystem is 256-bit keys (<m>n \sim 2^{256}</m>). To get equivalent security in elliptic curves, key sizes are on the order of 521-bit (<m>n \sim 2^{521}</m>) and RSA/Elgamal keys are on the order of 15360-bit (<m>n \sim 2^{15360})</m> due to the existence of a method called the index calculus.</p>
+
+        <p>Now we introduce a direct generalization of the Elgamal system from <xref ref="alg-elgamal"/>. There is a major flaw in the utility of this implementation which we'll point out after presentation. See if you can find it.</p>
+
+        <algorithm xml:id="alg-ec-elgamal">
+          <title>EC Elgamal</title>
+           <ol>
+            <li> Alice chooses a large prime <m>p</m>, an elliptic curve <m>E</m>, a point <m>P \in E(\F_p)</m> of large prime order <m>q</m> and a secret key <m>1 \leq n_a \lt q </m>.</li>
+            <li>Alice computes <m>A = n_a P</m>.</li>
+            <li> Alice publishes <m>E, p, P, A</m>.</li>
+            <li> Bob selects a point <m>M \in E(\F_p)</m>. He generates a one-time use random element <m>1 \leq k \lt q</m>.</li>
+            <li>Bob computes <m> c_1 = k P, c_2 = k A + M </m>.</li>
+            <li> Bob sends <m>(c_1, c_2)</m> to Alice.</li>
+            <li> Alice computes <m> c_2 - n_a c_1 = \hat{M}</m>.</li>
+          </ol>
+          Finally, <m>\hat M = M</m> and Alice recovers Bob's point. (The proof is left as an exercise).
+        </algorithm>
+
+        <p> Did you spot the problem? In Elgamal in <m>\F_p</m>, Bob can choose an arbitrary integer <m>m</m> to form his plaintext, which allows him to use encoding to change any text into a corresponding integer to encrypt. However, in the EC Elgamal version, Bob has to choose a point in <m>E(\F_p)</m>, and there isn't an obvious way to correspond those to messages. (The issue, of course, is that not every value of <m>x \in \F_p</m> corresponds to a point <m>(x, y) \in E(\F_p)</m>.)</p>
+
+        <p>A scheme by founders of the Certicom corporation (now owned by RIM) for working around this involves choosing two plaintext integers <m>m_1, m_2</m> and then <q>twisting</q> them into an elliptic curve point.</p>
+
+        <algorithm xml:id="alg-modified-ecelgamal">
+          <title>MV-Elgamal</title>
+          <ol>
+            <li>(public parameters) Alice chooses <m>E(\F_p)</m> and <m>P \in E(\F_p)</m>.</li>
+            <li>(private) Alice choose a secret key <m>n_a</m> and computes her public key <m>A = n_A P</m>.</li>
+            <li> (public) Alice publishes <m>E(\F_p), P, A</m>.</li>
+            <li> (private) Bob chooses two plaintext integers <m>m_1, m_2 \in \F_p</m>.</li>
+            <li> (private) Bob generates a one time use random <m>k</m> and computes <m>R = kP</m> and <m>S = k A</m>.</li>
+            <li>(private) Bob sets <m>c_1 = x_S m_1 \bmod p</m> and <m>c_2 = y_S m_2 \mod p</m>.</li>
+            <li> (public) Bob sends Alice the encrpyted message <m>(R, c_1, c_2)</m>.</li>
+            <li> (private) Alice computes <m>T = n_a R = (x_T, y_T)</m>.</li>
+            <li> (private) Alice finishes by computing 
+              <md>
+                <mrow> m_1' \amp= x_T\inv c_1 \bmod p</mrow>
+                <mrow> m_2' \amp= y_T\inv c_2 \bmod p</mrow>
+              </md>
+              and recovers <m>m_1 = m_1', m_2 = m_2'</m>. (The proof is left as an exercise.)
+            </li>
+          </ol>
+        </algorithm>
+        <exercises>
+          <exercise> 
+            Show that the result of the MV-Elgamal scheme is the recovery of the plaintext messages <m>m_1, m_2</m>. (That is, work through the calculation.)
+          </exercise>
+          <exercise>
+            Implement EC-Elgamal. You will need to create both an encrpytion function <m>e: M \in E(\F_p) \mapsto (c_1, c_2)</m> and a decrpytion function <m>d: (c_1, c_2) \mapsto M</m>.
+          </exercise>
+          <exercise>
+            Implement modified EC-Elgamal (ideally modifying the functions you wrote for Exercise 1).
+          </exercise>
+        </exercises>
+
+      </section>
+
+    </chapter>

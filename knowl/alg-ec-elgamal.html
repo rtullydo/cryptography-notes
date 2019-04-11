@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-04-11T10:38:02-04:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<article class="theorem-like"><h6 class="heading">
+<span class="type">Algorithm</span> <span class="codenumber">4.5.4</span>. <span class="title">EC Elgamal.</span>
+</h6>
+<ol class="decimal">
+<li>Alice chooses a large prime \(p\text{,}\) an elliptic curve \(E\text{,}\) a point \(P \in E(\F_p)\) of large prime order \(q\) and a secret key \(1 \leq n_a \lt q \text{.}\)</li>
+<li>Alice computes \(A = n_a P\text{.}\)</li>
+<li>Alice publishes \(E, p, P, A\text{.}\)</li>
+<li>Bob selects a point \(M \in E(\F_p)\text{.}\) He generates a one-time use random element \(1 \leq k \lt q\text{.}\)</li>
+<li>Bob computes \(c_1 = k P, c_2 = k A + M \text{.}\)</li>
+<li>Bob sends \((c_1, c_2)\) to Alice.</li>
+<li>Alice computes \(c_2 - n_a c_1 = \hat{M}\text{.}\)</li>
+</ol> Finally, \(\hat M = M\) and Alice recovers Bob's point. (The proof is left as an exercise).</article><span class="incontext"><a href="section-ec-elgamal.html#alg-ec-elgamal">in-context</a></span>
+</body>
+</html>

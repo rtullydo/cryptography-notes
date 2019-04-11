@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-04-11T10:38:01-04:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Elliptic curves over finite fields</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['\\(','\\)']]
+    },
+    asciimath2jax: {
+        ignoreClass: ".*",
+        processClass: "has_am"
+    },
+    jax: ["input/AsciiMath"],
+    extensions: ["asciimath2jax.js"],
+    TeX: {
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        // scrolling to fragment identifiers is controlled by other Javascript
+        positionToHash: false,
+        equationNumbers: { autoNumber: "none", useLabelIds: true, },
+        TagSide: "right",
+        TagIndent: ".8em",
+    },
+    // HTML-CSS output Jax to be dropped for MathJax 3.0
+    "HTML-CSS": {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+    CommonHTML: {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+});
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script>$(function () {
+    // Make *any* div with class 'sagecell-sage' an executable Sage cell
+    // Their results will be linked, only within language type
+    sagecell.makeSagecell({inputLocation: 'div.sagecell-sage',
+                           linked: true,
+                           languages: ['sage'],
+                           evalButtonText: 'Evaluate (Sage)'});
+});
+</script><script>$(function () {
+    // Make *any* div with class 'sagecell-python' an executable Sage cell
+    // Their results will be linked, only within language type
+    sagecell.makeSagecell({inputLocation: 'div.sagecell-python',
+                           linked: true,
+                           languages: ['python'],
+                           evalButtonText: 'Evaluate (Python)'});
+});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
+<script>var logged_in = false;
+var role = 'student';
+var guest_access = true;
+var login_required = false;
+var js_version = 0.11;
+</script>
+</head>
+<body class="mathbook-book has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+\DeclareMathOperator{\IM}{Im}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\intr}{int}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator\re{\mathrm {Re~}}
+\DeclareMathOperator\im{\mathrm {Im~}}
+\newcommand\dd{\mathrm d}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\hilbert}{\mathcal{H}}
+\newcommand{\s}{\mathcal{S}_2}
+\newcommand{\A}{\mathcal{A}}
+\newcommand\h{\mathcal{H}}
+\newcommand{\J}{\mathcal{J}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\BOP}{\mathbf{B}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\BH}{\mathbf{B}(\mathcal{H})}
+\newcommand{\KH}{\mathcal{K}(\mathcal{H})}
+\newcommand{\pick}{\mathcal{P}_2}
+\newcommand{\schur}{\mathcal{S}_2}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Complex}{\mathbb{C}}
+\newcommand{\Field}{\mathbb{F}}
+\newcommand{\RPlus}{\Real^{+}}
+\newcommand{\Polar}{\mathcal{P}_{\s}}
+\newcommand{\Poly}{\mathcal{P}(E)}
+\newcommand{\EssD}{\mathcal{D}}
+\newcommand{\Lop}{\mathcal{L}}
+\newcommand{\cc}[1]{\overline{#1}}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\seq}[1]{\left\lt#1\right&gt;}
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\essnorm}[1]{\norm{#1}_{\ess}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\ran}[1]{\operatorname{ran}#1}
+\newcommand{\nt}{\stackrel{\mathrm {nt}}{\to}}
+\newcommand{\pnt}{\xrightarrow{pnt}}
+\newcommand{\ip}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\ad}{^\ast}
+\newcommand{\inv}{^{-1}}
+\newcommand{\adinv}{^{\ast -1}}
+\newcommand{\invad}{^{-1 \ast}}
+\newcommand\Pick{\mathcal P}
+\newcommand\Ha{\mathbb{H}}
+\newcommand{\HH}{\Ha\times\Ha}
+\newcommand\Htau{\mathbb{H}(\tau)}
+\newcommand{\vp}{\varphi}
+\newcommand{\ph}{\varphi}
+\newcommand\al{\alpha}
+\newcommand\ga{\gamma}
+\newcommand\de{\delta}
+\newcommand\ep{\varepsilon}
+\newcommand\la{\lambda}
+\newcommand\up{\upsilon}
+\newcommand\si{\sigma}
+\newcommand\beq{\begin{equation}}
+\newcommand\ds{\displaystyle}
+\newcommand\eeq{\end{equation}}
+\newcommand\df{\stackrel{\rm def}{=}}
+\newcommand\ii{\mathrm i}
+\newcommand{\vectwo}[2]
+{
+   \begin{pmatrix} #1 \\ #2 \end{pmatrix}
+}
+\newcommand{\vecthree}[3]
+{
+   \begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}
+}
+\newcommand\blue{\color{blue}}
+\newcommand\black{\color{black}}
+\newcommand\red{\color{red}}
+\newcommand\nn{\nonumber}
+\newcommand\bbm{\begin{bmatrix}}
+\newcommand\ebm{\end{bmatrix}}
+\newcommand\bpm{\begin{pmatrix}}
+\newcommand\epm{\end{pmatrix}}
+\numberwithin{equation}{section}
+\newcommand\nin{\noindent}
+\newcommand{\nCr}[2]{\,_{#1}C_{#2}} 
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\)</div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="cryptography.html"><span class="title">Mathematical Cryptography</span></a></h1>
+<p class="byline">Ryan Tully-Doyle</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-elliptic-addition.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-elliptic-curves.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-ecdlp.html" title="Next">Next</a></span></div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-elliptic-addition.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-elliptic-curves.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-ecdlp.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link">
+<a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
+<li><a href="foreward.html" data-scroll="foreward">The course</a></li>
+<li><a href="motivation.html" data-scroll="motivation">Why “mathematical” cryptography?</a></li>
+<li><a href="shift.html" data-scroll="shift">A simple example: the shift cipher</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-numbertheory.html" data-scroll="chapter-numbertheory"><span class="codenumber">2</span> <span class="title">Number theory</span></a><ul>
+<li><a href="divisibility.html" data-scroll="divisibility">Integers and divisibility</a></li>
+<li><a href="section-euclidean.html" data-scroll="section-euclidean">Common divisors and the Euclidean algorithm</a></li>
+<li><a href="section-modular.html" data-scroll="section-modular">Modular arithmetic and the ring of integers modulo \(n\)</a></li>
+<li><a href="section-fastpower.html" data-scroll="section-fastpower">The fast powering algorithm</a></li>
+<li><a href="section-finite-fields.html" data-scroll="section-finite-fields">Finite fields</a></li>
+<li><a href="section-fermat.html" data-scroll="section-fermat">Fermat's little theorem and computing inverses</a></li>
+<li><a href="section-ch2-conclusion.html" data-scroll="section-ch2-conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-groups.html" data-scroll="chapter-groups"><span class="codenumber">3</span> <span class="title">Group based methods</span></a><ul>
+<li><a href="section-naive.html" data-scroll="section-naive">A naïve cryptosystem and some related questions</a></li>
+<li><a href="section-discretelog.html" data-scroll="section-discretelog">Discrete logarithms</a></li>
+<li><a href="section-dh.html" data-scroll="section-dh">Diffie-Hellman key exchange</a></li>
+<li><a href="section-elgamal.html" data-scroll="section-elgamal">The Elgamal cryptosystem</a></li>
+<li><a href="section-groups.html" data-scroll="section-groups">Groups</a></li>
+<li><a href="section-attack-dlp.html" data-scroll="section-attack-dlp">Attacking the discrete log problem</a></li>
+<li><a href="section-chinese.html" data-scroll="section-chinese">The Chinese Remainder theorem and Pohlig-Hellman*</a></li>
+<li><a href="section-homomorphism.html" data-scroll="section-homomorphism">Homomorphisms and the lunchtime attack</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-elliptic-curves.html" data-scroll="chapter-elliptic-curves"><span class="codenumber">4</span> <span class="title">Elliptic curves and applications</span></a><ul>
+<li><a href="section-ec-intro.html" data-scroll="section-ec-intro">Introduction to elliptic curves</a></li>
+<li><a href="section-elliptic-addition.html" data-scroll="section-elliptic-addition">Elliptic addition on \(E\text{.}\)</a></li>
+<li><a href="section-ec-finite-fields.html" data-scroll="section-ec-finite-fields" class="active">Elliptic curves over finite fields</a></li>
+<li><a href="section-ecdlp.html" data-scroll="section-ecdlp">Discrete logs and the ECDLP</a></li>
+<li><a href="section-ec-elgamal.html" data-scroll="section-ec-elgamal">Elliptic curve Diffie-Hellman key exchange and El Gamal</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-digital-signatures.html" data-scroll="chapter-digital-signatures"><span class="codenumber">5</span> <span class="title">Digital signatures</span></a><ul>
+<li><a href="section-dsa-intro.html" data-scroll="section-dsa-intro">Introduction to digital signatures</a></li>
+<li><a href="section-elgamal-ds.html" data-scroll="section-elgamal-ds">Elgamal digital signatures</a></li>
+<li><a href="section-subgroups.html" data-scroll="section-subgroups">Subgroups and cyclic subgroups</a></li>
+<li><a href="section-dsa-ecdsa.html" data-scroll="section-dsa-ecdsa">DSA and Elliptic Curve DSA</a></li>
+<li><a href="section-bitcoin.html" data-scroll="section-bitcoin">Bitcoin - an application of ECDSA*</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-probability.html" data-scroll="chapter-probability"><span class="codenumber">6</span> <span class="title">Probability and non-deterministic methods</span></a><ul>
+<li><a href="section-counting.html" data-scroll="section-counting">Counting - Permutations and combinations*</a></li>
+<li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+</ul>
+</li>
+</ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-ec-finite-fields"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">4.3</span> <span class="title">Elliptic curves over finite fields</span>
+</h2>
+<a href="section-ec-finite-fields.html" class="permalink">¶</a><p id="p-146">As we showed in the previous section, given an elliptic curve \(E: Y^2 = X^3 + AX + B\text{,}\) we can form a group \(G = E \cup \{\mathcal O\}\) with the operation of elliptic addition. This object is a fascinating object of study. However, for cryptographic applications, and in particular groups of the size typical to cryptographic appliations, we have to reduce the group to a finite group. In the integer setting, we did this by reducing the integers \(\Z\) to the finite field \(\F_p\text{.}\) In the elliptic setting, we can perform the same maneuver by restricting an elliptic curve to just the points with integer coordinates in some finite field.</p>
+<article class="definition-like" id="definition-16"><h6 class="heading">
+<span class="type">Definition</span> <span class="codenumber">4.3.1</span>.</h6>Let \(p \geq 3\) be a prime. Let \(E\) be the curve \(E:Y^2 = X^3 + AX + B\) with \(4A^3 + 27B^3 \neq 0\text{.}\) The <dfn class="terminology">elliptic curve over \(\F_p\)</dfn>, denoted \(E(\F_p)\text{,}\) is the set of points<div class="displaymath">
+\begin{equation*}
+E(\F_p) = \{(x,y): x, y \in \F_p \text{ and } y^2 = x^3 + Ax + B\}
+\end{equation*}
+</div></article><p id="p-147">It is a striking fact that this the points in this set form a group under the previous definition of elliptic addition \(\pmod p\text{.}\) Examine the computational algorithm given in <a data-knowl="./knowl/thm-elliptic-add-algo.html" title="Theorem 4.2.2: Elliptic curve addition">Theorem 4.2.2</a>. Notice that we use nothing more than addition, subtraction, multiplication and division of integers in the calculation of the sum of points \(P, Q\text{.}\) These operations easily translate to the finite field setting, as long as we're careful abouy interpretation. For example, consider the calculation of \(m = \frac{y_2 - y_1}{x_2 - x_1}\) in \(\F_p\text{.}\) Interpreting fractions as multiplication by inverses in \(\F_p\text{,}\) we get</p>
+<div class="displaymath">
+\begin{align*}
+m \amp= \frac{y_2 - y_1}{x_2 - x_1} \pmod p\\
+\amp= (y_2 - y_1)\frac{1}{x_2 - x_1} \pmod p\\
+\amp= (y_2 - y_1)(x_2 - x_1)\inv \pmod p.
+\end{align*}
+</div>
+<article class="theorem-like" id="thm-finite-elliptic-add-algo"><h6 class="heading">
+<span class="type">Theorem</span> <span class="codenumber">4.3.2</span>. <span class="title">Elliptic curve addition over \(\F_p\).</span>
+</h6> Let \(E\) be an elliptic curve over the field \(\F_p\text{,}\) and let \(P, Q\) be points in \(E\text{.}\) <ol class="decimal">
+<li id="li-117">If \(P = \mathcal O\text{,}\) then \(P+ Q = Q\text{.}\)</li>
+<li id="li-118">Else, if \(Q = \mathcal O\text{,}\) then \(P + Q = P\text{.}\)</li>
+<li id="li-119">Else, write the coordinates \(P = (x_1, y_1), Q = (x_2, y_2)\text{.}\)</li>
+<li id="li-120">If \(x_1 = x_2\) and \(y_1 = -y_2\) then \(P+ Q = \mathcal O\text{.}\)</li>
+<li id="li-121">
+<p id="p-148">Else, compute the slope \(m\text{.}\)</p>
+<ol class="lower-alpha">
+<li id="li-122">If \(P \neq Q\) then<div class="displaymath">
+\begin{equation*}
+m = (y_2 - y_1)*(x_2 - x_1)\inv \bmod p.
+\end{equation*}
+</div>
+</li>
+<li id="li-123">Else<div class="displaymath">
+\begin{equation*}
+m = (3x_1^2 + A)*(2y_1)\inv \bmod p.
+\end{equation*}
+</div>
+</li>
+</ol>
+</li>
+<li id="li-124">Then<div class="displaymath">
+\begin{gather*}
+x_3 = m^2 - x_1 - x_2 \pmod p,\\
+y_3 = m(x_1 - x_3) - y_1 \pmod p.
+\end{gather*}
+</div>and \(P + Q = (x_3, y_3).\)</li>
+</ol></article><p id="p-149">As an example, we'll compute the group \(E(\F_7)\) where \(E: Y^2 = X^3 + 3X + 5\text{.}\) Unlike the case where the inputs \(X\) can be elements in \(\R\text{,}\) we need to restrict the \(x\)-coordinates of the group to those elements that produce perfect squares in \(F_7\) in the expression \(x^3 + 3x + 5\) (else there can be no \(y \in \F_7\) that satisfies the curve condition). We start with a table of perfect squares in \(\F_7\text{.}\)</p>
+<figure class="figure-like" id="table-3"><div class="displaymath">
+\begin{equation*}
+\begin{array}{c|c}
+g \amp g^2 \\
+\hline
+0 \amp 0 \\
+1 \amp 1 \\
+2 \amp 4 \\
+3 \amp 9 = 2 \\
+4 \amp 16 = 2 \\
+5 \amp 25 = 4 \\
+6 \amp 36 = 1
+\end{array}
+\end{equation*}
+</div>
+<figcaption><span class="type">Table</span> <span class="codenumber">4.3.3.</span> Squares in \(\F_7\)</figcaption></figure><p id="p-150">Notice then that the perfect squares in \(F_7\) are 0, 1, 2, and 4. Each perfect square has two square roots (expected, since we know that in \(\Z\) that \(\sqrt{x^2} = \pm x\)).</p>
+<p id="p-151">To generate \(E(\F_7)\text{,}\) we'll plug in every number in \(\F_7\) into \(X^3 + 3X + 5\) and check for square roots.</p>
+<figure class="figure-like" id="table-4"><div class="displaymath">
+\begin{equation*}
+\begin{array}{c|c|c}
+x \amp x^3 + 3x + 5 \amp y = \pm\sqrt{x^3 + 3x + 5} \\
+\hline
+0 \amp 5 \amp \\
+1 \amp 2 \amp 3, 4 \\
+2 \amp 5 \amp \\
+3 \amp 6 \amp \\
+4 \amp 4 \amp 2, 5 \\
+5 \amp 5 \amp \\
+6 \amp 1 \amp 1, 6
+\end{array}
+\end{equation*}
+</div>
+<figcaption><span class="type">Table</span> <span class="codenumber">4.3.4.</span> Computation of elements in \(E(\F_7)\) for \(E:X^3 + 3X + 5\)</figcaption></figure><p id="p-152">That is, we now have a list of all of the points in \(E(\F_7)\text{:}\)</p>
+<div class="displaymath">
+\begin{equation*}
+E(\F_7) = \{\mathcal O, (2, 3), (2,4), (4,2), (4,5), (1,1), (1,6)\}
+\end{equation*}
+</div>
+<div class="sagecell-python" id="sage-6"><script type="text/x-sage">#compute squares in F_p
+p = 7;
+squares = [[0]*2 for i in range(p)] #create 2xp array to hold computations
+for i in range(p):
+    squares[i][0] = i;
+    squares[i][1] = (i**2)%p;
+print(squares)
+</script></div>
+<p id="p-153">Once we've produced a list of squares, we can use it to generate an associated elliptic curve.</p>
+<div class="sagecell-python" id="sage-7"><script type="text/x-sage">xcoords = list(range(p))
+a = 3
+b = 5
+ef_p = [];
+for x in xcoords:
+    ysquare = (x**3 + a*x + b)%p;
+    for i in range(p):
+        if ysquare == squares[i][1]:
+            ef_p.append([x, squares[i][0]])
+print(ef_p)
+</script></div>
+<p id="p-154">Note that the method used here is extremely inefficient for large values of \(p\text{,}\) and is intended to illustrate the basic idea of using a computer program to produce mathematical objects.</p>
+<article class="theorem-like" id="thm-ff-ec-add"><h6 class="heading">
+<span class="type">Theorem</span> <span class="codenumber">4.3.5</span>.</h6>Elliptic addition over a finite field \(\F_p\) is closed. Furthermore, it has the properties required from an additive group operation: identity, inverses, and associativity. Since elliptic addition is commutative, so is elliptic addition over \(\F_p\text{.}\)</article><p id="p-155">We will perform a sample computation and add \(P(4,5) + Q(6,1)\) in \(E(\F_7)\text{.}\) As \(P\) and \(Q\) are distint, we compute</p>
+<div class="displaymath">
+\begin{align*}
+m \amp = \frac{y_2 - y_1}{x_2 - x_1}\bmod 7 \\
+\amp = \frac{1 - 5}{6 - 4}\bmod 7 \\
+\amp = (-4)(2)\inv \bmod 7\\
+\amp = (-4)(4) \bmod 7 \\
+\amp = -16 \bmod 7 \\
+\amp = 5 \bmod 7
+\end{align*}
+</div>
+<p>Thus,</p>
+<div class="displaymath">
+\begin{equation*}
+x_3 = m^2 - x_1 - x_2 = 5^2 - 4 - 6 = 1 \bmod 7
+\end{equation*}
+</div>
+<p>and</p>
+<div class="displaymath">
+\begin{equation*}
+y_3 = m(x_1 - x_3) - y_1 = 5(4 - 1) - 5 = 3 \bmod 7
+\end{equation*}
+</div>
+<p>and so \((4,5) + (6,1) = (1,3)\) in \(E(\F_7)\text{.}\)</p>
+<p id="p-156">For the purposes of cryptography, we need to know that \(E(\F_p)\) has many points. For any given \(x \in \F_p\text{,}\) one of three things can happen:</p>
+<ol class="decimal">
+<li id="li-125">\(x^3 + Ax + B\) is a square in \(\F_p\text{,}\) which leads to two points in \(E(\F_p)\text{.}\) This happens about 50% of the time.</li>
+<li id="li-126">\(x^3 + Ax + B = 0\text{.}\) This can happen at most three times, as a cubic polynomial has at most three roots.</li>
+<li id="li-127">\(x^3 + Ax + B\) is <em class="emphasis">not</em> a square, meaning that \(x\) cannot be the \(x\)-coordinate of a point in \(E(\F_p)\text{.}\)</li>
+</ol>
+<p>Thus,</p>
+<div class="displaymath">
+\begin{equation*}
+\# E(\F_p) = 50\% \cdot 2p + 1 \approx p + 1
+\end{equation*}
+</div>
+<section class="exercises" id="exercises-13"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise-like" id="exercise-25"><h6 class="heading"><span class="codenumber">1.</span></h6>Let \(E: Y^2 = X^3 + 3X + 5\) over the field \(\F_13\text{.}\) Compute the squares in \(\F_13\text{.}\) Use the list of squares to find all of the points in \(E(\F_13)\text{.}\) Compute an example to test if your set is closed under modular elliptic addition.</article><article class="exercise-like" id="exercise-26"><h6 class="heading"><span class="codenumber">2.</span></h6>Implement the code to generate an elliptic curve over a finite field efficiently: that is, do not search the entire list for matches. Compare the speed of your execution for a reasonably large prime, say \(p = 10000019 \text{.}\)</article></section></section></div></main>
+</div>
+<div class="login-link"><span id="loginlogout" class="login">login</span></div>
+<script src="https://pretextbook.org/js/0.11/login.js"></script>
+</body>
+</html>

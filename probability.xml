@@ -1,0 +1,131 @@
+    <chapter xml:id="chapter-probability">
+      <title> Probability and non-deterministic methods </title>
+
+      <section xml:id="section-counting">
+        <title>Counting - Permutations and combinations*</title>
+        <p> We are going to be interested in measuring how likely certain events are to occur; for example, we might want to know the likelihood that a certain number is prime, or the likelihood that a certain process will detect a solution to a discrete log problem. In order to make these measurements rigorous, we need to establish the basics of <em>counting</em> (yes, you've traveled for more than a decade to this advanced material, and only now do you get to learn how to count).
+
+      </section>
+      
+      <section xml:id="section-prime-testing">
+        <title>Primality testing</title>
+
+        <p>One of the most important areas where non-deterministic methods are used in cryptography is in the area of producing and testing numbers that are highly likely to be prime - that is, it is quite expensive to determine with absolute certainty that a number <m>n</m> is prime, but it can be checked to any amount of desired likelihood. (Such primes are sometimes referred to as <term>industrial-grade primes</term> - that is, good enough for application.) The idea is that even if the tests miss an occasional number that isn't prime, it happens so infrequently that the economic cost of looking for one is prohibitive.</p>
+
+        <p>Recall that a <term>composite number</term> is a number that has two or more non-trivial factors. We'll begin by looking at conditions that prime numbers <em>always</em> satisfy. What springs to mind is Fermat's little theorem <xref ref="thm-fermat" />. We will adopt a slightly modified version that removes the restrictions on <m>a</m>. </p>
+
+        <theorem xml:id="thm-fermat-2">
+          <title>Modified Fermat's theorem</title>
+          Let <m>p</m> be prime, and let <m>a</m> be an integer. Then
+          <me>
+            a^p \equiv a \bmod p.
+          </me>
+        </theorem>
+
+        <p>Fermat's little theorem gives us a test for compositeness: if <m>a^p \neq a \bmod p</m>, then <m>p</m> cannot be prime. For example, suppose that we want to know if <m>n = 9</m> is prime (presuming that we don't know how to factor it). On checking the Fermat condition for say <m>a = 2</m>, we see that
+        <me>
+          2^9 \equiv 8 \bmod 9
+        </me>
+        and so <m>9</m> (shockingly) cannot be prime. This sort of test is exclusive -- we can exclude numbers that fail, but passing the test for a given value of <m>a</m> <em>does not mean that <m>n</m> is prime!</em> For example, 
+        <me>
+          6^{21} \equiv 6 \bmod 21
+        </me>
+        and yet 21 is obviously not prime.</p>
+
+        <p>We take the position that 2 <q>sees</q> the compositeness of 9, but that 6 does not see the compositeness of 21. In this light, we define the notion of a witness of compositeness.</p>
+
+        <definition xml:id="def-witness">
+          A number <m>a</m> is said to be a (Fermat) <term>witness</term> for the compositeness of a composite number <m>n</m> if 
+          <me>
+            a^n \neq a \bmod n.
+          </me>
+        </definition>
+
+        <p>We're left with the following idea: If we suspect that a number <m>n</m> is prime, check lots of numbers <m>a</m> as potential witnesses of the compositeness of <m>n</m>. If we don't find any witnesses, perhaps we could conclude that <m>n</m> is prime. The issue with this approach is the existence of a set of numbers called <em>Carmichael numbers</em>, which have the property of possessing <em>no</em> Fermat witnesses. As an example, <m>n = 531 = 3 \cdot 11 \cdot 17</m> has the property that 
+        <me>
+          a^{531} = a \bmod 531
+        </me>
+        for <em>every</em> integer <m>a</m>, and thus has no witnesses to the fact that it is composite. There are infintely many Carmichael numbers, and so it behooves us to develop a test so that every composite <m>n</m> has lots of witnesses. </p>
+
+        <p>One such test is called the Miller-Rabin test, which relies on Fermat's little theorem as its background assumption but provides a further discrimination that gives every composite number lots of witnesses.</p>
+
+        <theorem xml:id="thm-mr-condition">
+          Let <m>p</m> be an odd prime. Write
+          <me>
+            p - 1 = 2^k q \text{ where } q \text{ is odd.}
+          </me>
+          Let <m>a</m> be any number so that <m>p \nmid a</m>. One of the following must be true:
+          <ol>
+            <li> <m>a^q \equiv 1 \bmod p;</m></li>
+            <li> A number in the list
+              <men xml:id="eq-mr-list">
+                a^q, a^{2q}, a^{4q} \ldots, a^{2^{k-1}q}
+              </men>
+              is congruent to <m>-1 \bmod p</m>.</li>
+          </ol>
+        </theorem>
+        <proof>
+          The basic idea of the proof is that <m>\sqrt{1} = \pm 1</m>. By Fermat's theorem, we know that 
+          <me>
+            a^{2^k q} = a^{p-1} \equiv 1 \mod p.
+          </me>
+          The list
+            <me>
+              a^q, a^{2q}, \ldots, a^{2^{k-1}q}, a^{2^k q} = 1
+            </me>
+          is a list of repeated squarings. Since the last number is 1, the previous number must have been 1 or -1. If the previous number is -1, we're finished. If the previous number is 1, then the number prior to that much have been 1 or -1 and so on down the chain. If we reach the first number in the list, it must be 1 or -1 because the next number was 1. If it is -1, then we're done. If it is 1, we're in the first condition, completing the proof.
+        </proof>
+
+        The theorem gives the underlying condition for the Miller-Rabin test for compositeness.
+
+        <definition xml:id="def-mr-witness">
+          Let <m>n</m> be odd and write <m>n-1 = 2^k q</m> with <m>q</m> odd. An integer <m>a</m> with <m>\gcd(a,n) = 1</m> is a <term>Miller-Rabin witness</term> for the compositeness of <m>n</m> if 
+          <ol>
+            <li> <m> a^q \neq 1 \bmod n </m> and </li>
+            <li> <m> a^{2^i q} \neq -1 \bmod n</m> for any <m>i = 1, \ldots, k-1</m></li>
+          </ol>
+        </definition>
+
+        <p>By <xref ref="thm-mr-condition" />, if <m>n</m> has a Miller-Rabin witness then it must be composite. Thus, we can formulate the Miller-Rabin test:</p>
+
+        <algorithm xml:id="algo-mr">
+          Let <m>n</m> be the integer to be tested, and let <m>a</m> be the proposed witness.
+          <ol>
+            <li> If <m>n</m> is even, then <m>n</m> is composite.</li>
+            <li> If <m>1 \lt \gcd(a, n) \lt n</m>, then <m>n</m> is composite.</li>
+            <li> Write <m>n - 1 = 2^k q</m></li>
+            <li> Set <m>a = a^q \bmod n</m> and <m>i=0</m>.</li>
+            <li> If <m>a = 1 \bmod n</m>, the test is inconclusive.</li>
+            <li> If <m>a = -1 \bmod n</m>, the test is inconclusive.</li>
+            <li> If <m>i \lt k-1</m>, set <m>a = a^2 \mod n</m>, increment <m>i</m>, and return to 6.</li>
+            <li> Else <m>n</m> is composite.</li>
+          </ol>
+        </algorithm>
+
+        Composite numbers have lots of Miller-Rabin witnesses. 
+
+        <proposition>
+          Let <m>n</m> be an odd composite number. Then at least 75% of integers <m>1 \lt a \leq n-1</m> are Miller-Rabin witnesses for the compositeness of <m>n</m>.
+        </proposition>
+
+        <p>In some sense, we have the basis for a nondeterministic test for the primeness of an integer now. We know that if <m>n</m> is composite, we have at least a 75% chance of finding a witness for any given <m>a</m> that we test. That is, we have a 25% chance at most to fail. If we try lots of values, and they all fail to be witnesses for <m>n</m>, then it becomes increasingly likely that <m>n</m> is prime.</p>
+
+        <p>The situation is slighly complicated by the fact that the probabilities are what as known as <em>conditional</em>: that is, when <m>n</m> is composite, 25% of numbers fail to be witnesses, but when <m>n</m> is prime, 100% of numbers fail to be witnesses. Nevertheless, the basic intuition should be something like <q>If <m>n</m> is composite, then the probability that 10 numbers fail to be Miller-Rabin witnesses for <m>n</m> is <m>.25^10 \approx 10^-6</m>.</q>. That is, getting 10 or 100 or 1000 failed witnesses makes it exceedingly unlikely that <m>n</m> is composite. The exact calculation of the probability will have to wait until we have looked more closely at conditional probability.</p>
+
+        <p>One might reasonably ask if there are efficient ways of generating candidate primes. In fact, there are many formulas that are much more likely to produce a prime than a random number generator. Further, we can exclude many possible values for <m>n</m> with divisibilty rules and quick divisions (say by every number up to 10000) before we apply a computationally expensive MR-test.</p>
+
+        <p>Finally, I'll point out that there are deterministic methods for checking that a number is prime that run in polynomial time <em>but</em> these algorithms require that we assume the truth of perhaps the most famous and important unsolved problems in mathematics, the <term>Riemann hypothesis</term>, which concerns the distribution of prime numbers in the real line. More than 150 years of work has gone into proving or disproving the hypothesis, which to the present has resisted giving up its secrets.</p>
+
+        <exercises>
+          <exercise>
+            One naive way to deterministically check if a number <m>n</m> is prime is to divide it by every number between <m>1</m> and <m>n-1</m>. Show that you only need to check the integers <m>1 \lt d \leq \sqrt{n}</m>.
+          </exercise>
+          <exercise>
+            Write a program to show that <m>n = 1105</m> is a Carmichael number.
+          </exercise>
+          <exercise>
+            Implement the Miller-Rabin test for compositeness.
+          </exercise>
+        </exercises>
+      </section>
+    </chapter>

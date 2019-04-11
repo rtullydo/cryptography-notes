@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-04-11T10:38:02-04:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<h6 class="heading"><span class="type">Paragraph</span></h6>
+<p>For the purposes of cryptography, we need to know that \(E(\F_p)\) has many points. For any given \(x \in \F_p\text{,}\) one of three things can happen:</p>
+<ol class="decimal">
+<li>\(x^3 + Ax + B\) is a square in \(\F_p\text{,}\) which leads to two points in \(E(\F_p)\text{.}\) This happens about 50% of the time.</li>
+<li>\(x^3 + Ax + B = 0\text{.}\) This can happen at most three times, as a cubic polynomial has at most three roots.</li>
+<li>\(x^3 + Ax + B\) is <em class="emphasis">not</em> a square, meaning that \(x\) cannot be the \(x\)-coordinate of a point in \(E(\F_p)\text{.}\)</li>
+</ol>
+<p>Thus,</p>
+<div class="displaymath">
+\begin{equation*}
+\# E(\F_p) = 50\% \cdot 2p + 1 \approx p + 1
+\end{equation*}
+</div>
+<span class="incontext"><a href="section-ec-finite-fields.html#p-156">in-context</a></span>
+</body>
+</html>

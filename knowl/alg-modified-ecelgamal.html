@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-04-11T10:38:02-04:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<article class="theorem-like"><h6 class="heading">
+<span class="type">Algorithm</span> <span class="codenumber">4.5.5</span>. <span class="title">MV-Elgamal.</span>
+</h6>
+<ol class="decimal">
+<li>(public parameters) Alice chooses \(E(\F_p)\) and \(P \in E(\F_p)\text{.}\)</li>
+<li>(private) Alice choose a secret key \(n_a\) and computes her public key \(A = n_A P\text{.}\)</li>
+<li>(public) Alice publishes \(E(\F_p), P, A\text{.}\)</li>
+<li>(private) Bob chooses two plaintext integers \(m_1, m_2 \in \F_p\text{.}\)</li>
+<li>(private) Bob generates a one time use random \(k\) and computes \(R = kP\) and \(S = k A\text{.}\)</li>
+<li>(private) Bob sets \(c_1 = x_S m_1 \bmod p\) and \(c_2 = y_S m_2 \mod p\text{.}\)</li>
+<li>(public) Bob sends Alice the encrpyted message \((R, c_1, c_2)\text{.}\)</li>
+<li>(private) Alice computes \(T = n_a R = (x_T, y_T)\text{.}\)</li>
+<li>(private) Alice finishes by computing<div class="displaymath">
+\begin{align*}
+m_1' \amp= x_T\inv c_1 \bmod p\\
+m_2' \amp= y_T\inv c_2 \bmod p
+\end{align*}
+</div>and recovers \(m_1 = m_1', m_2 = m_2'\text{.}\) (The proof is left as an exercise.)</li>
+</ol></article><span class="incontext"><a href="section-ec-elgamal.html#alg-modified-ecelgamal">in-context</a></span>
+</body>
+</html>

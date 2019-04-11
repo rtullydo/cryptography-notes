@@ -1,0 +1,86 @@
+<chapter xml:id="chapter-intro">
+      <title>Preliminaries</title>
+
+      <introduction>This is an in-development set of lecture notes for a first course in mathematical cryptography.</introduction>
+
+      <section xml:id="foreward">
+        <title>The course</title>   
+        <p>These notes will cover the content of a first course in mathematical cryptography. I want to emphasize that the approach taken in these notes will be <em> mathematical</em>; that is, our attention will be primarily on the way that mathematical ideas underlie some of the most powerful methods used to encrypt messages and data. </p>
+
+        <p>This course is being offered at the University of New Haven, which prides itself on a commitment to experiential education. Thus, the course will require students to implement versions of the core mathematical ideas in code. The language of choice for the course is <em> python</em>, though of course the content itself is language independent. I had to choose a language, and the relative ease with which students can begin implementing mathematics in python makes it an obvious choice.  </p>
+
+      <p>Students taking this course will be well served by at least a passing familiarity with topics including
+      <ul>
+        <li> Number theory </li>
+        <li> Modular arithmetic </li>
+        <li> Linear algebra</li>
+        <li> Probability </li>
+        <li> Structured programming (loops, control structures, functions)</li>
+      </ul>
+      However, the text does not assume any prior knowledge. </p>
+
+      <p>The goal of the course is somewhat larger than explicating the central mathematical ideas of cryptosystems like RSA and ECC. Mathematical students typically see little more than the required introduction to programming courses, which are aimed at computer science students. Computer science students often see no more math than appears in their discrete mathematics course at the beginning of their courses of study. My goal is to show students something of the power that the two subjects have in combination: that mathematical concepts are extremely powerful when implemented in computer programs. The first version of this course was an independent study with a computer science student, and I was regularly surprised with the elegance of his implementations. </p>
+      </section>
+    
+      <section xml:id="motivation">
+        <title>Why <q>mathematical</q> cryptography?</title>
+
+      <p>One can think of <em>encryption</em> as the act of changing a message into a cipher. If we let <m>M</m> stand for our message and <m>C</m> stand for the cipher, we get a simple visual model which looks like
+      <me>
+      M \xrightarrow{\rm encryption} C
+      </me>
+      Typically, we'll want to encrypt a plaintext (that is, standard English words), consisting of letters and characters in the English alphabet. (Of course the same idea can be applied to data stored on a computer). The process of converting a plaintext into a message that can be encrypted numerically is called <em>encoding</em>. 
+      <me>
+      T \xrightarrow{\rm encoding} M \xrightarrow{\rm encryption} C
+      </me>
+      Mathematics provides a framework for this process by thinking of encoding and encryption as <em> functions</em> that have certain desirable properties. Our primary focus will be the functions that do encryption, though necessarily we will have to discuss encoding as well.</p>
+      </section>
+
+      <section xml:id="shift">
+        <title>A simple example: the shift cipher</title>
+
+      <p>The <em>shift cipher</em> is a cryptosystem that almost any schoolchild should be familiar with. The basic idea is to take the alphabet and shift the letters, so that A, for example, becomes represented by the letter D, B is represented by E, and so on until we get to Z represented by C. In table form,
+
+      <table>
+        <tabular>
+        <row> <cell> input letter</cell><cell> A</cell> <cell> B </cell><cell> C </cell><cell> D </cell><cell><m> \ldots</m></cell><cell> Z</cell> </row>
+        <row> <cell> coded letter</cell><cell> D</cell><cell> E</cell> <cell> F</cell> <cell> G</cell> <cell> <m>\ldots</m></cell> <cell> C </cell> </row>
+        </tabular>
+      </table></p>
+
+      <p>Under this scheme, the word BAD becomes EDG, as each letter is replaced by its coded representative. To decode an encrypted text, one reads up the table, replacing the coded letters with the plaintext that each represents. Thus, the ciphertext FED becomes the plaintext CAB.</p> 
+
+      <p>We will now take this system and represent it in mathematical form. We need the following elements.
+      <ol>
+      <li> A numerical representation (that is, an encoding) of the alphabet. </li>
+      <li> A space or <em> domain</em> <m>\mathcal D</m> in which the messages live.</li>
+      <li> <p> A function, <m>e</m>, that will perform the encryption, with the following properties:
+        <ol>
+        <li> The function depends on a <em>key</em> <m>k</m> from a <em>keyspace</em> <m>\mathcal K</m>, that is, a secret piece of information involved in the encryption.</li>
+        <li> The function is one-to-one; that is, two different inputs always produce different outputs.</li>
+        <li> The encryption process can be reversed; that is, we want <m>e</m> to be an <em>invertible</em> function.</li>
+        </ol></p></li>
+      </ol>
+      (We will demand much more from our encryption functions in subsequent discussions.)</p>
+
+
+
+      <p>Then the function <m>e(M) = M + 3</m> seems to provide our encryption function, with the caveat that we need to address cases like <m>e(25) = 2</m>. What we want to happen is that the encrypted letters wrap back around to A once we pass Z in the table. This can be accomplished by using clock or <em>modular arithmetic</em>, which will be discussed in more detail in the next chapter. The basic idea is that <m>a + b \pmod{26}</m> is the remainder of the quotient <m>(a + b) / 26</m>. That is, in arithmetic modulo 26, <m>25 + 3 = 2</m> (corresponding to Z + a shift of 3 letters = C). The set of integers <m>(0, \ldots, 25)</m> with arithmetic modulo 26 has the representative symbol <m>\mathbb Z_{26}</m>. </p>
+
+      <p>We now have enough information to describe our cryptosystem mathematically. 
+      <ul>
+      <li> The domain <m>\mathcal D</m> for the messages (individual letters in this example) is <m>\Z_{26}</m>.</li>
+      <li> The keyspace <m>\mathcal K</m> for keys is <m>\Z_{26}</m>.</li>
+      <li> The specific key <m>k</m> for this particular system is the shift <m>k = 3</m>.</li>
+      <li> The encryption function <m>e</m> is <m>e(M) = M + 3 \pmod{26}</m>.</li>
+      <li> The decryption function <m>d</m> is <m>d(C) = C - 3 \pmod{26}</m>.</li>
+      </ul></p>
+      <exercises>
+      <exercise>
+      <p>Write a python function that takes as input a key <m>k</m> and a word <m>M = M_1 M_2 \ldots M_n</m> and produces a shift ciphertext <m>C = C_1 C_2 \ldots C_n</m>. Write another function that takes a ciphertext <m>C = C_1 C_2 \ldots C_n</m> and produces a message <m>M = M_1 M_2 \ldots M_n</m>. Test your function for various values of <m>k</m> and different words.</p>
+      </exercise>
+    </exercises>
+      </section>
+
+
+    </chapter>

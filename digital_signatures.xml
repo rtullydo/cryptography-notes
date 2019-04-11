@@ -1,0 +1,218 @@
+<chapter xml:id="chapter-digital-signatures">
+      <title>Digital signatures</title>
+      <section xml:id="section-dsa-intro">
+        <title> Introduction to digital signatures</title>
+
+        <p>We now look at an application of cryptographic ideas to <term>digital signatures</term>, a method for verifying that digital information comes from the correct source. The basic idea is that a source provides a document <m>D</m> and a signature <m>D^{sig}</m> generated with a private key <m>k_{priv}</m> to a user. The user should be able to use <m>D, D^{sig}</m> as well as a key <m>k_{pub}</m> to calculate if the file comes from a valid source.</p>
+
+        <p>A scheme like this has issues that need to be addressed.
+          <ol>
+            <li> Given <m>k_{pub}</m>, it must be hard to find a <m>k_{priv}</m> that produces the same signature.</li>
+            <li> Given <m>k_{pub}</m> and a list <m>(D_1, D_1^{sig}),  \ldots, (D_n, D_n^{sig})</m> it should be hard to construct a signature <m>D^{sig}</m> for a document <m>D</m> not in the list.</li>
+            <li> Most documents are way too large to be signed. So instead, typically we apply signature algorithms to <term>hashes</term> of documents.</li>
+          </ol></p>
+
+          <p>Hash functions will be treated in a later section. For now, think of a hash function <m>H</m> as an operation that takes documents and produces fingerprints that represent the documents. The fingerprints are numbers of a fixed size -- say 256-bit. The basic idea of a hash function is that it is <q>one-way</q>: that is, easy to compute and hard to reverse, in the sense that it is extremely difficult to find two inputs that produce the same output. Typical hash functions include <m>MD5 (broken), SHA-1 (broken), SHA-2, \ldots</m></p>
+
+          <algorithm xml:id="alg-ds-sketch">
+            <ol>
+              <li>A <term>signer</term> Sam takes a document <m>D</m> and applies a hash function to it, getting <m>D_H = H(D)</m>.</li>
+              <li>Using a private key, Sam  applies a signing algorithm to get a signature <m>D_H^{sig}</m>. </li>
+              <li>Sam provides the document <m>D</m>, the signature <m>D_H^{sig}</m>, and a public key <m>k_{pub}</m>.</li>
+              <li>The <term>verifier</term> Vera wants to verify the document. She first computes <m>D_H</m> using the hash function <m>H</m>.</li>
+              <li> Vera uses a verification algorithm applied to <m>D_H, D_H^{sig}, k_{pub}</m>. If the signature is valid, she gets a result of TRUE. If the signature is not valid, she gets a result of FALSE.</li>
+            </ol>
+          </algorithm>
+
+          <p>In the next sections we'll discuss how the discrete log problem in <m>\F_p</m> and the Elgamal encrpytion scheme sits underneath the <em>Digital Signature Algorithm</em>, one of the signing schemes in common use.</p>
+      </section>
+
+      <section xml:id="section-elgamal-ds">
+        <title>Elgamal digital signatures</title>
+        <p>We'll begin with a scheme that derives from the Elgamal encrpytion system. Note that this scheme is not used in practice because the key sizes are enormous. We present it here as a starting point for the discussion of the DSA.</p>
+
+        <algorithm xml:id="alg-elgamal-ds">
+          <ol>
+            <li>(public parameters) Sam chooses a large prime <m>p</m> and a primitive root (generator) <m>g</m>.</li>
+            <li>(private) Sam chooses a private key <m>a \in \F_p</m> and computes <m>A = g^a</m>.</li>
+            <li>(public) Sam publishes <m>p, g, A</m>.</li>
+            <li>(private) Sam wishes to sign a document <m>D</m> where <m>1 \leq D \lt p</m>. She picks a random element <m>k</m> with <m>\gcd(k, p-1) = 1</m>. She computes
+              <me>
+                S_1 = g^k \bmod p, \hspace{.5cm} S_2 = (D - aS_1)k\inv \bmod p-1.
+              </me>
+            Her signature is the pair <m>D^{sig} = (S_1, S_2)</m>.</li>
+            <li> (private) Vera receives the document <m>D</m>, the signature <m>D^{sig}</m> and the public signing key <m>p, g, A</m>. She wants to verify that the document comes from Sam.</li>
+            <li> Vera's verification question is:
+              <men xml:id="eq-egds">
+                \text{Is } A^{S_1}S_1^{S_2} \bmod p = g^D \bmod p \text{?}
+              </men></li>
+          </ol>
+        </algorithm>
+        <p>The proof that this verification question works is left as an exercise. One important difference with Elgamal encrpytion is that there is a number that we compute <m>\bmod p -1</m>: the reason for this arises in the algebraic proof that the verification question works. Fermat's little theorem is what allows us to conclude that if <m>a = b \bmod p - 1</m>, then <m>g^a = g^b \bmod p</m>.</p>
+
+        <p>In order for Elgamal signatures to be cryptographically secure, the prime <m>p \approx 2^{4000}</m> because of the existence of subexponential algorithms like the index calculus that can be used to attack the discrete log problem in <m>\F_p</m>. There are two possible approaches to take to make this a more usable system. The first is to choose a huge prime <m>p</m> to keep the problems large enough to be unsolvable, but work within a special subset of <m>\F_p</m> called a cyclic subgroup, discussed in the next section. The other approach is to replace <m>\F_p</m> with a group that isn't attackable by the index calculus, like an elliptic curve <m>E(\F_p)</m>, which will be discussed later in the chapter.</p>
+
+        <exercises>
+          <exercise>
+            Show that if <m>a = b \mod p - 1</m> and <m>g \in \F_p</m>, then <m>g^a = g^b \bmod p</m>.
+          </exercise>
+          <exercise>
+            Show that the verification question <xref ref="eq-egds" /> is true when the signature <m>D^{sig}</m> is valid.
+          </exercise>
+        </exercises>
+      </section>
+
+      <section xml:id="section-subgroups">
+        <title>Subgroups and cyclic subgroups</title>
+        <p>One of the features that makes groups such a fascinating and useful mathematical object is that they contain smaller group-like structures inside of them. These smaller pieces, called <term>subgroups</term>, carry the operation of the larger group, but on a smaller, self-contained set of elements.</p>
+
+        <definition xml:id="def-subgroup">
+          Let <m>G</m> be a group. A subset <m>H \subset G</m> is called a <em>subgroup of <m>G</m></em> if <m>H</m> is a group with respect to the group operation of <m>G</m>.
+        </definition> 
+
+        <p>Some obvious subgroups are the <em>trivial subgroup</em> <m>H = \{e\}</m> and the whole group <m>H = G</m>. <em>Nontrivial subgroups</em> of <m>G</m> are those subgroups that are neither <m>\{e\}</m> or <m>G</m>. For example, let <m>G = \Z_6</m>. Then the set <m>H = \{0, 3\}</m> is a subgroup of <m>G</m>.</p>
+
+        <p>Instead of checking the entire definition of a group each time that we want to see if a given subset <m>H</m> is a subgroup of <m>G</m>, we can take advantage of the fact that <m>H</m> inherits the structure of the operation on <m>G</m>. Essentially, then, we just need to make sure that <m>H</m> is <em>closed</em> under the group operation. That is, we need
+        <ol>
+          <li> The identity <m>e \in H</m>.</li>
+          <li> <m>H</m> closed under the group operation.</li>
+          <li> <m>H</m> contains an inverse for each element in <m>H</m>.</li>
+        </ol>
+          A convenient set of equivalent conditions is given in the following theorem.</p>
+
+        <theorem xml:id="thm-subgroup">
+          <title>Conditions for a subgroup</title>
+          A subset <m>H</m> of a group <m>G</m> is a subgroup of <m>G</m> if and only if the following conditions hold:
+          <ol>
+            <li> <m>H</m> is nonempty</li>
+            <li> <m>g \in H</m> and <m>h \in H</m> imply that <m>gh \in H</m>, and</li>
+            <li> <m>g \in H</m> implies that <m>g\inv \in H</m>.</li>
+          </ol>
+        </theorem>
+
+        <p>Certain subgroups have an extraordinarily rigid structure, in that they are <em>generated</em> by a single element. We have seen this concept already in the form of the primitive roots of <m>\F_p</m>. In these <term> cyclic subgroups</term>, each element can be expressed as a power (or multiple in the additive setting) of the generator.</p>
+
+        <definition xml:id="def-cyclic">
+          Let <m>G</m> be a group. For an element <m>g \in G</m>, the <em>cyclic subgroup generated by <m>g</m></em> is the set
+          <men xml:id="eq-cyc-def">
+            \langle g \rangle = \{x \in G: x = g^n \text{ for } n\in \Z\}.
+          </men>
+        </definition>
+
+        <p>If it is the case that <m>G = \langle g \rangle</m> for some element <m>g</m>, then <m>G</m> is called a <term>cyclic group</term>. For example, consider the group <m>F_7\ad</m> and the element <m>3</m>.
+        <me>
+          \langle 3 \rangle = \{3, 3^2 = 2, 3^3 = 6, 3^4 = 4, 3^5 = 5, 3^6 = 1\} = \F_7\ad 
+        </me>.</p>
+
+        <p>It is not the case that every element of a cyclic group is a generator, of course. Once again with <m>G = \F_7\ad</m>, consider the cyclic subgroup generated by 2.
+        <me>
+          \langle 2 \rangle = \{2, 2^2 = 4, 2^3 = 1\}.
+        </me></p>
+
+        <p>The following theorem is an important structural theorem about cyclic groups. The proof will be left as an exercise.</p>
+        <theorem xml:id="thm-cyc-sub">
+          Let <m>G</m> be a cyclic group. Then every subgroup of <m>G</m> is cyclic.
+        </theorem>
+        <proof>
+          Left as an exercise.
+        </proof>
+
+        <p>There are several ways to investigate subgroups of cyclic groups using python. We're going to give an example that will compute the subgroups of <m>\Z_n</m> with the group operation of addition mod n. Note that <em>every</em> group <m>\Z_n</m> is generated by 1. </p>
+
+        <sage language="python">
+          <input>
+            def subgroup(n,g):
+              x = 0
+              while True:
+                yield x #yield can return a sequence of values from a function.
+                x = (x + g)%n
+                if x ==0:
+                  break
+
+            #since the function returns a generator object, 
+            #we evaluate it with the list command
+            x = list(subgroup(16,6))
+            print(x)
+          </input>
+        </sage>
+
+        <p>We will see how subgroups can be used to modify the Elgamal Digital Signature scheme to make it more computationally tractable to use.</p>
+
+        <exercises>
+          <exercise>
+            Prove <xref ref="thm-cyc-sub" />. Hint: show that any subgroup <m>H</m> of a cyclic group <m>G</m> is generated by <m>g^k</m>, where <m>k</m> is the smallest power of <m>g</m> contained in <m>H</m>.
+          </exercise>
+          <exercise>
+            Modify the code above to produce a function that calculates the subgroup generated by a given element of <m>\F_p\ad</m>.
+          </exercise>
+        </exercises>
+      </section>
+
+      <section xml:id="section-dsa-ecdsa">
+        <title>DSA and Elliptic Curve DSA</title>
+
+        <p>The <em>Digital Signature Algorithm</em> is a system that takes advantage of the existence of cyclic subgroups of smaller order in <m>\F_p</m>. Choosing a large prime <m>p</m> will keep the core discrete log problem intractable using contemporary methods like the index calculus, while finding a much smaller subgroup keeps the computation and storage requirements reasonable for users. (That is, while <m>p</m> might be on the order of <m>2^{2048}</m>, the subgroup used for the verification is on the order of <m>q \sim 2^{512}</m>, for example.)</p>
+
+        <algorithm xml:id="alg-dsa">
+        	<title>Digital Signature Algorithm (DSA)</title>
+          <ol>
+            <li>(public parameters) Sam chooses a large primes <m>p, q</m> satisfying <m>p \equiv 1 \bmod p</m> and an element <m>g</m> of order <m>q</m> modulo <m>p</m>.</li>
+            <li>(private) Sam chooses a private key <m>1 \lt a \lt q-1</m> and computes <m>A = g^a</m>.</li>
+            <li>(public) Sam publishes <m>p,q, g, A</m>.</li>
+            <li>(private) Sam wishes to sign a document <m>D</m> where <m>1 \leq D \lt q</m>. She picks a random element <m>1 \lt k \lt q</m>. She computes
+              <me>
+                S_1 = g^k \bmod q, \hspace{.5cm} S_2 = (D - aS_1)k\inv \bmod q.
+              </me>
+            Her signature is the pair <m>D^{sig} = (S_1, S_2)</m>.</li>
+            <li> (private) Vera receives the document <m>D</m>, the signature <m>D^{sig}</m> and the public signing key <m>p,q, g, A</m>. She wants to verify that the document comes from Sam.</li>
+            <li> (private) Vera computes the verification constants 
+                <me>
+                  V_1 = D S_1\inv,\hspace{.5cm} V_2 = S_1 S_2\inv
+                </me></li>
+            <li> Vera's verification question is:
+              <men xml:id="eq-dsa">
+                \text{Is } (g^{V_1}A^{V_2}\bmod p) \bmod q= S_1 \text{?}
+              </men></li>
+          </ol>
+        </algorithm>
+
+        <p>As is the running theme with elliptic curves, the DSA is easily implemented with elliptic curves in place of the finite field <m>\F_p</m>. The advantage is that the ONLY way currently known to attack the discrete log problem in robust elliptic curves is with exponential routines. The Digital Signature Algorithm with elliptic curves is called ECDSA and is in common usage. One of the more surprising applications is in the realm of cryptocurrecy, to be discussed in a sequel section.</p>
+
+        <algorithm xml:id="alg-ecdsa">
+        	<title>Elliptic Curve Digital Signature Algorithm (ECDSA)</title>
+          <ol>
+            <li>(public parameters) Sam chooses an elliptic curve over a finite field <m>E(\F_p)</m> and a point <m>G \in E(\F_p)</m> of large prime order <m>q</m>.</li>
+            <li>(private) Sam chooses a private key <m>1 \lt a \lt q-1</m> and computes <m>A = sG</m>.</li>
+            <li>(public) Sam publishes <m>p,q, G, A</m>.</li>
+            <li>(private) Sam wishes to sign a document <m>D</m> where <m>1 \leq D \lt q</m>. She picks a random element <m>1 \lt k \lt q</m>. She computes
+              <me>
+              	kG = (x_k, y_k)
+              </me>
+              and then sets
+              <me>
+                s_1 = x_k, \hspace{.5cm} s_2 = (D + ax_k)k\inv \bmod q.
+              </me>
+            Her signature is the pair <m>D^{sig} = (s_1, s_2)</m>.</li>
+            <li> (private) Vera receives the document <m>D</m>, the signature <m>D^{sig}</m> and the public signing key <m>p,q, G, A</m>. She wants to verify that the document comes from Sam.</li>
+            <li> (private) Vera computes the verification constants 
+                <me>
+                  v_1 = D s_2\inv,\hspace{.5cm} v_2 = x s_2\inv
+                </me></li>
+            <li> Vera's verification question is:
+              <men xml:id="eq-ecdsa">
+                \text{Is } (v_1 G + v_2 A) \bmod q = x \text{?}
+              </men></li>
+          </ol>
+        </algorithm>
+
+        <exercises>
+          <exercise> Show that the verification question in the DSA is true if the information that Vera receives from Sam is correct. </exercise>
+          <exercise> Show that the verification question in <xref ref="alg-ecdsa" /> is true if the information that Vera receives is correct.</exercise>
+        </exercises>
+
+      </section>
+
+      <section xml:id="section-bitcoin">
+        <title>Bitcoin - an application of ECDSA*</title>
+      </section>
+    </chapter>

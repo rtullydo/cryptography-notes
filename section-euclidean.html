@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-04-11T10:38:01-04:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Common divisors and the Euclidean algorithm</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['\\(','\\)']]
+    },
+    asciimath2jax: {
+        ignoreClass: ".*",
+        processClass: "has_am"
+    },
+    jax: ["input/AsciiMath"],
+    extensions: ["asciimath2jax.js"],
+    TeX: {
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        // scrolling to fragment identifiers is controlled by other Javascript
+        positionToHash: false,
+        equationNumbers: { autoNumber: "none", useLabelIds: true, },
+        TagSide: "right",
+        TagIndent: ".8em",
+    },
+    // HTML-CSS output Jax to be dropped for MathJax 3.0
+    "HTML-CSS": {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+    CommonHTML: {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+});
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
+<script>var logged_in = false;
+var role = 'student';
+var guest_access = true;
+var login_required = false;
+var js_version = 0.11;
+</script>
+</head>
+<body class="mathbook-book has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+\DeclareMathOperator{\IM}{Im}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\intr}{int}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator\re{\mathrm {Re~}}
+\DeclareMathOperator\im{\mathrm {Im~}}
+\newcommand\dd{\mathrm d}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\hilbert}{\mathcal{H}}
+\newcommand{\s}{\mathcal{S}_2}
+\newcommand{\A}{\mathcal{A}}
+\newcommand\h{\mathcal{H}}
+\newcommand{\J}{\mathcal{J}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\BOP}{\mathbf{B}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\BH}{\mathbf{B}(\mathcal{H})}
+\newcommand{\KH}{\mathcal{K}(\mathcal{H})}
+\newcommand{\pick}{\mathcal{P}_2}
+\newcommand{\schur}{\mathcal{S}_2}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Complex}{\mathbb{C}}
+\newcommand{\Field}{\mathbb{F}}
+\newcommand{\RPlus}{\Real^{+}}
+\newcommand{\Polar}{\mathcal{P}_{\s}}
+\newcommand{\Poly}{\mathcal{P}(E)}
+\newcommand{\EssD}{\mathcal{D}}
+\newcommand{\Lop}{\mathcal{L}}
+\newcommand{\cc}[1]{\overline{#1}}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\seq}[1]{\left\lt#1\right&gt;}
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\essnorm}[1]{\norm{#1}_{\ess}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\ran}[1]{\operatorname{ran}#1}
+\newcommand{\nt}{\stackrel{\mathrm {nt}}{\to}}
+\newcommand{\pnt}{\xrightarrow{pnt}}
+\newcommand{\ip}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\ad}{^\ast}
+\newcommand{\inv}{^{-1}}
+\newcommand{\adinv}{^{\ast -1}}
+\newcommand{\invad}{^{-1 \ast}}
+\newcommand\Pick{\mathcal P}
+\newcommand\Ha{\mathbb{H}}
+\newcommand{\HH}{\Ha\times\Ha}
+\newcommand\Htau{\mathbb{H}(\tau)}
+\newcommand{\vp}{\varphi}
+\newcommand{\ph}{\varphi}
+\newcommand\al{\alpha}
+\newcommand\ga{\gamma}
+\newcommand\de{\delta}
+\newcommand\ep{\varepsilon}
+\newcommand\la{\lambda}
+\newcommand\up{\upsilon}
+\newcommand\si{\sigma}
+\newcommand\beq{\begin{equation}}
+\newcommand\ds{\displaystyle}
+\newcommand\eeq{\end{equation}}
+\newcommand\df{\stackrel{\rm def}{=}}
+\newcommand\ii{\mathrm i}
+\newcommand{\vectwo}[2]
+{
+   \begin{pmatrix} #1 \\ #2 \end{pmatrix}
+}
+\newcommand{\vecthree}[3]
+{
+   \begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}
+}
+\newcommand\blue{\color{blue}}
+\newcommand\black{\color{black}}
+\newcommand\red{\color{red}}
+\newcommand\nn{\nonumber}
+\newcommand\bbm{\begin{bmatrix}}
+\newcommand\ebm{\end{bmatrix}}
+\newcommand\bpm{\begin{pmatrix}}
+\newcommand\epm{\end{pmatrix}}
+\numberwithin{equation}{section}
+\newcommand\nin{\noindent}
+\newcommand{\nCr}[2]{\,_{#1}C_{#2}} 
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\)</div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="cryptography.html"><span class="title">Mathematical Cryptography</span></a></h1>
+<p class="byline">Ryan Tully-Doyle</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="divisibility.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-numbertheory.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-modular.html" title="Next">Next</a></span></div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="divisibility.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-numbertheory.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-modular.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link">
+<a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
+<li><a href="foreward.html" data-scroll="foreward">The course</a></li>
+<li><a href="motivation.html" data-scroll="motivation">Why “mathematical” cryptography?</a></li>
+<li><a href="shift.html" data-scroll="shift">A simple example: the shift cipher</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-numbertheory.html" data-scroll="chapter-numbertheory"><span class="codenumber">2</span> <span class="title">Number theory</span></a><ul>
+<li><a href="divisibility.html" data-scroll="divisibility">Integers and divisibility</a></li>
+<li><a href="section-euclidean.html" data-scroll="section-euclidean" class="active">Common divisors and the Euclidean algorithm</a></li>
+<li><a href="section-modular.html" data-scroll="section-modular">Modular arithmetic and the ring of integers modulo \(n\)</a></li>
+<li><a href="section-fastpower.html" data-scroll="section-fastpower">The fast powering algorithm</a></li>
+<li><a href="section-finite-fields.html" data-scroll="section-finite-fields">Finite fields</a></li>
+<li><a href="section-fermat.html" data-scroll="section-fermat">Fermat's little theorem and computing inverses</a></li>
+<li><a href="section-ch2-conclusion.html" data-scroll="section-ch2-conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-groups.html" data-scroll="chapter-groups"><span class="codenumber">3</span> <span class="title">Group based methods</span></a><ul>
+<li><a href="section-naive.html" data-scroll="section-naive">A naïve cryptosystem and some related questions</a></li>
+<li><a href="section-discretelog.html" data-scroll="section-discretelog">Discrete logarithms</a></li>
+<li><a href="section-dh.html" data-scroll="section-dh">Diffie-Hellman key exchange</a></li>
+<li><a href="section-elgamal.html" data-scroll="section-elgamal">The Elgamal cryptosystem</a></li>
+<li><a href="section-groups.html" data-scroll="section-groups">Groups</a></li>
+<li><a href="section-attack-dlp.html" data-scroll="section-attack-dlp">Attacking the discrete log problem</a></li>
+<li><a href="section-chinese.html" data-scroll="section-chinese">The Chinese Remainder theorem and Pohlig-Hellman*</a></li>
+<li><a href="section-homomorphism.html" data-scroll="section-homomorphism">Homomorphisms and the lunchtime attack</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-elliptic-curves.html" data-scroll="chapter-elliptic-curves"><span class="codenumber">4</span> <span class="title">Elliptic curves and applications</span></a><ul>
+<li><a href="section-ec-intro.html" data-scroll="section-ec-intro">Introduction to elliptic curves</a></li>
+<li><a href="section-elliptic-addition.html" data-scroll="section-elliptic-addition">Elliptic addition on \(E\text{.}\)</a></li>
+<li><a href="section-ec-finite-fields.html" data-scroll="section-ec-finite-fields">Elliptic curves over finite fields</a></li>
+<li><a href="section-ecdlp.html" data-scroll="section-ecdlp">Discrete logs and the ECDLP</a></li>
+<li><a href="section-ec-elgamal.html" data-scroll="section-ec-elgamal">Elliptic curve Diffie-Hellman key exchange and El Gamal</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-digital-signatures.html" data-scroll="chapter-digital-signatures"><span class="codenumber">5</span> <span class="title">Digital signatures</span></a><ul>
+<li><a href="section-dsa-intro.html" data-scroll="section-dsa-intro">Introduction to digital signatures</a></li>
+<li><a href="section-elgamal-ds.html" data-scroll="section-elgamal-ds">Elgamal digital signatures</a></li>
+<li><a href="section-subgroups.html" data-scroll="section-subgroups">Subgroups and cyclic subgroups</a></li>
+<li><a href="section-dsa-ecdsa.html" data-scroll="section-dsa-ecdsa">DSA and Elliptic Curve DSA</a></li>
+<li><a href="section-bitcoin.html" data-scroll="section-bitcoin">Bitcoin - an application of ECDSA*</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-probability.html" data-scroll="chapter-probability"><span class="codenumber">6</span> <span class="title">Probability and non-deterministic methods</span></a><ul>
+<li><a href="section-counting.html" data-scroll="section-counting">Counting - Permutations and combinations*</a></li>
+<li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+</ul>
+</li>
+</ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-euclidean"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">2.2</span> <span class="title">Common divisors and the Euclidean algorithm</span>
+</h2>
+<a href="section-euclidean.html" class="permalink">¶</a><p id="p-24">It turns out that the straightforward idea of numbers possessing divisors in common has important consequences for the construction of secure mathematical encryption schemes.</p>
+<article class="definition-like" id="def-common-div"><h6 class="heading">
+<span class="type">Definition</span> <span class="codenumber">2.2.1</span>.</h6>Let \(a, b \in \Z\text{.}\) A number \(d\) is called a <dfn class="terminology">common divisor</dfn> of \(a\) and \(b\) if \(d \mid a\) and \(d \mid b\text{.}\)</article><article class="exercise-like" id="exercise-5"><a data-knowl="" class="id-ref" data-refid="hk-exercise-5"><h6 class="heading">
+<span class="type">Checkpoint</span> <span class="codenumber">2.2.2</span>.</h6></a></article><div id="hk-exercise-5" class="hidden-content tex2jax_ignore"><article class="exercise-like">Why must such a number always exist?</article></div>
+<p id="p-25">As a common divisor can be no larger than either of the numbers \(a\) and \(b\text{,}\) there always must be a largest such \(d\text{,}\) called the <dfn class="terminology">greatest common divisor</dfn>. We denote the greatest common divisor of \(a\) and \(b\) with the symbol \(\gcd(a,b)\text{.}\) Finding a gcd is straightforward task in the case that the numbers are small - we can perform a factorization of the numbers, compare factors, and construct the gcd by multiplying all of the factors that the numbers have in common. For example, \(\gcd(128, 36) = 4\) because \(128 = 2^7\) and \(36 = 2^2 3^2\text{,}\) and thus the numbers share \(2^2\) as a common factor. However, at the scale of numbers used in cryptography, this is not an efficient method for finding a gcd.</p>
+<article class="exercise-like" id="exercise-6"><a data-knowl="" class="id-ref" data-refid="hk-exercise-6"><h6 class="heading">
+<span class="type">Checkpoint</span> <span class="codenumber">2.2.3</span>.</h6></a></article><div id="hk-exercise-6" class="hidden-content tex2jax_ignore"><article class="exercise-like">What is \(\gcd(2^{50} - 1, 2^{52} -1)\text{?}\)</article></div>
+<p id="p-26">We need an alternative approach. Fortunately, an easy observation about the division algorithm will provide the foundation for a significantly more efficient method. Let \(a, b \in \Z\text{.}\) By the division algorithm, there are unique numbers \(q, r \in \Z\) with \(0 \leq r \lt b\) so that</p>
+<div class="displaymath">
+\begin{equation*}
+a = bq + r.
+\end{equation*}
+</div>
+<p id="p-27">Observe that if \(d \mid a\) and \(d \mid b\) then \(d \mid r\text{.}\) (Why?) Observe that if \(e \mid b\) and \(e \mid r\) then \(e \mid a\text{.}\) (Why?) This means that the common divisors of \(a\) and \(b\) are the same as the common divisors of \(b\) and \(r\text{.}\) We conclude that \(\gcd(a,b) = \gcd(b, r)\text{.}\) This reduction of complexity gives us the core step in what is known as the <dfn class="terminology">Euclidean algorithm</dfn>. Finally, observe that since every nonzero integer divides \(0\text{,}\) we have \(\gcd(n, 0) = n\text{.}\)</p>
+<article class="theorem-like" id="thm-euclidean"><h6 class="heading">
+<span class="type">Theorem</span> <span class="codenumber">2.2.4</span>. <span class="title">(Euclidean algorithm).</span>
+</h6>
+<p id="p-28">Let \(a, b\) be postive integers with \(a \geq b\text{.}\) Then \(\gcd(a,b) = \gcd(r_{n-1},0) = r_{n-1}\) where the remainder \(r_{n-1}\) is the remainder in the penultimate step in the process</p>
+<ol class="decimal">
+<li id="li-23">\(a = bq_1 + r_1\) (reduces problem to finding \(\gcd(b, r_1)\))</li>
+<li id="li-24">\(b = r_1 q_2 + r_2\) (reduces problem to finding \(\gcd(r_1, r_2)\))</li>
+<li id="li-25">\(r_1 = r_2 q_3 + r_3\) (reduces problem to finding \(\gcd(r_2, r_3)\)).</li>
+<li id="li-26">\(\vdots\)</li>
+<li id="li-27">\(r_{n-3} = r_{n-2} q_{n-1} + r_{n-1}\) (reduces problem to \(\gcd(r_{n-2}, r_{n-1}))\))</li>
+<li id="li-28">\(r_{n-2} = r_{n-1} q_n + 0\) (reduces to \(\gcd(r_{n-1}, 0) = r_{n-1}\)).</li>
+</ol></article><div class="displaymath">
+\begin{align*}
+2024 \amp= 748 \cdot 2 + 528 \\
+748 \amp= 528 \cdot 1 + 220 \\
+528 \amp= 220 \cdot 2 + 88 \\
+220 \amp= 88 \cdot 2 + 44 \leftarrow \gcd = 44 \\
+88 \amp= 44 \cdot 2 + 0
+\end{align*}
+</div>
+<p id="p-29">There is actually more information contained in the calculation above. Let \(a = 2024\) and \(b = 748\text{.}\) Using a series of cascading substitutions, we can show that</p>
+<div class="displaymath">
+\begin{equation*}
+44 = -7a + 19b
+\end{equation*}
+</div>
+<p id="p-30">In fact, it is always the case that \(\gcd(a,b)\) can be written as an integer linear combination of \(a\) and \(b\text{,}\) a result known as the <em class="emphasis">extended Euclidean algorithm</em>.</p>
+<article class="theorem-like" id="thm-eea"><h6 class="heading">
+<span class="type">Theorem</span> <span class="codenumber">2.2.5</span>. <span class="title">(extended Euclidean algorithm).</span>
+</h6> Let \(a, b\) be positive integers. Then the equation<div class="displaymath">
+\begin{equation*}
+au + bv = \gcd(a,b)
+\end{equation*}
+</div>always has a solution in integers \(u\) and \(v\text{.}\) Moreover, given a solution \((u_0, v_0)\text{,}\) every solution \((u,v)\) is of the form<div class="displaymath">
+\begin{equation*}
+u = u_0 + \frac{bk}{\gcd(a,b)} \text{ and } v = v_0 - \frac{ak}{\gcd(a,b)} \text{ for } k \in \Z.
+\end{equation*}
+</div></article> In the special case that \(\gcd(a,b) = 1\text{,}\) there is a straightforward algorithm for computing a solution \(u, v\text{.}\) <ol class="decimal">
+<li id="li-29">Use the Euclidean algorithm to find the string of quotients \(q_1, \ldots, q_n\) appearing in the descending equations, where \(n\) is the number of steps required to reach remainder 0.</li>
+<li id="li-30">
+<p id="p-31">Construct two recursive sequences, \(P\) and \(Q\text{.}\)</p>
+<ol class="lower-alpha">
+<li id="li-31">Set \(P_0 = 1, P_1 = q_1\) and \(P_{k} = q_k \cdot P_{k-1} + P_{k-2}\) for \(2 \leq k \leq n\text{.}\) The sequence will terminate with \(P_n = a\text{.}\)</li>
+<li id="li-32">Set \(Q_0 = 0, Q_1 = 1\) and \(Q_{k} = q_k \cdot Q_{k-1} + Q_{k-2}\) for \(2 \leq k \leq n\text{.}\) The sequence will terminate with \(Q_n = b\text{.}\)</li>
+</ol>
+</li>
+<li id="li-33">The final terms of the sequence will satisfy the equation<div class="displaymath">
+\begin{equation*}
+a Q_{n-1} - b P_{n-1} = (-1)^n.
+\end{equation*}
+</div>Dividing through by \((-1)^n\) will give<div class="displaymath">
+\begin{equation*}
+a ((-1)^n Q_{n-1}) - b ((-1)^n P_{n-1}) = 1,
+\end{equation*}
+</div>which gives \(u\) and \(v\text{.}\)</li>
+</ol>
+<p id="p-32">You should notice that the algorithm can actually be used on any pair \(a, b\) by dividing through by the gcd.</p>
+<article class="exercise-like" id="exercise-7"><a data-knowl="" class="id-ref" data-refid="hk-exercise-7"><h6 class="heading">
+<span class="type">Checkpoint</span> <span class="codenumber">2.2.6</span>.</h6></a></article><div id="hk-exercise-7" class="hidden-content tex2jax_ignore"><article class="exercise-like">Why does this work? What if \(\gcd(a,b) \neq 1\text{?}\) (Hint: modify the problem.)</article></div>
+<p id="p-33">You can make a nice visual representation of the algorithm with an array:</p>
+<figure class="figure-like" id="table-2"><table>
+<tr>
+<td class="l m b2 r0 l0 t0 lines"></td>
+<td class="l m b2 r0 l0 t0 lines"></td>
+<td class="l m b2 r0 l0 t0 lines">\(q_1\)</td>
+<td class="l m b2 r0 l0 t0 lines">\(q_2\)</td>
+<td class="l m b2 r0 l0 t0 lines"></td>
+<td class="l m b2 r0 l0 t0 lines">\(q_{n-1}\)</td>
+<td class="l m b2 r0 l0 t0 lines">\(q_n\)</td>
+</tr>
+<tr>
+<td class="l m b2 r2 l0 t0 lines">\(0\)</td>
+<td class="l m b2 r2 l0 t0 lines">\(1\)</td>
+<td class="l m b2 r2 l0 t0 lines">\(P_1\)</td>
+<td class="l m b2 r2 l0 t0 lines">\(P_2\)</td>
+<td class="l m b2 r2 l0 t0 lines">\(\ldots\)</td>
+<td class="l m b2 r2 l0 t0 lines">\(P_{n-1}\)</td>
+<td class="l m b2 r2 l0 t0 lines">\(P_n = a\)</td>
+</tr>
+<tr>
+<td class="l m b2 r2 l0 t0 lines">\(1\)</td>
+<td class="l m b2 r2 l0 t0 lines">\(0\)</td>
+<td class="l m b2 r2 l0 t0 lines">\(Q_1\)</td>
+<td class="l m b2 r2 l0 t0 lines">\(Q_2\)</td>
+<td class="l m b2 r2 l0 t0 lines">\(\ldots\)</td>
+<td class="l m b2 r2 l0 t0 lines">\(Q_{n-1}\)</td>
+<td class="l m b2 r2 l0 t0 lines">\(Q_n = a\)</td>
+</tr>
+</table></figure><p id="p-34">The above algorithm is powerful, but requires storing potentially lots of information. There are more efficient approaches, though you may wish to implement the algorithm above.</p>
+<article class="example-like" id="example-1"><a data-knowl="" class="id-ref" data-refid="hk-example-1"><h6 class="heading">
+<span class="type">Example</span> <span class="codenumber">2.2.8</span>.</h6></a></article><div id="hk-example-1" class="hidden-content tex2jax_ignore"><article class="example-like"><p id="p-35">Find \(u\) and \(v\) so that \(82 u + 17 v = gcd(82,17)\text{.}\) First, we perform the Euclidean algorithm to get the list of quotients that we need to perform the extension.</p>
+<div class="displaymath">
+\begin{align*}
+82 \amp= 17 \times 4 + 14 \\
+17 \amp= 14\times 1 + 3 \\
+14 \amp= 3\times 4 + 2 \\
+3 \amp= 2\times 1 + 1 \\
+2 \amp= 1\times 2 + 0 
+\end{align*}
+</div>
+<p id="p-36">The array version of the algorithm looks like</p>
+<div class="displaymath">
+\begin{equation*}
+\begin{array}{ccccccc}
+\amp \amp 4 \amp 1 \amp 4 \amp 1 \amp 2 \\
+0 \amp 1 \amp 4 \amp 5 \amp 24 \amp 29 \amp 82 \\
+1 \amp 0 \amp 1 \amp 1 \amp 5 \amp 6 \amp 17 
+\end{array}
+\end{equation*}
+</div> From the last four boxes, we get<div class="displaymath">
+\begin{equation*}
+82\cdot 6 - 17\cdot 29 = (-1)^5
+\end{equation*}
+</div>and so \(u = -6\) and \(v = 17\) gives a solution to \(au + bv = 1\text{.}\)</article></div>
+<section class="exercises" id="exercises-3"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise-like" id="exercise-8"><h6 class="heading"><span class="codenumber">1.</span></h6>
+<p id="p-37">Write a python function that computes \(\gcd(a,b)\) for \(a, b \in \Z\text{.}\)</p></article><article class="exercise-like" id="exercise-9"><h6 class="heading"><span class="codenumber">2.</span></h6>
+<p id="p-38">An efficient algorithm for computing a solution to \(au + bv = \gcd(a,b)\) is given below:</p>
+<ol class="lower-alpha">
+<li id="li-34">Set \(u = 1, g = a, x = 0\) and \(y = b\text{.}\)</li>
+<li id="li-35">If \(y = 0\text{,}\) set \(v = (g - au)/b\) and return values \((g, u, v)\text{.}\)</li>
+<li id="li-36">Divide \(g\) by \(y\) to get \(g = qy + t\) with \(0 \leq t \lt y\text{,}\) store \(q\) and \(t\text{.}\)</li>
+<li id="li-37">Set \(s = u - qx\text{.}\)</li>
+<li id="li-38">Set \(u = x\) and \(g = y\text{.}\)</li>
+<li id="li-39">Set \(x = s\) and \(y = t\text{.}\)</li>
+<li id="li-40">Go to Step (b).</li>
+</ol>
+<p id="p-39">Your tasks are:</p>
+<ol class="lower-alpha">
+<li id="li-41">Convince me that \(g = \gcd(a,b)\) and \(au + bv = g\text{.}\)</li>
+<li id="li-42">Implement this algorithm in a python function.</li>
+</ol></article></section></section></div></main>
+</div>
+<div class="login-link"><span id="loginlogout" class="login">login</span></div>
+<script src="https://pretextbook.org/js/0.11/login.js"></script>
+</body>
+</html>

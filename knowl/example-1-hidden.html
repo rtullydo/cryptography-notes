@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-04-11T10:38:02-04:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body><article class="example-like"><p>Find \(u\) and \(v\) so that \(82 u + 17 v = gcd(82,17)\text{.}\) First, we perform the Euclidean algorithm to get the list of quotients that we need to perform the extension.</p>
+<div class="displaymath">
+\begin{align*}
+82 \amp= 17 \times 4 + 14 \\
+17 \amp= 14\times 1 + 3 \\
+14 \amp= 3\times 4 + 2 \\
+3 \amp= 2\times 1 + 1 \\
+2 \amp= 1\times 2 + 0 
+\end{align*}
+</div>
+<p>The array version of the algorithm looks like</p>
+<div class="displaymath">
+\begin{equation*}
+\begin{array}{ccccccc}
+\amp \amp 4 \amp 1 \amp 4 \amp 1 \amp 2 \\
+0 \amp 1 \amp 4 \amp 5 \amp 24 \amp 29 \amp 82 \\
+1 \amp 0 \amp 1 \amp 1 \amp 5 \amp 6 \amp 17 
+\end{array}
+\end{equation*}
+</div> From the last four boxes, we get<div class="displaymath">
+\begin{equation*}
+82\cdot 6 - 17\cdot 29 = (-1)^5
+\end{equation*}
+</div>and so \(u = -6\) and \(v = 17\) gives a solution to \(au + bv = 1\text{.}\)</article></body>
+</html>

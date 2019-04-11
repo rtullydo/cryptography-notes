@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-03-19T16:12:05-04:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<article class="theorem-like"><h6 class="heading">
+<span class="type">Algorithm</span> <span class="codenumber">2.4.1</span>. <span class="title">(Fast Powering Algorithm).</span>
+</h6>
+<p>Consider the exponential \(g^k \bmod N\text{.}\)</p>
+<ol class="decimal">
+<li>
+<p>Compute the binary expansion of the exponent \(k\text{:}\)</p>
+<div class="displaymath">
+\begin{equation*}
+k = k_0 + k_1 \cdot 2 + k_2 \cdot 2^2 + \ldots + k_r \cdot 2^r
+\end{equation*}
+</div>
+<p>where the coefficients \(k_i\) can be either 0 or 1, and we assume that \(k_r = 1\text{.}\)</p>
+</li>
+<li>
+<p>Compute the powers \(g^{2^i} \bmod N\) for \(0 \leq i \leq r\) by repeating squaring:</p>
+<div class="displaymath">
+\begin{align*}
+a_0 \amp= g \bmod N \\
+a_1 \amp= a_0^2 = g^2 \bmod N \\
+a_2 \amp= a_1^2 = g^{2^2} \bmod N\\
+\vdots \amp \\
+a_r \amp= a_{r-1}^2 = g^{2^r} \bmod N. 
+\end{align*}
+</div>
+</li>
+<li>
+<p>Compute \(g^k\) with</p>
+<div class="displaymath">
+\begin{equation*}
+g^k = a_0^{k_0} \cdot a_1^{k_1} \cdot \ldots \cdot a_r^{k_r}
+\end{equation*}
+</div>
+<p>where the exponents \(k_i\) determine if a particular power of \(g\) is present in the computation, as \(k_i\) is either 1 or 0.</p>
+</li>
+</ol></article><span class="incontext"><a href="section-fastpower.html#algorithm-1">in-context</a></span>
+</body>
+</html>

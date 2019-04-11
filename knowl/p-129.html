@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-04-11T10:38:02-04:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<h6 class="heading"><span class="type">Paragraph</span></h6>
+<p>Suppose that Eve has access to an Elgamal decryption oracle (like Alice's unlocked computer, for example). Then Eve can decrypt any ciphertext \((c_1, c_2)\) sent to Alice (even if the messages are in a list of previously decrypted texts are so are rejected by the oracle) by exploiting the homomorphic property. What should Eve send the oracle? Eve selects a plaintext \(m_e\) and encrypts it using Alice's parameters \(p, g, A\) to get \(e(m_e)\text{.}\) Using the homomorphic property, she multiplies the pairs</p>
+<div class="displaymath">
+\begin{equation*}
+e(m_e) e(m) = e(m_e m)
+\end{equation*}
+</div>
+<p>and gets a valid encryption. She submits the encrpytion to the oracle and receives the output \(m' = m_e m\text{.}\) Finally, since she knows the value of \(m_e\text{,}\) she computes</p>
+<div class="displaymath">
+\begin{equation*}
+m' \cdot m_e\inv = m_e \cdot m\cdot m_e\inv = m
+\end{equation*}
+</div>
+<p>and recovers the message \(m\text{.}\)</p>
+<span class="incontext"><a href="section-homomorphism.html#p-129">in-context</a></span>
+</body>
+</html>

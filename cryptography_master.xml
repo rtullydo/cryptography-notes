@@ -166,5 +166,55 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <xi:include href="digital_signatures.xml" />
     <xi:include href="probability.xml" />
 
+    <backmatter>
+      <xi:include href="appendix_code.xml" />
+    </backmatter>
+
+    <chapter>
+        <title>Exercises</title>
+      <exercises>
+        <title>Set 1</title>
+        <exercise>
+          <p>Write a python function that computes <m>\gcd(a,b)</m> for <m>a, b \in \Z</m>.</p>
+        </exercise>
+        <exercise>
+          <p>An efficient algorithm for computing a solution to <m> au + bv = \gcd(a,b)</m> is given below:
+          <ol>
+            <li>Set <m>u = 1, g = a, x = 0</m> and <m>y = b</m>.</li>
+            <li>If <m>y = 0</m>, set <m>v = (g - au)/b</m> and return values <m>(g, u, v)</m>.</li>
+            <li>Divide <m>g</m> by <m>y</m> to get <m>g = qy + t</m> with <m>0 \leq t \lt y</m>, store <m>q</m> and <m>t</m>.</li>
+            <li>Set <m>s = u - qx</m>.</li>
+            <li>Set <m>u = x</m> and <m>g = y</m>.</li>
+            <li>Set <m>x = s</m> and <m>y = t</m>.</li>
+            <li>Go to Step (b).</li>
+          </ol></p>
+          <p>Implement this algorithm in a python function.</p>
+          </exercise>
+          <exercise>
+            <p>Implement the fast powering algorithm in python as a function that takes as input a base <m>g</m>, a power <m>x</m>, and a mod <m>n</m> and produces as output <m>g^x \bmod n</m>. You may wish to use the python function <c>bin(n)</c> which returns the binary representation as a string of 1s and 0s. (You can view this string as the values of the coefficients <m>k_i</m> in the description of the algorithm above. ) </p>
+          </exercise>
+        </exercises>
+        <exercises>
+            <title>Set 2</title>
+          <exercise>
+            Implement the Elgamal system in python. You should have an encryption function <m>e</m> that takes <m>g, p, A, m</m> and produces a pair <m>(c_1, c_2)</m>. You should have a decryption function <m>d</m> that takes as input <m>g, p, a, (c_1, c_2)</m> and produces a plaintext <m>m</m>. The implementation should use your previous implementations of the fast powering algorithm and the inverse finding algorithm.
+          </exercise>
+        </exercises>
+        <exercises>
+            <title>Set 3</title>
+          <exercise>
+            Implement the elliptic addition algorithm over <m>E(\F_p)</m>.
+          </exercise>
+          <exercise>
+            Implement the double-and-add function. The function should use your elliptic addition function as the core routine. It should accept <m>n \in \Z</m> and <m>P \in E(\F_p)</m> and return <m>Q = nP</m>.
+          </exercise>
+        </exercises>
+        <exercises>
+            <title>Set 4</title>
+            <exercise>Implement the Miller-Rabin primality test.</exercise>
+            <exercise>Implement Pollard's <m>\rho</m> method.</exercise>
+        </exercises>
+    </chapter>
+
   </book>
 </mathbook>

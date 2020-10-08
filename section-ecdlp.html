@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--**************************************-->
 <!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-04-11T12:56:09-04:00    *-->
+<!--*    on 2019-11-20T16:48:50-05:00    *-->
 <!--*                                    *-->
 <!--*      https://pretextbook.org       *-->
 <!--*                                    *-->
@@ -41,7 +41,7 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
@@ -53,7 +53,7 @@ MathJax.Hub.Config({
 var role = 'student';
 var guest_access = true;
 var login_required = false;
-var js_version = 0.11;
+var js_version = 0.12;
 </script>
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
@@ -222,6 +222,17 @@ var js_version = 0.11;
 <li><a href="section-counting.html" data-scroll="section-counting">Counting*</a></li>
 <li><a href="section-perm-comb.html" data-scroll="section-perm-comb">Permutations and combinations*</a></li>
 <li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+<li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
+</ul>
+</li>
+<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
+<li class="link">
+<a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
+<li><a href="exercises-21.html" data-scroll="exercises-21">Set 1</a></li>
+<li><a href="exercises-22.html" data-scroll="exercises-22">Set 2</a></li>
+<li><a href="exercises-23.html" data-scroll="exercises-23">Set 3</a></li>
+<li><a href="exercises-24.html" data-scroll="exercises-24">Set 4</a></li>
 </ul>
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
@@ -239,7 +250,7 @@ nP = \underbrace{P + P + \ldots + P}_{n \text{ times}}.
 <p>The <dfn class="terminology">double-and-add</dfn> algorithm is the exact analogue of the square-and-multiply fast powering algorithm presented in <a data-knowl="./knowl/alg-fast-power.html" title="Algorithm 2.4.1: (Fast Powering Algorithm)">Algorithm 2.4.1</a>.</p>
 <article class="theorem-like" id="algo-double-add"><h6 class="heading">
 <span class="type">Algorithm</span> <span class="codenumber">4.4.1</span>. <span class="title">Double-and-add.</span>
-</h6> Let \(E(\F_p)\) be an elliptic curve over the finite field \(\F_p\text{.}\) Let \(P \in E(\F_p)\) and consider the multiplication \(nP\text{.}\) <ol class="decimal">
+</h6>\(E(\F_p)\)\(\F_p\text{.}\)\(P \in E(\F_p)\)\(nP\text{.}\)<ol class="decimal">
 <li id="li-128">Compute the binary expansion of \(n\text{:}\)<div class="displaymath">
 \begin{equation*}
 n = n_0 + n_1 \cdot 2 + \ldots + n_r \cdot 2^r
@@ -293,11 +304,11 @@ P, 2P, 3P, \ldots.
 <p>where the proof is left as an exercise. (The usual logarithm satisfies \(\log(xy) = \log x + \log y\text{:}\) the difference in this case is that we're working in an additive group.)</p>
 <p id="p-163">We should make some points about why elliptic curves are a tempting universe in which to do cryptography. First, unlike in \(\F_p\ad\text{,}\) inverses are trivial: if \(P = (x,y)\) then \(-P = (x, -y)\text{,}\) which makes computations much faster in Elgamal type settings. Second, and more importantly, unlike systems build on the integers and factoring problems, the fastest known algorithms that solve the ECDLP are exponential (on the order of \(O(\sqrt{N})\)), which allows the keyspace to be much smaller than methods amenable to attack by index calculus techniques (to be discussed after we talk about RSA).</p>
 <section class="exercises" id="exercises-14"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+<span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
 <article class="exercise-like" id="exercise-27"><h6 class="heading"><span class="codenumber">1.</span></h6>Show that the elliptic curve discrete log has the additive property in <a data-knowl="./knowl/eq-eclog.html" title="Equation 4.4.1">(4.4.1)</a>.</article><article class="exercise-like" id="exercise-28"><h6 class="heading"><span class="codenumber">2.</span></h6>Implement the double-and-add function. The function should use your elliptic addition function as the core routine. It should accept \(n \in \Z\) and \(P \in E(\F_p)\) and return \(Q = nP\text{.}\)</article></section></section></div></main>
 </div>
 <div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.11/login.js"></script>
+<script src="https://pretextbook.org/js/0.12/login.js"></script>
 </body>
 </html>

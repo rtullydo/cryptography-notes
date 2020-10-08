@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-11-20T16:48:51-05:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<article class="theorem-like"><h6 class="heading">
+<span class="type">Algorithm</span> <span class="codenumber">6.4.1</span>. <span class="title">Pollard's rho method for \(\F_p\).</span>
+</h6>\(g^t = h \bmod p\)<ol class="decimal">
+<li>Initialize constants \(a_x, b_x, a_y, b_y = 0\text{.}\)</li>
+<li>Intialize the list elements \(x = 1, y = 0\text{.}\)</li>
+<li>Define the mixing function \(f\) by <a data-knowl="./knowl/eqn-pollard-f.html" title="Equation 6.4.1">(6.4.1)</a>.</li>
+<li>Set \(x = f(x), y = f(f(x))\text{,}\) and update the storage constants according to <a data-knowl="./knowl/eqn-pollard-a.html" title="Equation 6.4.2">(6.4.2)</a> and <a data-knowl="./knowl/eqn-pollard-b.html" title="Equation 6.4.3">(6.4.3)</a>.</li>
+<li>If \(x \neq y\text{,}\) repeat from Step 4.</li>
+<li>Once a collision is found, set \(u = a_x - a_y\text{,}\) and \(v = b_y - b_x\text{.}\)</li>
+<li>Apply the Euclidean algorith to \(v, p-1\) to get \(s, d\) so that \(s v = d \bmod p-1\) and \(d = \gcd(v, p-1)\text{.}\)</li>
+<li>Set \(w = su\)</li>
+<li>For \(k = 1, \ldots, d-1\text{,}\) calculate<div class="displaymath">
+\begin{equation*}
+t = \frac{w}{d} + k \frac{p-1}{d}
+\end{equation*}
+</div>and check<div class="displaymath">
+\begin{equation*}
+g^t = h \bmod p
+\end{equation*}
+</div>
+</li>
+</ol></article><span class="incontext"><a href="section-pollard-concrete.html#algo-pollard">in-context</a></span>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-11-20T16:48:51-05:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<figure class="figure-like"><pre class="plainprint">import random as rand
+from math import gcd, log
+
+#this function factors all of the available powers
+#of 2 out of n-1
+def twofactor(n):
+  m = n -1
+  i, q, r = 0,0,0
+  while True:
+    q, r = divmod(m, 2)
+    if r == 1:
+      break
+    m = q
+    i = i + 1
+  return m,i
+
+#this function performs one round of the Miller-Rabin test
+#for compositeness. The witnesses are randomly generated.
+def millerrabin(n):
+  if n%2 == 0:
+    return True
+  else:
+    a = rand.randint(1, n-1)
+    if gcd(a,n) != 1:
+      return True
+
+    q,k = twofactor(n)
+    i = 0
+    a = pow(a,q,n)
+    if a ==1%n:
+      return False
+
+    while i &lt; k:
+      if a == -1 %n:
+        return False
+      a = a**2%n
+      i = i + 1
+    else:
+      return True
+
+
+#main function to run the Miller-Rabin test N times --
+#uses a float to calculate probability of primaility given N loops
+def main():
+  n = int(input("Input an integer to test:"))
+  N = int(input("Enter number of witnesses to test:"))
+  for i in range(1,N):
+    if millerrabin(n) == True:
+      print("Composite")
+      break
+    else:
+      prob = 1 - log(n)/4**N
+      print("Prime likelihood is approx %f" %prob)
+      break
+</pre>
+<figcaption><span class="type">Listing</span> <span class="codenumber">A.0.1.</span> Miller-Rabin</figcaption></figure><span class="incontext"><a href="code.html#listing-1">in-context</a></span>
+</body>
+</html>

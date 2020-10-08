@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--**************************************-->
 <!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-04-11T12:56:08-04:00    *-->
+<!--*    on 2019-11-20T16:48:50-05:00    *-->
 <!--*                                    *-->
 <!--*      https://pretextbook.org       *-->
 <!--*                                    *-->
@@ -41,7 +41,7 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
@@ -53,7 +53,7 @@ MathJax.Hub.Config({
 var role = 'student';
 var guest_access = true;
 var login_required = false;
-var js_version = 0.11;
+var js_version = 0.12;
 </script>
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
@@ -222,6 +222,17 @@ var js_version = 0.11;
 <li><a href="section-counting.html" data-scroll="section-counting">Counting*</a></li>
 <li><a href="section-perm-comb.html" data-scroll="section-perm-comb">Permutations and combinations*</a></li>
 <li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+<li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
+</ul>
+</li>
+<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
+<li class="link">
+<a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
+<li><a href="exercises-21.html" data-scroll="exercises-21">Set 1</a></li>
+<li><a href="exercises-22.html" data-scroll="exercises-22">Set 2</a></li>
+<li><a href="exercises-23.html" data-scroll="exercises-23">Set 3</a></li>
+<li><a href="exercises-24.html" data-scroll="exercises-24">Set 4</a></li>
 </ul>
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
@@ -233,15 +244,15 @@ var js_version = 0.11;
 <article class="definition-like" id="definition-7"><h6 class="heading">
 <span class="type">Definition</span> <span class="codenumber">2.5.1</span>.</h6>A positive integer \(p\) is called <dfn class="terminology">prime</dfn> if its only positive divisors are \(1\) and \(p\text{.}\) That is, for a prime \(p\text{,}\) if \(d \mid p\) then \(d = 1\) or \(d = p\text{.}\)</article><p id="p-71">It is fortunate that the supply of primes cannot be exhausted. The following theorem is ancient, and appears in Euclid's <em class="emphasis">Elements</em>.</p>
 <article class="theorem-like" id="theorem-5"><h6 class="heading">
-<span class="type">Theorem</span> <span class="codenumber">2.5.2</span>.</h6>There are infinitely many primes.</article><article class="example-like" id="question-2"><a data-knowl="" class="id-ref" data-refid="hk-question-2"><h6 class="heading">
+<span class="type">Theorem</span> <span class="codenumber">2.5.2</span>.</h6></article><article class="example-like" id="question-2"><a data-knowl="" class="id-ref" data-refid="hk-question-2"><h6 class="heading">
 <span class="type">Question</span> <span class="codenumber">2.5.3</span>.</h6></a></article><div id="hk-question-2" class="hidden-content tex2jax_ignore"><article class="example-like">There are many proofs of the following theorem, but perhaps the most standard is a proof by contradiction that uses the definition of divisibility. Look up a proof of the following theorem and try to explain it in plain language to a friend. You will have succeeded if they understand your argument.</article></div>
 <p id="p-72">When \(p\) is prime, the ring of integers \(\Z_p\) has the property that every nonzero integer modulo \(p\) has a multiplicative inverse, which means that arithmetic becomes completely consistent: we can add, subtract, multiply <em class="emphasis">and divide</em> just like in the real numbers.</p>
 <article class="theorem-like" id="theorem-6"><h6 class="heading">
-<span class="type">Theorem</span> <span class="codenumber">2.5.4</span>.</h6>Let \(p\) be a prime. Every nonzero element \(a \in \Z_p\) has a multiplicative inverse, in the sense that there exists \(b\) so that<div class="displaymath">
+<span class="type">Theorem</span> <span class="codenumber">2.5.4</span>.</h6>\(p\)\(a \in \Z_p\)\(b\)<div class="displaymath">
 \begin{equation*}
 ab \equiv 1 \bmod p.
 \end{equation*}
-</div>Since \(b\) is unique, we denote \(b\) by \(a\inv \bmod p\) or just \(a\inv\) if the set in question is clear.</article><article class="hiddenproof" id="proof-1"><a data-knowl="" class="id-ref" data-refid="hk-proof-1"><h6 class="heading"><span class="type">Proof.</span></h6></a></article><div id="hk-proof-1" class="hidden-content tex2jax_ignore"><article class="hiddenproof">If \(a \in \Z_p\) is nonzero, then \(0 \lt a \lt p\text{.}\) Since \(p\) is prime, we have \(\gcd(a,p) = 1\text{,}\) which implies that \(a\) has an inverse mod \(p\text{.}\)</article></div>
+</div>\(b\)\(b\)\(a\inv \bmod p\)\(a\inv\)</article><article class="hiddenproof" id="proof-1"><a data-knowl="" class="id-ref" data-refid="hk-proof-1"><h6 class="heading"><span class="type">Proof.</span></h6></a></article><div id="hk-proof-1" class="hidden-content tex2jax_ignore"><article class="hiddenproof">If \(a \in \Z_p\) is nonzero, then \(0 \lt a \lt p\text{.}\) Since \(p\) is prime, we have \(\gcd(a,p) = 1\text{,}\) which implies that \(a\) has an inverse mod \(p\text{.}\)</article></div>
 <p id="p-73">You should notice that you can use the extended Euclidean algorithm to compute the inverse of \(a \bmod p\text{:}\) Since \(\gcd{a,p} = 1\text{,}\) there exists \(u, v\) so that</p>
 <div class="displaymath">
 \begin{equation*}
@@ -258,11 +269,11 @@ au \equiv 1 \bmod p.
 <p id="p-74">\(\Z_p\) is a (commutative) ring with the property that every nonzero element has a multiplicative inverse. Such an object is called a <dfn class="terminology">field</dfn> (examples include the real numbers \(\R\text{,}\) the rational numbers \(\mathbb Q\text{,}\) and the complex numbers \(\C\)). Because \(\Z_p\) has only \(p\) elements, it is an example of a <dfn class="terminology">finite field</dfn>, and usually denoted \(\F_p\text{.}\) Finite fields are an area of study of enormous importance in both pure and applied mathematics, and understanding them is one of the labors of mastering high level cryptography.</p>
 <p id="p-75">From \(\F_p\text{,}\) we can form the group of units \(\F_p\ad\) by just removing \(0\text{,}\) since every nonzero element in \(\F_p\) has a multiplicative inverse modulo \(p\text{.}\) The group of units \(\F_p\ad\) is perhaps the <em class="emphasis">central</em> object of study for the next part of the course.</p>
 <section class="exercises" id="exercises-6"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+<span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
 <article class="exercise-like" id="exercise-13"><h6 class="heading"><span class="codenumber">1.</span></h6>Prove the prime number theorem. Try to write the proof so that you could convince a non-mathematical friend that it was true.</article><article class="exercise-like" id="exercise-14"><h6 class="heading"><span class="codenumber">2.</span></h6>Use the function you wrote to calculate \(u\) and \(v\) in the extended Euclidean algorithm to find the inverse of \(a \bmod p\) given \(a\) and a prime \(p\text{.}\)</article></section></section></div></main>
 </div>
 <div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.11/login.js"></script>
+<script src="https://pretextbook.org/js/0.12/login.js"></script>
 </body>
 </html>

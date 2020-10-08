@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-11-20T16:48:51-05:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<figure class="figure-like"><pre class="plainprint">def modinv(x,p):
+    return pow(x,p-2,p)
+
+def elliptic_add(P, Q, A, p):
+    if P == (0,0):
+        return Q
+    elif Q == (0,0):
+        return P
+    else:
+        xP, yP = P[0], P[1]
+        xQ, yQ = Q[0], Q[1]
+    if xP == xQ and yP == (-yQ)%p:
+        return (0,0)
+    else:
+        if xP == xQ and yP == yQ:
+            m = ((3*xP**2 + A) * pow(2*yP, p-2, p) )%p
+        else:
+            m = ((yQ - yP)*pow(xQ - xP, p-2, p)) %p
+        xR = (m**2 - xP - xQ) %p
+        yR = (m*(xP - xR) - yP) %p
+        return (xR, yR)
+
+from math import floor
+def double_add(P, n, A, p):
+    Q = P
+    R = (0,0)
+    while n &gt; 0:
+        if 1 == n %2:
+            R = elliptic_add(R, Q, A, p)
+        Q = elliptic_add(Q, Q, A, p)
+        n = floor(n/2)
+    return R
+
+def elliptic_point_order(P, A, p):
+    Q = elliptic_add(P,P, A, p)
+    count = 1
+    while Q != P:
+        Q = elliptic_add(Q, P, A, p)
+        count = count + 1
+    return count
+
+def elliptic_dsa_keygen(G, s, q, A, p):
+    s = s % (q - 1)
+    V = double_add(G, s, A, p)
+    return V
+
+from random import randint
+
+def elliptic_dsa_sign(d, s, G, q, A, p):
+    d = d % q
+    e = randint(1,q-1)
+    einv = pow(e, q-2, q)
+    rand_point = double_add(G, e, A, p)
+    s1 = rand_point[0] %q
+    s2 = ((d + s*s1)*einv) %q
+    return (s1,s2)
+
+def elliptic_dsa_verify(d, V, sig, G, q, A, p):
+    s1, s2 = sig[0], sig[1]
+    v1 = (d*modinv(s2,q))%q
+    v2 = (s1*modinv(s2,q))%q
+    print(v1, v2)
+    check1 = double_add(G, v1, A, p)
+    print(check1)
+    check2 = double_add(V, v2, A, p)
+    print(check2)
+    check = elliptic_add(check1, check2, A, p)
+    print(s1)
+    print(check[0] %q)
+</pre>
+<figcaption><span class="type">Listing</span> <span class="codenumber">A.0.3.</span> A whole mess of uncommented elliptic functions</figcaption></figure><span class="incontext"><a href="code.html#listing-3">in-context</a></span>
+</body>
+</html>

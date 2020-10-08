@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-11-20T16:48:51-05:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<h6 class="heading"><span class="type">Paragraph</span></h6>
+<p>Consider the collision generating sequences</p>
+<div class="displaymath">
+\begin{equation*}
+x_{i+1} = f(x_i) \mbox{ and } y_{i+1} = f(f(y_i))
+\end{equation*}
+</div>
+<p>with \(x_0 = 1\) and \(y_0 = f(1)\text{.}\) At the termination of the search for a collision, we'll have \(x_i = x_{2i}\text{.}\) That is, we'll have the equation</p>
+<div class="displaymath">
+\begin{equation*}
+g^{a_1} h^{b_1} = g^{a_2} h^{b_2} \bmod p\text{.}
+\end{equation*}
+</div>
+<p>Rearranging this, we get</p>
+<div class="displaymath">
+\begin{equation*}
+g^{a_1 - a_2} = h^{b_2 - b_1} \bmod p
+\end{equation*}
+</div>
+<p>which we can simplify by letting \(u = a_1 - a_2\) and \(v = b_2 - b_1\) to get</p>
+<div class="displaymath">
+\begin{equation*}
+g^u = h^v \bmod p.
+\end{equation*}
+</div>
+<span class="incontext"><a href="section-pollard-concrete.html#p-215">in-context</a></span>
+</body>
+</html>

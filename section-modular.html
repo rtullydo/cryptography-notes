@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--**************************************-->
 <!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-04-11T12:56:08-04:00    *-->
+<!--*    on 2019-11-20T16:48:50-05:00    *-->
 <!--*                                    *-->
 <!--*      https://pretextbook.org       *-->
 <!--*                                    *-->
@@ -41,7 +41,7 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
@@ -53,7 +53,7 @@ MathJax.Hub.Config({
 var role = 'student';
 var guest_access = true;
 var login_required = false;
-var js_version = 0.11;
+var js_version = 0.12;
 </script>
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
@@ -222,6 +222,17 @@ var js_version = 0.11;
 <li><a href="section-counting.html" data-scroll="section-counting">Counting*</a></li>
 <li><a href="section-perm-comb.html" data-scroll="section-perm-comb">Permutations and combinations*</a></li>
 <li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+<li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
+</ul>
+</li>
+<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
+<li class="link">
+<a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
+<li><a href="exercises-21.html" data-scroll="exercises-21">Set 1</a></li>
+<li><a href="exercises-22.html" data-scroll="exercises-22">Set 2</a></li>
+<li><a href="exercises-23.html" data-scroll="exercises-23">Set 3</a></li>
+<li><a href="exercises-24.html" data-scroll="exercises-24">Set 4</a></li>
 </ul>
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
@@ -240,7 +251,7 @@ a \equiv b\bmod n \text{ if and only if } n\mid (a - b)
 <span class="type">Question</span> <span class="codenumber">2.3.2</span>.</h6></a></article><div id="hk-question-1" class="hidden-content tex2jax_ignore"><article class="example-like">Show that the two characterizations are logically equivalent.</article></div>
 <p id="p-42">Congruence mod \(n\) is an example of a special kind of relation called an <dfn class="terminology">equivalence relation</dfn>, which is a major object of study in number theory and modern algebra. Here, we'll satisfy ourselves with the statement that equivalence relations behave much like equality; in particular, modular arithmetic almost gives a completely consistent structure for doing the usual algebra of the integers, as the next theorem states:</p>
 <article class="theorem-like" id="thm-modular-arith"><h6 class="heading">
-<span class="type">Theorem</span> <span class="codenumber">2.3.3</span>.</h6>Let \(m \geq 1\) be an integer. <ol class="decimal">
+<span class="type">Theorem</span> <span class="codenumber">2.3.3</span>.</h6>\(m \geq 1\)<ol class="decimal">
 <li id="li-43">
 <p id="p-43">If \(a_1 \equiv a_2 \bmod n\) and \(b_1 \equiv b_2 \bmod n\) then</p>
 <div class="displaymath">
@@ -297,12 +308,12 @@ a u - 1 = n v
 \end{equation*}
 </div>
 <section class="exercises" id="exercises-4"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+<span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
 <article class="exercise-like" id="exercise-10"><h6 class="heading"><span class="codenumber">1.</span></h6>Show part (1) of <a data-knowl="./knowl/thm-modular-arith.html" title="Theorem 2.3.3">Theorem 2.3.3</a> using the definition of congruence.</article><article class="exercise-like" id="exercise-11"><h6 class="heading"><span class="codenumber">2.</span></h6>
 <p id="p-53">Show that the product of two units in \(\Z_m\) is itself a unit.</p></article></section></section></div></main>
 </div>
 <div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.11/login.js"></script>
+<script src="https://pretextbook.org/js/0.12/login.js"></script>
 </body>
 </html>

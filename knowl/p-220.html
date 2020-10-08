@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-11-20T16:48:51-05:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<h6 class="heading"><span class="type">Paragraph</span></h6>
+<p>An efficient algorithm for computing a solution to \(au + bv = \gcd(a,b)\) is given below:</p>
+<ol class="lower-alpha">
+<li>Set \(u = 1, g = a, x = 0\) and \(y = b\text{.}\)</li>
+<li>If \(y = 0\text{,}\) set \(v = (g - au)/b\) and return values \((g, u, v)\text{.}\)</li>
+<li>Divide \(g\) by \(y\) to get \(g = qy + t\) with \(0 \leq t \lt y\text{,}\) store \(q\) and \(t\text{.}\)</li>
+<li>Set \(s = u - qx\text{.}\)</li>
+<li>Set \(u = x\) and \(g = y\text{.}\)</li>
+<li>Set \(x = s\) and \(y = t\text{.}\)</li>
+<li>Go to Step (b).</li>
+</ol>
+<span class="incontext"><a href="exercises-21.html#p-220">in-context</a></span>
+</body>
+</html>

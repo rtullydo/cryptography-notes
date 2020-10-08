@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--**************************************-->
 <!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-04-11T12:56:08-04:00    *-->
+<!--*    on 2019-11-20T16:48:50-05:00    *-->
 <!--*                                    *-->
 <!--*      https://pretextbook.org       *-->
 <!--*                                    *-->
@@ -41,7 +41,7 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
@@ -53,7 +53,7 @@ MathJax.Hub.Config({
 var role = 'student';
 var guest_access = true;
 var login_required = false;
-var js_version = 0.11;
+var js_version = 0.12;
 </script>
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
@@ -222,6 +222,17 @@ var js_version = 0.11;
 <li><a href="section-counting.html" data-scroll="section-counting">Counting*</a></li>
 <li><a href="section-perm-comb.html" data-scroll="section-perm-comb">Permutations and combinations*</a></li>
 <li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+<li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
+</ul>
+</li>
+<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
+<li class="link">
+<a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
+<li><a href="exercises-21.html" data-scroll="exercises-21">Set 1</a></li>
+<li><a href="exercises-22.html" data-scroll="exercises-22">Set 2</a></li>
+<li><a href="exercises-23.html" data-scroll="exercises-23">Set 3</a></li>
+<li><a href="exercises-24.html" data-scroll="exercises-24">Set 4</a></li>
 </ul>
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
@@ -272,11 +283,11 @@ a = bq + r.
 <p id="p-30">In fact, it is always the case that \(\gcd(a,b)\) can be written as an integer linear combination of \(a\) and \(b\text{,}\) a result known as the <em class="emphasis">extended Euclidean algorithm</em>.</p>
 <article class="theorem-like" id="thm-eea"><h6 class="heading">
 <span class="type">Theorem</span> <span class="codenumber">2.2.5</span>. <span class="title">(extended Euclidean algorithm).</span>
-</h6> Let \(a, b\) be positive integers. Then the equation<div class="displaymath">
+</h6>\(a, b\)<div class="displaymath">
 \begin{equation*}
 au + bv = \gcd(a,b)
 \end{equation*}
-</div>always has a solution in integers \(u\) and \(v\text{.}\) Moreover, given a solution \((u_0, v_0)\text{,}\) every solution \((u,v)\) is of the form<div class="displaymath">
+</div>\(u\)\(v\text{.}\)\((u_0, v_0)\text{,}\)\((u,v)\)<div class="displaymath">
 \begin{equation*}
 u = u_0 + \frac{bk}{\gcd(a,b)} \text{ and } v = v_0 - \frac{ak}{\gcd(a,b)} \text{ for } k \in \Z.
 \end{equation*}
@@ -331,7 +342,8 @@ a ((-1)^n Q_{n-1}) - b ((-1)^n P_{n-1}) = 1,
 <td class="l m b2 r2 l0 t0 lines">\(Q_{n-1}\)</td>
 <td class="l m b2 r2 l0 t0 lines">\(Q_n = a\)</td>
 </tr>
-</table></figure><p id="p-34">The above algorithm is powerful, but requires storing potentially lots of information. There are more efficient approaches, though you may wish to implement the algorithm above.</p>
+</table>
+<figcaption><span class="type">Table</span> <span class="codenumber">2.2.7.</span> </figcaption></figure><p id="p-34">The above algorithm is powerful, but requires storing potentially lots of information. There are more efficient approaches, though you may wish to implement the algorithm above.</p>
 <article class="example-like" id="example-1"><a data-knowl="" class="id-ref" data-refid="hk-example-1"><h6 class="heading">
 <span class="type">Example</span> <span class="codenumber">2.2.8</span>.</h6></a></article><div id="hk-example-1" class="hidden-content tex2jax_ignore"><article class="example-like"><p id="p-35">Find \(u\) and \(v\) so that \(82 u + 17 v = gcd(82,17)\text{.}\) First, we perform the Euclidean algorithm to get the list of quotients that we need to perform the extension.</p>
 <div class="displaymath">
@@ -358,7 +370,7 @@ a ((-1)^n Q_{n-1}) - b ((-1)^n P_{n-1}) = 1,
 \end{equation*}
 </div>and so \(u = -6\) and \(v = 17\) gives a solution to \(au + bv = 1\text{.}\)</article></div>
 <section class="exercises" id="exercises-3"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+<span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
 <article class="exercise-like" id="exercise-8"><h6 class="heading"><span class="codenumber">1.</span></h6>
 <p id="p-37">Write a python function that computes \(\gcd(a,b)\) for \(a, b \in \Z\text{.}\)</p></article><article class="exercise-like" id="exercise-9"><h6 class="heading"><span class="codenumber">2.</span></h6>
@@ -379,6 +391,6 @@ a ((-1)^n Q_{n-1}) - b ((-1)^n P_{n-1}) = 1,
 </ol></article></section></section></div></main>
 </div>
 <div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.11/login.js"></script>
+<script src="https://pretextbook.org/js/0.12/login.js"></script>
 </body>
 </html>

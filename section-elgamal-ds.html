@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--**************************************-->
 <!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-04-11T12:56:09-04:00    *-->
+<!--*    on 2019-11-20T16:48:50-05:00    *-->
 <!--*                                    *-->
 <!--*      https://pretextbook.org       *-->
 <!--*                                    *-->
@@ -41,7 +41,7 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
@@ -53,7 +53,7 @@ MathJax.Hub.Config({
 var role = 'student';
 var guest_access = true;
 var login_required = false;
-var js_version = 0.11;
+var js_version = 0.12;
 </script>
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
@@ -222,6 +222,17 @@ var js_version = 0.11;
 <li><a href="section-counting.html" data-scroll="section-counting">Counting*</a></li>
 <li><a href="section-perm-comb.html" data-scroll="section-perm-comb">Permutations and combinations*</a></li>
 <li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+<li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
+</ul>
+</li>
+<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
+<li class="link">
+<a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
+<li><a href="exercises-21.html" data-scroll="exercises-21">Set 1</a></li>
+<li><a href="exercises-22.html" data-scroll="exercises-22">Set 2</a></li>
+<li><a href="exercises-23.html" data-scroll="exercises-23">Set 3</a></li>
+<li><a href="exercises-24.html" data-scroll="exercises-24">Set 4</a></li>
 </ul>
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
@@ -251,11 +262,11 @@ S_1 = g^k \bmod p, \hspace{.5cm} S_2 = (D - aS_1)k\inv \bmod p-1.
 </ol></article><p id="p-177">The proof that this verification question works is left as an exercise. One important difference with Elgamal encrpytion is that there is a number that we compute \(\bmod p -1\text{:}\) the reason for this arises in the algebraic proof that the verification question works. Fermat's little theorem is what allows us to conclude that if \(a = b \bmod p - 1\text{,}\) then \(g^a = g^b \bmod p\text{.}\)</p>
 <p id="p-178">In order for Elgamal signatures to be cryptographically secure, the prime \(p \approx 2^{4000}\) because of the existence of subexponential algorithms like the index calculus that can be used to attack the discrete log problem in \(\F_p\text{.}\) There are two possible approaches to take to make this a more usable system. The first is to choose a huge prime \(p\) to keep the problems large enough to be unsolvable, but work within a special subset of \(\F_p\) called a cyclic subgroup, discussed in the next section. The other approach is to replace \(\F_p\) with a group that isn't attackable by the index calculus, like an elliptic curve \(E(\F_p)\text{,}\) which will be discussed later in the chapter.</p>
 <section class="exercises" id="exercises-16"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+<span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
 <article class="exercise-like" id="exercise-32"><h6 class="heading"><span class="codenumber">1.</span></h6>Show that if \(a = b \mod p - 1\) and \(g \in \F_p\text{,}\) then \(g^a = g^b \bmod p\text{.}\)</article><article class="exercise-like" id="exercise-33"><h6 class="heading"><span class="codenumber">2.</span></h6>Show that the verification question <a data-knowl="./knowl/eq-egds.html" title="Equation 5.2.1">(5.2.1)</a> is true when the signature \(D^{sig}\) is valid.</article></section></section></div></main>
 </div>
 <div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.11/login.js"></script>
+<script src="https://pretextbook.org/js/0.12/login.js"></script>
 </body>
 </html>

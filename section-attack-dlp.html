@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--**************************************-->
 <!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-04-11T12:56:09-04:00    *-->
+<!--*    on 2019-11-20T16:48:50-05:00    *-->
 <!--*                                    *-->
 <!--*      https://pretextbook.org       *-->
 <!--*                                    *-->
@@ -41,7 +41,7 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
@@ -53,7 +53,7 @@ MathJax.Hub.Config({
 var role = 'student';
 var guest_access = true;
 var login_required = false;
-var js_version = 0.11;
+var js_version = 0.12;
 </script>
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
@@ -222,6 +222,17 @@ var js_version = 0.11;
 <li><a href="section-counting.html" data-scroll="section-counting">Counting*</a></li>
 <li><a href="section-perm-comb.html" data-scroll="section-perm-comb">Permutations and combinations*</a></li>
 <li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+<li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
+</ul>
+</li>
+<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
+<li class="link">
+<a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
+<li><a href="exercises-21.html" data-scroll="exercises-21">Set 1</a></li>
+<li><a href="exercises-22.html" data-scroll="exercises-22">Set 2</a></li>
+<li><a href="exercises-23.html" data-scroll="exercises-23">Set 3</a></li>
+<li><a href="exercises-24.html" data-scroll="exercises-24">Set 4</a></li>
 </ul>
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
@@ -253,11 +264,11 @@ f(x) \leq cg(x) \text{ for all } x \geq C.
 <p id="p-115">The preference in cryptography is for methods that take exponential time to brute force. So how hard is the discrete logarithm problem in \(\F_p\ad\text{?}\)</p>
 <article class="theorem-like" id="algorithm-5"><h6 class="heading">
 <span class="type">Algorithm</span> <span class="codenumber">3.6.2</span>. <span class="title">Naive.</span>
-</h6> Let \(p\) be a prime between \(2^k\) and \(2^{k+1}\text{.}\) The DLP in \(\F_p\ad\) is stated in terms of \(p, g, h\text{,}\) which comprises \(3k\) bits of storage. Thus, the problem can be stated in \(\mathcal O(k)\) bits. To find \(x\) so that<div class="displaymath">
+</h6>\(p\)\(2^k\)\(2^{k+1}\text{.}\)\(\F_p\ad\)\(p, g, h\text{,}\)\(3k\)\(\mathcal O(k)\)\(x\)<div class="displaymath">
 \begin{equation*}
 g^x \equiv h \bmod p,
 \end{equation*}
-</div>check every value of \(x\) from \(1, \ldots, p-1\text{.}\) That is, an \(\mathcal O(k)\) input requires an \(\mathcal O(p) = \mathcal O(2^k)\) steps to find; that is, the brute force is exponential.</article><p id="p-116">The first reduction that we can make is a <dfn class="terminology">collision algorithm</dfn>: we make lists and look for a match that unlocks the problem. The method, due to Shank in the 1960s, prefigures the rise of the DLP as a cryptographic theme.</p>
+</div>\(x\)\(1, \ldots, p-1\text{.}\)\(\mathcal O(k)\)\(\mathcal O(p) = \mathcal O(2^k)\)</article><p id="p-116">The first reduction that we can make is a <dfn class="terminology">collision algorithm</dfn>: we make lists and look for a match that unlocks the problem. The method, due to Shank in the 1960s, prefigures the rise of the DLP as a cryptographic theme.</p>
 <article class="theorem-like" id="algorithm-6"><h6 class="heading">
 <span class="type">Algorithm</span> <span class="codenumber">3.6.3</span>. <span class="title">babystep-giantstep.</span>
 </h6>
@@ -296,11 +307,11 @@ q = \frac{x - r}{n} \lt \frac{N}{n} \lt n
 <p>Convincing yourself that the estimates above are valid will go along way to clarifying the concept of big O notation.</p>
 <p id="p-120">The resulting algorithm is still exponential: since \(N\) is on the order of \(2^k\text{,}\) the routine is \(\mathcal O(\sqrt{2^k} \log 2^k) = \mathcal O(k \cdot 2^{k/2})\text{.}\) However, when dealing with numbers on the order of the constants typically involved in cryptography, \(N\) to \(\sqrt{N}\) is a significant savings.</p>
 <section class="exercises" id="exercises-11"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+<span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
 <article class="exercise-like" id="exercise-23"><h6 class="heading"><span class="codenumber">1.</span></h6>Implement the babystep-giantstep algorithm. The function should take as input a prime \(p\text{,}\) a base \(g\text{,}\) and a number \(h = g^x\text{,}\) and as output should produce the exponent \(x\text{.}\)</article></section></section></div></main>
 </div>
 <div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.11/login.js"></script>
+<script src="https://pretextbook.org/js/0.12/login.js"></script>
 </body>
 </html>

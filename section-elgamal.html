@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--**************************************-->
 <!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-04-11T12:56:09-04:00    *-->
+<!--*    on 2019-11-20T16:48:50-05:00    *-->
 <!--*                                    *-->
 <!--*      https://pretextbook.org       *-->
 <!--*                                    *-->
@@ -41,7 +41,7 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
@@ -53,7 +53,7 @@ MathJax.Hub.Config({
 var role = 'student';
 var guest_access = true;
 var login_required = false;
-var js_version = 0.11;
+var js_version = 0.12;
 </script>
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
@@ -222,6 +222,17 @@ var js_version = 0.11;
 <li><a href="section-counting.html" data-scroll="section-counting">Counting*</a></li>
 <li><a href="section-perm-comb.html" data-scroll="section-perm-comb">Permutations and combinations*</a></li>
 <li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+<li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
+</ul>
+</li>
+<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
+<li class="link">
+<a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
+<li><a href="exercises-21.html" data-scroll="exercises-21">Set 1</a></li>
+<li><a href="exercises-22.html" data-scroll="exercises-22">Set 2</a></li>
+<li><a href="exercises-23.html" data-scroll="exercises-23">Set 3</a></li>
+<li><a href="exercises-24.html" data-scroll="exercises-24">Set 4</a></li>
 </ul>
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
@@ -253,15 +264,15 @@ c_2 (c_1^a)\inv = m'.
 <li id="li-80">Alice computes \(c_2 (c_1^a)\inv\text{.}\)</li>
 </ol></article><p id="p-102">How do we decide if the Elgamal system is secure? One method of proof is to show that the problem is equivalent in difficulty to the DHP, which we know to be at least as hard as the DLP. To prove this, we will use the concept of an <dfn class="terminology">oracle</dfn>, a thought-experiement black box that we can endow with any particular ability that we choose. For the purpose of the next argument, we will posit the existence of an Elgamal oracle - that is, a function that takes as input \(p, g, A, (c_1, c_2)\) and produces a plaintext \(m\text{.}\) (Notice that the magic of the oracle is in not requiring knowledge of the private key \(a\text{.}\))</p>
 <article class="theorem-like" id="proposition-2"><h6 class="heading">
-<span class="type">Proposition</span> <span class="codenumber">3.4.2</span>.</h6>Fix \(p, g\text{.}\) Suppose that Eve has an Elgamal oracle. Then she can solve the DHP. Conversely, if she can solve the DHP, then she can decrypt any Elgamal ciphertext.</article><article class="hiddenproof" id="proof-3"><a data-knowl="" class="id-ref" data-refid="hk-proof-3"><h6 class="heading"><span class="type">Proof.</span></h6></a></article><div id="hk-proof-3" class="hidden-content tex2jax_ignore"><article class="hiddenproof"><p id="p-103">Suppose that Eve has an Elgamal oracle, and that she wishes to compute the value of \(g^{ab}\) given known values of \(g^a\) and \(g^b\text{.}\) She knows that if she feeds the oracle a ciphertext \((c_1, c_2)\) that the oracle will return the quantity \(c2 (c_1^a)\inv\text{.}\) If Eve feeds the oracle the ciphertext \((g^b, 1)\text{,}\) then the oracle will return the quantity \(1\cdot(g^{ab})\inv.\) The fast inverse computation methods will allow Eve to calculate \(g^{ab}\) with little difficulty.</p>
+<span class="type">Proposition</span> <span class="codenumber">3.4.2</span>.</h6>\(p, g\text{.}\)</article><article class="hiddenproof" id="proof-3"><a data-knowl="" class="id-ref" data-refid="hk-proof-3"><h6 class="heading"><span class="type">Proof.</span></h6></a></article><div id="hk-proof-3" class="hidden-content tex2jax_ignore"><article class="hiddenproof"><p id="p-103">Suppose that Eve has an Elgamal oracle, and that she wishes to compute the value of \(g^{ab}\) given known values of \(g^a\) and \(g^b\text{.}\) She knows that if she feeds the oracle a ciphertext \((c_1, c_2)\) that the oracle will return the quantity \(c2 (c_1^a)\inv\text{.}\) If Eve feeds the oracle the ciphertext \((g^b, 1)\text{,}\) then the oracle will return the quantity \(1\cdot(g^{ab})\inv.\) The fast inverse computation methods will allow Eve to calculate \(g^{ab}\) with little difficulty.</p>
 <p id="p-104">On the other hand, if Eve can solve the DHP, then she can compute \(g^{ak}\) from \(c_1 = g^k\) and \(A = g^a\text{.}\) Then it is straightforward for her to compute \(c_2 \cdot (g^{ak})\inv = m\text{.}\)</p>
 <p id="p-105">Thus, breaking Elgamal has equivalent difficulty to solving the DHP.</p></article></div>
 <section class="exercises" id="exercises-9"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+<span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
 <article class="exercise-like" id="exercise-18"><h6 class="heading"><span class="codenumber">1.</span></h6>Prove that \(m' = m\) in the Elgamal cryptosystem.</article><article class="exercise-like" id="exercise-19"><h6 class="heading"><span class="codenumber">2.</span></h6>Implement the Elgamal system in python. You should have an encryption function \(e\) that takes \(g, p, A, m\) and produces a pair \((c_1, c_2)\text{.}\) You should have a decryption function \(d\) that takes as input \(g, p, a, (c_1, c_2)\) and produces a plaintext \(m\text{.}\) The implementation should use your previous implementations of the fast powering algorithm and the inverse finding algorithm.</article></section></section></div></main>
 </div>
 <div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.11/login.js"></script>
+<script src="https://pretextbook.org/js/0.12/login.js"></script>
 </body>
 </html>

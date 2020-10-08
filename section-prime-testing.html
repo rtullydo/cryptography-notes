@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--**************************************-->
 <!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-04-11T12:56:09-04:00    *-->
+<!--*    on 2019-11-20T16:48:50-05:00    *-->
 <!--*                                    *-->
 <!--*      https://pretextbook.org       *-->
 <!--*                                    *-->
@@ -41,7 +41,23 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script>$(function () {
+    // Make *any* div with class 'sagecell-sage' an executable Sage cell
+    // Their results will be linked, only within language type
+    sagecell.makeSagecell({inputLocation: 'div.sagecell-sage',
+                           linked: true,
+                           languages: ['sage'],
+                           evalButtonText: 'Evaluate (Sage)'});
+});
+</script><script>$(function () {
+    // Make *any* div with class 'sagecell-python' an executable Sage cell
+    // Their results will be linked, only within language type
+    sagecell.makeSagecell({inputLocation: 'div.sagecell-python',
+                           linked: true,
+                           languages: ['python'],
+                           evalButtonText: 'Evaluate (Python)'});
+});
+</script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
@@ -53,7 +69,7 @@ MathJax.Hub.Config({
 var role = 'student';
 var guest_access = true;
 var login_required = false;
-var js_version = 0.11;
+var js_version = 0.12;
 </script>
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
@@ -160,10 +176,10 @@ var js_version = 0.11;
 </div></div>
 <nav id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
-<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-perm-comb.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><span id="nextbutton" class="next-button button toolbar-item disabled">Next</span></span></div>
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-perm-comb.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-pollard-concrete.html" title="Next">Next</a></span></div>
 </div>
 <div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
-<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-perm-comb.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><span class="next-button button toolbar-item disabled">Next</span>
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-perm-comb.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-pollard-concrete.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
 <div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
@@ -222,6 +238,17 @@ var js_version = 0.11;
 <li><a href="section-counting.html" data-scroll="section-counting">Counting*</a></li>
 <li><a href="section-perm-comb.html" data-scroll="section-perm-comb">Permutations and combinations*</a></li>
 <li><a href="section-prime-testing.html" data-scroll="section-prime-testing" class="active">Primality testing</a></li>
+<li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
+</ul>
+</li>
+<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
+<li class="link">
+<a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
+<li><a href="exercises-21.html" data-scroll="exercises-21">Set 1</a></li>
+<li><a href="exercises-22.html" data-scroll="exercises-22">Set 2</a></li>
+<li><a href="exercises-23.html" data-scroll="exercises-23">Set 3</a></li>
+<li><a href="exercises-24.html" data-scroll="exercises-24">Set 4</a></li>
 </ul>
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
@@ -233,7 +260,7 @@ var js_version = 0.11;
 <p id="p-200">Recall that a <dfn class="terminology">composite number</dfn> is a number that has two or more non-trivial factors. We'll begin by looking at conditions that prime numbers <em class="emphasis">always</em> satisfy. What springs to mind is Fermat's little theorem <a data-knowl="./knowl/thm-fermat.html" title="Theorem 2.6.1: (Fermat's little theorem)">Theorem 2.6.1</a>. We will adopt a slightly modified version that removes the restrictions on \(a\text{.}\)</p>
 <article class="theorem-like" id="thm-fermat-2"><h6 class="heading">
 <span class="type">Theorem</span> <span class="codenumber">6.3.1</span>. <span class="title">Modified Fermat's theorem.</span>
-</h6> Let \(p\) be prime, and let \(a\) be an integer. Then<div class="displaymath">
+</h6>\(p\)\(a\)<div class="displaymath">
 \begin{equation*}
 a^p \equiv a \bmod p.
 \end{equation*}
@@ -265,11 +292,11 @@ a^{531} = a \bmod 531
 <p>for <em class="emphasis">every</em> integer \(a\text{,}\) and thus has no witnesses to the fact that it is composite. There are infintely many Carmichael numbers, and so it behooves us to develop a test so that every composite \(n\) has lots of witnesses.</p>
 <p id="p-204">One such test is called the Miller-Rabin test, which relies on Fermat's little theorem as its background assumption but provides a further discrimination that gives every composite number lots of witnesses.</p>
 <article class="theorem-like" id="thm-mr-condition"><h6 class="heading">
-<span class="type">Theorem</span> <span class="codenumber">6.3.3</span>.</h6>Let \(p\) be an odd prime. Write<div class="displaymath">
+<span class="type">Theorem</span> <span class="codenumber">6.3.3</span>.</h6>\(p\)<div class="displaymath">
 \begin{equation*}
 p - 1 = 2^k q \text{ where } q \text{ is odd.}
 \end{equation*}
-</div>Let \(a\) be any number so that \(p \nmid a\text{.}\) One of the following must be true: <ol class="decimal">
+</div>\(a\)\(p \nmid a\text{.}\)<ol class="decimal">
 <li id="li-187">\(a^q \equiv 1 \bmod p;\)</li>
 <li id="li-188">A number in the list<div class="displaymath">
 \begin{equation}
@@ -290,7 +317,7 @@ a^q, a^{2q}, \ldots, a^{2^{k-1}q}, a^{2^k q} = 1
 <li id="li-190">\(a^{2^i q} \neq -1 \bmod n\) for any \(i = 1, \ldots, k-1\)</li>
 </ol></article><p id="p-205">By <a data-knowl="./knowl/thm-mr-condition.html" title="Theorem 6.3.3">Theorem 6.3.3</a>, if \(n\) has a Miller-Rabin witness then it must be composite. Thus, we can formulate the Miller-Rabin test:</p>
 <article class="theorem-like" id="algo-mr"><h6 class="heading">
-<span class="type">Algorithm</span> <span class="codenumber">6.3.5</span>.</h6>Let \(n\) be the integer to be tested, and let \(a\) be the proposed witness. <ol class="decimal">
+<span class="type">Algorithm</span> <span class="codenumber">6.3.5</span>.</h6>\(n\)\(a\)<ol class="decimal">
 <li id="li-191">If \(n\) is even, then \(n\) is composite.</li>
 <li id="li-192">If \(1 \lt \gcd(a, n) \lt n\text{,}\) then \(n\) is composite.</li>
 <li id="li-193">Write \(n - 1 = 2^k q\)</li>
@@ -299,17 +326,30 @@ a^q, a^{2q}, \ldots, a^{2^{k-1}q}, a^{2^k q} = 1
 <li id="li-196">If \(a = -1 \bmod n\text{,}\) the test is inconclusive.</li>
 <li id="li-197">If \(i \lt k-1\text{,}\) set \(a = a^2 \mod n\text{,}\) increment \(i\text{,}\) and return to 6.</li>
 <li id="li-198">Else \(n\) is composite.</li>
-</ol></article> Composite numbers have lots of Miller-Rabin witnesses. <article class="theorem-like" id="proposition-4"><h6 class="heading">
-<span class="type">Proposition</span> <span class="codenumber">6.3.6</span>.</h6>Let \(n\) be an odd composite number. Then at least 75% of integers \(1 \lt a \leq n-1\) are Miller-Rabin witnesses for the compositeness of \(n\text{.}\)</article><p id="p-206">In some sense, we have the basis for a nondeterministic test for the primeness of an integer now. We know that if \(n\) is composite, we have at least a 75% chance of finding a witness for any given \(a\) that we test. That is, we have a 25% chance at most to fail. If we try lots of values, and they all fail to be witnesses for \(n\text{,}\) then it becomes increasingly likely that \(n\) is prime.</p>
-<p id="p-207">The situation is slighly complicated by the fact that the probabilities are what as known as <em class="emphasis">conditional</em>: that is, when \(n\) is composite, 25% of numbers fail to be witnesses, but when \(n\) is prime, 100% of numbers fail to be witnesses. Nevertheless, the basic intuition should be something like “If \(n\) is composite, then the probability that 10 numbers fail to be Miller-Rabin witnesses for \(n\) is \(.25^10 \approx 10^-6\text{.}\)”. That is, getting 10 or 100 or 1000 failed witnesses makes it exceedingly unlikely that \(n\) is composite. The exact calculation of the probability will have to wait until we have looked more closely at conditional probability.</p>
-<p id="p-208">One might reasonably ask if there are efficient ways of generating candidate primes. In fact, there are many formulas that are much more likely to produce a prime than a random number generator. Further, we can exclude many possible values for \(n\) with divisibilty rules and quick divisions (say by every number up to 10000) before we apply a computationally expensive MR-test.</p>
-<p id="p-209">Finally, I'll point out that there are deterministic methods for checking that a number is prime that run in polynomial time <em class="emphasis">but</em> these algorithms require that we assume the truth of perhaps the most famous and important unsolved problems in mathematics, the <dfn class="terminology">Riemann hypothesis</dfn>, which concerns the distribution of prime numbers in the real line. More than 150 years of work has gone into proving or disproving the hypothesis, which to the present has resisted giving up its secrets.</p>
+</ol></article><p id="p-206">Python note: the method for the step where all of the factors of 2 are pulled out of \(n-1\) might seem somewhat unclear. A useful command in this case is <code class="code-inline tex2jax_ignore">divmod</code>, which is the library function for division with remainder. A segment of hint code follows.</p>
+<div class="sagecell-python" id="sage-11"><script type="text/x-sage">n = 37
+m = n -1
+i, q, r = 0,0,0
+while True:
+  q, r = divmod(m, 2)
+  if r == 1:
+    break
+  m = q
+  i = i + 1
+print("%d has the form (2^%d)%d"%(n-1, i, m))
+</script></div>
+<p id="p-207">Composite numbers have lots of Miller-Rabin witnesses.</p>
+<article class="theorem-like" id="proposition-4"><h6 class="heading">
+<span class="type">Proposition</span> <span class="codenumber">6.3.6</span>.</h6>\(n\)\(1 \lt a \leq n-1\)\(n\text{.}\)</article><p id="p-208">In some sense, we have the basis for a nondeterministic test for the primeness of an integer now. We know that if \(n\) is composite, we have at least a 75% chance of finding a witness for any given \(a\) that we test. That is, we have a 25% chance at most to fail. If we try lots of values, and they all fail to be witnesses for \(n\text{,}\) then it becomes increasingly likely that \(n\) is prime.</p>
+<p id="p-209">The situation is slighly complicated by the fact that the probabilities are what as known as <em class="emphasis">conditional</em>: that is, when \(n\) is composite, 25% of numbers fail to be witnesses, but when \(n\) is prime, 100% of numbers fail to be witnesses. Nevertheless, the basic intuition should be something like “If \(n\) is composite, then the probability that 10 numbers fail to be Miller-Rabin witnesses for \(n\) is \(.25^{10} \approx 10^{-6}\)”. That is, getting 10 or 100 or 1000 failed witnesses makes it exceedingly unlikely that \(n\) is composite. The exact calculation of the probability will have to wait until we have looked more closely at conditional probability.</p>
+<p id="p-210">One might reasonably ask if there are efficient ways of generating candidate primes. In fact, there are many formulas that are much more likely to produce a prime than a random number generator. Further, we can exclude many possible values for \(n\) with divisibilty rules and quick divisions (say by every number up to 10000) before we apply a computationally expensive MR-test.</p>
+<p id="p-211">Finally, I'll point out that there are deterministic methods for checking that a number is prime that run in polynomial time <em class="emphasis">but</em> these algorithms require that we assume the truth of perhaps the most famous and important unsolved problems in mathematics, the <dfn class="terminology">Riemann hypothesis</dfn>, which concerns the distribution of prime numbers in the real line. More than 150 years of work has gone into proving or disproving the hypothesis, which to the present has resisted giving up its secrets.</p>
 <section class="exercises" id="exercises-19"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+<span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
 <article class="exercise-like" id="exercise-38"><h6 class="heading"><span class="codenumber">1.</span></h6>One naive way to deterministically check if a number \(n\) is prime is to divide it by every number between \(1\) and \(n-1\text{.}\) Show that you only need to check the integers \(1 \lt d \leq \sqrt{n}\text{.}\)</article><article class="exercise-like" id="exercise-39"><h6 class="heading"><span class="codenumber">2.</span></h6>Write a program to show that \(n = 1105\) is a Carmichael number.</article><article class="exercise-like" id="exercise-40"><h6 class="heading"><span class="codenumber">3.</span></h6>Implement the Miller-Rabin test for compositeness.</article></section></section></div></main>
 </div>
 <div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.11/login.js"></script>
+<script src="https://pretextbook.org/js/0.12/login.js"></script>
 </body>
 </html>

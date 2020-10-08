@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-11-20T16:48:50-05:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Pollard's \(\rho\) method</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['\\(','\\)']]
+    },
+    asciimath2jax: {
+        ignoreClass: ".*",
+        processClass: "has_am"
+    },
+    jax: ["input/AsciiMath"],
+    extensions: ["asciimath2jax.js"],
+    TeX: {
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        // scrolling to fragment identifiers is controlled by other Javascript
+        positionToHash: false,
+        equationNumbers: { autoNumber: "none", useLabelIds: true, },
+        TagSide: "right",
+        TagIndent: ".8em",
+    },
+    // HTML-CSS output Jax to be dropped for MathJax 3.0
+    "HTML-CSS": {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+    CommonHTML: {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+});
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
+<script>var logged_in = false;
+var role = 'student';
+var guest_access = true;
+var login_required = false;
+var js_version = 0.12;
+</script>
+</head>
+<body class="mathbook-book has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+\DeclareMathOperator{\IM}{Im}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\intr}{int}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator\re{\mathrm {Re~}}
+\DeclareMathOperator\im{\mathrm {Im~}}
+\newcommand\dd{\mathrm d}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\hilbert}{\mathcal{H}}
+\newcommand{\s}{\mathcal{S}_2}
+\newcommand{\A}{\mathcal{A}}
+\newcommand\h{\mathcal{H}}
+\newcommand{\J}{\mathcal{J}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\BOP}{\mathbf{B}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\BH}{\mathbf{B}(\mathcal{H})}
+\newcommand{\KH}{\mathcal{K}(\mathcal{H})}
+\newcommand{\pick}{\mathcal{P}_2}
+\newcommand{\schur}{\mathcal{S}_2}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Complex}{\mathbb{C}}
+\newcommand{\Field}{\mathbb{F}}
+\newcommand{\RPlus}{\Real^{+}}
+\newcommand{\Polar}{\mathcal{P}_{\s}}
+\newcommand{\Poly}{\mathcal{P}(E)}
+\newcommand{\EssD}{\mathcal{D}}
+\newcommand{\Lop}{\mathcal{L}}
+\newcommand{\cc}[1]{\overline{#1}}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\seq}[1]{\left\lt#1\right&gt;}
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\essnorm}[1]{\norm{#1}_{\ess}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\ran}[1]{\operatorname{ran}#1}
+\newcommand{\nt}{\stackrel{\mathrm {nt}}{\to}}
+\newcommand{\pnt}{\xrightarrow{pnt}}
+\newcommand{\ip}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\ad}{^\ast}
+\newcommand{\inv}{^{-1}}
+\newcommand{\adinv}{^{\ast -1}}
+\newcommand{\invad}{^{-1 \ast}}
+\newcommand\Pick{\mathcal P}
+\newcommand\Ha{\mathbb{H}}
+\newcommand{\HH}{\Ha\times\Ha}
+\newcommand\Htau{\mathbb{H}(\tau)}
+\newcommand{\vp}{\varphi}
+\newcommand{\ph}{\varphi}
+\newcommand\al{\alpha}
+\newcommand\ga{\gamma}
+\newcommand\de{\delta}
+\newcommand\ep{\varepsilon}
+\newcommand\la{\lambda}
+\newcommand\up{\upsilon}
+\newcommand\si{\sigma}
+\newcommand\beq{\begin{equation}}
+\newcommand\ds{\displaystyle}
+\newcommand\eeq{\end{equation}}
+\newcommand\df{\stackrel{\rm def}{=}}
+\newcommand\ii{\mathrm i}
+\newcommand{\vectwo}[2]
+{
+   \begin{pmatrix} #1 \\ #2 \end{pmatrix}
+}
+\newcommand{\vecthree}[3]
+{
+   \begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}
+}
+\newcommand\blue{\color{blue}}
+\newcommand\black{\color{black}}
+\newcommand\red{\color{red}}
+\newcommand\nn{\nonumber}
+\newcommand\bbm{\begin{bmatrix}}
+\newcommand\ebm{\end{bmatrix}}
+\newcommand\bpm{\begin{pmatrix}}
+\newcommand\epm{\end{pmatrix}}
+\numberwithin{equation}{section}
+\newcommand\nin{\noindent}
+\newcommand{\nCr}[2]{\,_{#1}C_{#2}} 
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\)</div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="cryptography.html"><span class="title">Mathematical Cryptography</span></a></h1>
+<p class="byline">Ryan Tully-Doyle</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-prime-testing.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="backmatter-1.html" title="Next">Next</a></span></div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-prime-testing.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><a class="next-button button toolbar-item" href="backmatter-1.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link">
+<a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
+<li><a href="foreward.html" data-scroll="foreward">The course</a></li>
+<li><a href="motivation.html" data-scroll="motivation">Why “mathematical” cryptography?</a></li>
+<li><a href="shift.html" data-scroll="shift">A simple example: the shift cipher</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-numbertheory.html" data-scroll="chapter-numbertheory"><span class="codenumber">2</span> <span class="title">Number theory</span></a><ul>
+<li><a href="divisibility.html" data-scroll="divisibility">Integers and divisibility</a></li>
+<li><a href="section-euclidean.html" data-scroll="section-euclidean">Common divisors and the Euclidean algorithm</a></li>
+<li><a href="section-modular.html" data-scroll="section-modular">Modular arithmetic and the ring of integers modulo \(n\)</a></li>
+<li><a href="section-fastpower.html" data-scroll="section-fastpower">The fast powering algorithm</a></li>
+<li><a href="section-finite-fields.html" data-scroll="section-finite-fields">Finite fields</a></li>
+<li><a href="section-fermat.html" data-scroll="section-fermat">Fermat's little theorem and computing inverses</a></li>
+<li><a href="section-ch2-conclusion.html" data-scroll="section-ch2-conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-groups.html" data-scroll="chapter-groups"><span class="codenumber">3</span> <span class="title">Group based methods</span></a><ul>
+<li><a href="section-naive.html" data-scroll="section-naive">A naïve cryptosystem and some related questions</a></li>
+<li><a href="section-discretelog.html" data-scroll="section-discretelog">Discrete logarithms</a></li>
+<li><a href="section-dh.html" data-scroll="section-dh">Diffie-Hellman key exchange</a></li>
+<li><a href="section-elgamal.html" data-scroll="section-elgamal">The Elgamal cryptosystem</a></li>
+<li><a href="section-groups.html" data-scroll="section-groups">Groups</a></li>
+<li><a href="section-attack-dlp.html" data-scroll="section-attack-dlp">Attacking the discrete log problem</a></li>
+<li><a href="section-chinese.html" data-scroll="section-chinese">The Chinese Remainder theorem and Pohlig-Hellman*</a></li>
+<li><a href="section-homomorphism.html" data-scroll="section-homomorphism">Homomorphisms and the lunchtime attack</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-elliptic-curves.html" data-scroll="chapter-elliptic-curves"><span class="codenumber">4</span> <span class="title">Elliptic curves and applications</span></a><ul>
+<li><a href="section-ec-intro.html" data-scroll="section-ec-intro">Introduction to elliptic curves</a></li>
+<li><a href="section-elliptic-addition.html" data-scroll="section-elliptic-addition">Elliptic addition on \(E\text{.}\)</a></li>
+<li><a href="section-ec-finite-fields.html" data-scroll="section-ec-finite-fields">Elliptic curves over finite fields</a></li>
+<li><a href="section-ecdlp.html" data-scroll="section-ecdlp">Discrete logs and the ECDLP</a></li>
+<li><a href="section-ec-elgamal.html" data-scroll="section-ec-elgamal">Elliptic curve Diffie-Hellman key exchange and El Gamal</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-digital-signatures.html" data-scroll="chapter-digital-signatures"><span class="codenumber">5</span> <span class="title">Digital signatures</span></a><ul>
+<li><a href="section-dsa-intro.html" data-scroll="section-dsa-intro">Introduction to digital signatures</a></li>
+<li><a href="section-elgamal-ds.html" data-scroll="section-elgamal-ds">Elgamal digital signatures</a></li>
+<li><a href="section-subgroups.html" data-scroll="section-subgroups">Subgroups and cyclic subgroups</a></li>
+<li><a href="section-dsa-ecdsa.html" data-scroll="section-dsa-ecdsa">DSA and Elliptic Curve DSA</a></li>
+<li><a href="section-bitcoin.html" data-scroll="section-bitcoin">Bitcoin - an application of ECDSA*</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="chapter-probability.html" data-scroll="chapter-probability"><span class="codenumber">6</span> <span class="title">Probability and non-deterministic methods</span></a><ul>
+<li><a href="section-counting.html" data-scroll="section-counting">Counting*</a></li>
+<li><a href="section-perm-comb.html" data-scroll="section-perm-comb">Permutations and combinations*</a></li>
+<li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+<li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete" class="active">Pollard's \(\rho\) method</a></li>
+</ul>
+</li>
+<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
+<li class="link">
+<a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
+<li><a href="exercises-21.html" data-scroll="exercises-21">Set 1</a></li>
+<li><a href="exercises-22.html" data-scroll="exercises-22">Set 2</a></li>
+<li><a href="exercises-23.html" data-scroll="exercises-23">Set 3</a></li>
+<li><a href="exercises-24.html" data-scroll="exercises-24">Set 4</a></li>
+</ul>
+</li>
+</ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-pollard-concrete"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">6.4</span> <span class="title">Pollard's \(\rho\) method</span>
+</h2>
+<a href="section-pollard-concrete.html" class="permalink">¶</a><p id="p-212">We now look at a specific implementation of the Pollard \(\rho\) method for solving the discrete log problem \(g^t = h \mod p\) in \(\F_p\ad\text{.}\) Our first tool is a function that does a good job of mixing values through \(\F_p\text{.}\) For a prime \(p\text{,}\) let \(f:\F_p \to \F_p\) be the function</p>
+<div class="displaymath">
+\begin{equation}
+f(x) = \left\{ \begin{array}{lll}
+gx \amp \mbox{if } \amp 1 \leq x \lt p/3 \\
+x^2 \amp \mbox{if } \amp p/3 \leq x \lt 2p/3 \\
+xh \amp \mbox{if } \amp 2p/3 \leq x \lt p \\
+\end{array} \right.\label{eqn-pollard-f}\tag{6.4.1}
+\end{equation}
+</div>
+<p id="p-213">Following the abstract version of the rho method, we'll need two “lists” (remember, we're only storing one element at a time) to keep track of \(x_i\) and \(x_{2i}\) to find a collision. But we also need to keep track of what operations \(f\) has performed as we walk up the rho to find the collision. Since we can't predict what \(f\) will do, we will need counters that keep track of how many copies of \(g\) and \(h\) have been multiplied in by \(f\text{.}\) Note that because we're in \(\F_p\text{,}\) we need only to keep track of these exponents modulo \(p-1\) by Fermat's little theorem.</p>
+<p id="p-214">Suppose that we apply \(f\) a total of \(n\) times to the starting point \(x_0 = 1\text{.}\) Then</p>
+<div class="displaymath">
+\begin{equation*}
+f\circ f \circ f \circ \ldots \circ f \circ f (1) = g^{a_n} h^{b_n}
+\end{equation*}
+</div>
+<p>We can generate the “storage constants” as we calculate the list with the conditions</p>
+<div class="displaymath">
+\begin{equation}
+a_n = \left\{ \begin{array}{lll}
+a_{n-1} +1 \amp \mbox{if } \amp 1 \leq x \lt p/3 \\
+2a_{n-1} \amp \mbox{if } \amp p/3 \leq x \lt 2p/3 \\
+a_{n-1} \amp \mbox{if } \amp 2p/3 \leq x \lt p \\
+\end{array} \right.\label{eqn-pollard-a}\tag{6.4.2}
+\end{equation}
+</div>
+<p>and</p>
+<div class="displaymath">
+\begin{equation}
+b_n = \left\{ \begin{array}{lll}
+b_{n-1} \amp \mbox{if } \amp 1 \leq x \lt p/3 \\
+2b_{n-1} \amp \mbox{if } \amp p/3 \leq x \lt 2p/3 \\
+b_{n-1} +1 \amp \mbox{if } \amp 2p/3 \leq x \lt p \\
+\end{array} \right.\label{eqn-pollard-b}\tag{6.4.3}
+\end{equation}
+</div>
+<p id="p-215">Consider the collision generating sequences</p>
+<div class="displaymath">
+\begin{equation*}
+x_{i+1} = f(x_i) \mbox{ and } y_{i+1} = f(f(y_i))
+\end{equation*}
+</div>
+<p>with \(x_0 = 1\) and \(y_0 = f(1)\text{.}\) At the termination of the search for a collision, we'll have \(x_i = x_{2i}\text{.}\) That is, we'll have the equation</p>
+<div class="displaymath">
+\begin{equation*}
+g^{a_1} h^{b_1} = g^{a_2} h^{b_2} \bmod p\text{.}
+\end{equation*}
+</div>
+<p>Rearranging this, we get</p>
+<div class="displaymath">
+\begin{equation*}
+g^{a_1 - a_2} = h^{b_2 - b_1} \bmod p
+\end{equation*}
+</div>
+<p>which we can simplify by letting \(u = a_1 - a_2\) and \(v = b_2 - b_1\) to get</p>
+<div class="displaymath">
+\begin{equation*}
+g^u = h^v \bmod p.
+\end{equation*}
+</div>
+<p id="p-216">Note that this is equivalent to the equation</p>
+<div class="displaymath">
+\begin{equation*}
+v \cdot \log_g(h) = vt = u \bmod (p-1)
+\end{equation*}
+</div>
+<p>where we mod by \(p-1\) because we've changed to an exponent equation in \(\F_p\text{.}\) If \(\gcd(v, p-1) = 1\text{,}\) then \(v\) has an inverse, and we can use that to solve for \(\log_g(h)\text{.}\) Otherwise, an application of the extended Euclidean algorithm to the numbers \(v\) and \(p-1\) will give an integer \(s\) so that</p>
+<div class="displaymath">
+\begin{equation*}
+s v = d \bmod (p-1)
+\end{equation*}
+</div>
+<p>where \(d = \gcd(v, p-1)\text{.}\) Multiplying through by \(s\text{,}\) we get</p>
+<div class="displaymath">
+\begin{equation}
+d t = w \bmod (p-1)\label{eq-rho-solve}\tag{6.4.4}
+\end{equation}
+</div>
+<p>with \(w = su\text{.}\)</p>
+<p id="p-217">An easy argument shows that since \(d | (p-1)\text{,}\) it must also be the case that \(d |w\text{.}\) Thus, it is immediately apparent that \(t = w/d\) is a solution to equation <a data-knowl="./knowl/eq-rho-solve.html" title="Equation 6.4.4">(6.4.4)</a>. But there are others. Since the equation holds modulo \(p-1\text{,}\) the complete set of solutions is given by</p>
+<div class="displaymath">
+\begin{equation*}
+t = \left\{ \frac{w}{d} + k \frac{p-1}{d} : k = 0, \ldots d-1 \right\}.
+\end{equation*}
+</div>
+<p>What is left is to try each of these potential solutions to</p>
+<div class="displaymath">
+\begin{equation*}
+g^t = h \bmod p
+\end{equation*}
+</div>
+<p>and find the correct exponent. In practice, the number \(d\) will be small, as to be cryptographically secure, \(p\) is chosen so that \(p-1\) has one very large prime factor that is unlikely to divide \(d\text{.}\)</p>
+<article class="theorem-like" id="algo-pollard"><h6 class="heading">
+<span class="type">Algorithm</span> <span class="codenumber">6.4.1</span>. <span class="title">Pollard's rho method for \(\F_p\).</span>
+</h6>\(g^t = h \bmod p\)<ol class="decimal">
+<li id="li-199">Initialize constants \(a_x, b_x, a_y, b_y = 0\text{.}\)</li>
+<li id="li-200">Intialize the list elements \(x = 1, y = 0\text{.}\)</li>
+<li id="li-201">Define the mixing function \(f\) by <a data-knowl="./knowl/eqn-pollard-f.html" title="Equation 6.4.1">(6.4.1)</a>.</li>
+<li id="li-202">Set \(x = f(x), y = f(f(x))\text{,}\) and update the storage constants according to <a data-knowl="./knowl/eqn-pollard-a.html" title="Equation 6.4.2">(6.4.2)</a> and <a data-knowl="./knowl/eqn-pollard-b.html" title="Equation 6.4.3">(6.4.3)</a>.</li>
+<li id="li-203">If \(x \neq y\text{,}\) repeat from Step 4.</li>
+<li id="li-204">Once a collision is found, set \(u = a_x - a_y\text{,}\) and \(v = b_y - b_x\text{.}\)</li>
+<li id="li-205">Apply the Euclidean algorith to \(v, p-1\) to get \(s, d\) so that \(s v = d \bmod p-1\) and \(d = \gcd(v, p-1)\text{.}\)</li>
+<li id="li-206">Set \(w = su\)</li>
+<li id="li-207">For \(k = 1, \ldots, d-1\text{,}\) calculate<div class="displaymath">
+\begin{equation*}
+t = \frac{w}{d} + k \frac{p-1}{d}
+\end{equation*}
+</div>and check<div class="displaymath">
+\begin{equation*}
+g^t = h \bmod p
+\end{equation*}
+</div>
+</li>
+</ol></article><section class="exercises" id="exercises-20"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise-like" id="exercise-41"><h6 class="heading"><span class="codenumber">1.</span></h6>Let \(d = \gcd(v, p-1)\text{.}\) Show that if \(dt = w \bmod (p-1)\) then \(d | w\text{.}\)</article><article class="exercise-like" id="exercise-42"><h6 class="heading"><span class="codenumber">2.</span></h6>Implement the rho method with the function \(f\) as specified in this section.</article><article class="exercise-like" id="exercise-43"><h6 class="heading"><span class="codenumber">3.</span></h6>Modify Pollard's \(\rho\) method to work on the ECDLP. Write out a modified algorithm by hand. Then implement it.</article></section></section></div></main>
+</div>
+<div class="login-link"><span id="loginlogout" class="login">login</span></div>
+<script src="https://pretextbook.org/js/0.12/login.js"></script>
+</body>
+</html>

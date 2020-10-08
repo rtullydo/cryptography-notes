@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--**************************************-->
 <!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-04-11T12:56:08-04:00    *-->
+<!--*    on 2019-11-20T16:48:50-05:00    *-->
 <!--*                                    *-->
 <!--*      https://pretextbook.org       *-->
 <!--*                                    *-->
@@ -41,7 +41,7 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
@@ -53,7 +53,7 @@ MathJax.Hub.Config({
 var role = 'student';
 var guest_access = true;
 var login_required = false;
-var js_version = 0.11;
+var js_version = 0.12;
 </script>
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
@@ -222,6 +222,17 @@ var js_version = 0.11;
 <li><a href="section-counting.html" data-scroll="section-counting">Counting*</a></li>
 <li><a href="section-perm-comb.html" data-scroll="section-perm-comb">Permutations and combinations*</a></li>
 <li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+<li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
+</ul>
+</li>
+<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
+<li class="link">
+<a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
+<li><a href="exercises-21.html" data-scroll="exercises-21">Set 1</a></li>
+<li><a href="exercises-22.html" data-scroll="exercises-22">Set 2</a></li>
+<li><a href="exercises-23.html" data-scroll="exercises-23">Set 3</a></li>
+<li><a href="exercises-24.html" data-scroll="exercises-24">Set 4</a></li>
 </ul>
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
@@ -232,7 +243,7 @@ var js_version = 0.11;
 <a href="section-fermat.html" class="permalink">¶</a><p id="p-76">Exponents in \(\F_p\ad\) have several useful and noteworthy properties. First, we have Fermat's little theorem, which essentially states that multiplying some element \(g\) in \(\F_p\ad\) by itself \(p\) times will always return to \(g\text{.}\)</p>
 <article class="theorem-like" id="thm-fermat"><h6 class="heading">
 <span class="type">Theorem</span> <span class="codenumber">2.6.1</span>. <span class="title">(Fermat's little theorem).</span>
-</h6> Let \(p\) be prime and \(a\) be an integer. Then if \(p \nmid a\text{,}\)<div class="displaymath">
+</h6>\(p\)\(a\)\(p \nmid a\text{,}\)<div class="displaymath">
 \begin{equation*}
 a^{p-1} \equiv 1 \bmod p.
 \end{equation*}
@@ -240,7 +251,7 @@ a^{p-1} \equiv 1 \bmod p.
 <p id="p-77">Fermat's little theorem gives us the ability to perform a relatively fast computation of inverses with the help of the fast powering algorithm.</p>
 <article class="theorem-like" id="alg-fast-inverse"><h6 class="heading">
 <span class="type">Algorithm</span> <span class="codenumber">2.6.2</span>. <span class="title">Fast inverse mod \(p\).</span>
-</h6> Let \(a \in \F_p\ad\text{.}\) <ol class="decimal">
+</h6>\(a \in \F_p\ad\text{.}\)<ol class="decimal">
 <li id="li-50">Since \(a\) then must be smaller than \(p\text{,}\) \(p \nmid a\text{,}\) and so \(a^{p-1} = 1\) in \(\F_p\ad\text{.}\)</li>
 <li id="li-51">But then \(a^{p-2} \equiv a\inv\text{.}\)</li>
 <li id="li-52">Apply the fast powering algorithm to compute \(a^{p-2}\text{.}\) The result is \(a\inv\text{.}\)</li>
@@ -248,21 +259,21 @@ a^{p-1} \equiv 1 \bmod p.
 <article class="definition-like" id="definition-8"><h6 class="heading">
 <span class="type">Definition</span> <span class="codenumber">2.6.3</span>.</h6>The <dfn class="terminology">order</dfn> of \(a\) in \(\F_p\ad\) is the smallest positive integer \(k\) so that \(a^k = 1\text{.}\)</article><p id="p-79">The following proposition follows directly from Fermat's little theorem (you should try to prove it!)</p>
 <article class="theorem-like" id="prop-order-divide"><h6 class="heading">
-<span class="type">Proposition</span> <span class="codenumber">2.6.4</span>.</h6>Let \(p\) be prime and let \(a\) be an element of \(F_p\ad\text{.}\) Suppose that \(a^k = 1\) in \(\F_p\ad\text{.}\) Then \(k \mid (p-1)\text{.}\)</article><p id="p-80">Elements with order \(p - 1\) in \(F_p\ad\) are special, and of fundamental importance in cryptography.</p>
+<span class="type">Proposition</span> <span class="codenumber">2.6.4</span>.</h6>\(p\)\(a\)\(F_p\ad\text{.}\)\(a^k = 1\)\(\F_p\ad\text{.}\)\(k \mid (p-1)\text{.}\)</article><p id="p-80">Elements with order \(p - 1\) in \(F_p\ad\) are special, and of fundamental importance in cryptography.</p>
 <article class="theorem-like" id="thm-primitive-root"><h6 class="heading">
 <span class="type">Theorem</span> <span class="codenumber">2.6.5</span>. <span class="title">(Primitive root theorem).</span>
-</h6> Let \(p\) be a prime number. Then there exists an element \(g \in \F_p\ad\) whose powers give every element of \(F_p\ad\text{.}\) That is,<div class="displaymath">
+</h6>\(p\)\(g \in \F_p\ad\)\(F_p\ad\text{.}\)<div class="displaymath">
 \begin{equation*}
 \F_p\ad = \{1, g, g^2, \ldots, g_{p-2}\}.
 \end{equation*}
-</div>Such a \(g\) is called a <dfn class="terminology">generator</dfn> or <dfn class="terminology">primitive root</dfn> of \(F_p\ad\text{.}\)</article><p id="p-81">For sufficiently large \(p\text{,}\) \(F_p\ad\) has lots of generators. (In fact equal to the totient function of \(p-1\text{.}\)) Be careful thinking about successive powers of \(g\text{:}\) while the symbols have increasing exponents, the numbers themselves will not in general be increasing, as they are subject to the mixing effect of repeated multiplication mod \(p\text{.}\)</p>
-<div style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="mixing.jpg" style="width: 100%; height: auto;" alt=""></div>
+</div>\(g\)<dfn class="terminology">generator</dfn><dfn class="terminology">primitive root</dfn>\(F_p\ad\text{.}\)</article><p id="p-81">For sufficiently large \(p\text{,}\) \(F_p\ad\) has lots of generators. (In fact equal to the totient function of \(p-1\text{.}\)) Be careful thinking about successive powers of \(g\text{:}\) while the symbols have increasing exponents, the numbers themselves will not in general be increasing, as they are subject to the mixing effect of repeated multiplication mod \(p\text{.}\)</p>
+<div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="mixing.jpg" style="width: 100%; height: auto;" alt=""></div>
 <section class="exercises" id="exercises-7"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+<span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
 <article class="exercise-like" id="exercise-15"><h6 class="heading"><span class="codenumber">1.</span></h6>Prove Proposition <a data-knowl="./knowl/prop-order-divide.html" title="Proposition 2.6.4">Proposition 2.6.4</a>.</article><article class="exercise-like" id="exercise-16"><h6 class="heading"><span class="codenumber">2.</span></h6>Implement a fast inverse function using your fast powering function from the previous exercise.</article></section></section></div></main>
 </div>
 <div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.11/login.js"></script>
+<script src="https://pretextbook.org/js/0.12/login.js"></script>
 </body>
 </html>

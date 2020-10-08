@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--**************************************-->
 <!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-04-11T12:56:09-04:00    *-->
+<!--*    on 2019-11-20T16:48:50-05:00    *-->
 <!--*                                    *-->
 <!--*      https://pretextbook.org       *-->
 <!--*                                    *-->
@@ -57,7 +57,7 @@ MathJax.Hub.Config({
                            languages: ['python'],
                            evalButtonText: 'Evaluate (Python)'});
 });
-</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+</script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
@@ -69,7 +69,7 @@ MathJax.Hub.Config({
 var role = 'student';
 var guest_access = true;
 var login_required = false;
-var js_version = 0.11;
+var js_version = 0.12;
 </script>
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
@@ -238,6 +238,17 @@ var js_version = 0.11;
 <li><a href="section-counting.html" data-scroll="section-counting">Counting*</a></li>
 <li><a href="section-perm-comb.html" data-scroll="section-perm-comb">Permutations and combinations*</a></li>
 <li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+<li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
+</ul>
+</li>
+<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
+<li class="link">
+<a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
+<li><a href="exercises-21.html" data-scroll="exercises-21">Set 1</a></li>
+<li><a href="exercises-22.html" data-scroll="exercises-22">Set 2</a></li>
+<li><a href="exercises-23.html" data-scroll="exercises-23">Set 3</a></li>
+<li><a href="exercises-24.html" data-scroll="exercises-24">Set 4</a></li>
 </ul>
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
@@ -261,7 +272,7 @@ m \amp= \frac{y_2 - y_1}{x_2 - x_1} \pmod p\\
 </div>
 <article class="theorem-like" id="thm-finite-elliptic-add-algo"><h6 class="heading">
 <span class="type">Theorem</span> <span class="codenumber">4.3.2</span>. <span class="title">Elliptic curve addition over \(\F_p\).</span>
-</h6> Let \(E\) be an elliptic curve over the field \(\F_p\text{,}\) and let \(P, Q\) be points in \(E\text{.}\) <ol class="decimal">
+</h6>\(E\)\(\F_p\text{,}\)\(P, Q\)\(E\text{.}\)<ol class="decimal">
 <li id="li-117">If \(P = \mathcal O\text{,}\) then \(P+ Q = Q\text{.}\)</li>
 <li id="li-118">Else, if \(Q = \mathcal O\text{,}\) then \(P + Q = P\text{.}\)</li>
 <li id="li-119">Else, write the coordinates \(P = (x_1, y_1), Q = (x_2, y_2)\text{.}\)</li>
@@ -350,7 +361,7 @@ print(ef_p)
 </script></div>
 <p id="p-154">Note that the method used here is extremely inefficient for large values of \(p\text{,}\) and is intended to illustrate the basic idea of using a computer program to produce mathematical objects.</p>
 <article class="theorem-like" id="thm-ff-ec-add"><h6 class="heading">
-<span class="type">Theorem</span> <span class="codenumber">4.3.5</span>.</h6>Elliptic addition over a finite field \(\F_p\) is closed. Furthermore, it has the properties required from an additive group operation: identity, inverses, and associativity. Since elliptic addition is commutative, so is elliptic addition over \(\F_p\text{.}\)</article><p id="p-155">We will perform a sample computation and add \(P(4,5) + Q(6,1)\) in \(E(\F_7)\text{.}\) As \(P\) and \(Q\) are distint, we compute</p>
+<span class="type">Theorem</span> <span class="codenumber">4.3.5</span>.</h6>\(\F_p\)\(\F_p\text{.}\)</article><p id="p-155">We will perform a sample computation and add \(P(4,5) + Q(6,1)\) in \(E(\F_7)\text{.}\) As \(P\) and \(Q\) are distint, we compute</p>
 <div class="displaymath">
 \begin{align*}
 m \amp = \frac{y_2 - y_1}{x_2 - x_1}\bmod 7 \\
@@ -387,11 +398,11 @@ y_3 = m(x_1 - x_3) - y_1 = 5(4 - 1) - 5 = 3 \bmod 7
 \end{equation*}
 </div>
 <section class="exercises" id="exercises-13"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber"></span> <span class="title">Exercises</span>
+<span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
 <article class="exercise-like" id="exercise-25"><h6 class="heading"><span class="codenumber">1.</span></h6>Let \(E: Y^2 = X^3 + 3X + 5\) over the field \(\F_13\text{.}\) Compute the squares in \(\F_13\text{.}\) Use the list of squares to find all of the points in \(E(\F_13)\text{.}\) Compute an example to test if your set is closed under modular elliptic addition.</article><article class="exercise-like" id="exercise-26"><h6 class="heading"><span class="codenumber">2.</span></h6>Implement the code to generate an elliptic curve over a finite field efficiently: that is, do not search the entire list for matches. Compare the speed of your execution for a reasonably large prime, say \(p = 10000019 \text{.}\)</article></section></section></div></main>
 </div>
 <div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.11/login.js"></script>
+<script src="https://pretextbook.org/js/0.12/login.js"></script>
 </body>
 </html>

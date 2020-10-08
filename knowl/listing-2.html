@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--**************************************-->
+<!--*    Generated from PreTeXt source   *-->
+<!--*    on 2019-11-20T16:48:51-05:00    *-->
+<!--*                                    *-->
+<!--*      https://pretextbook.org       *-->
+<!--*                                    *-->
+<!--**************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<figure class="figure-like"><pre class="plainprint">from math import floor
+
+def mixer(g,h,x,p, a, b):
+    x = x%p
+    if x &lt; floor(p/3):
+        return g*x%p, a+1%(p-1), b%(p-1)
+    elif x &lt; floor(2*p/3):
+        return x**2%p, 2*a%(p-1), 2*b%(p-1)
+    else:
+        return x*h, a%(p-1), b+1%(p-1)
+
+def xgcd(a, b):
+    """return (g, x, y) such that a*x + b*y = g = gcd(a, b)"""
+    x0, x1, y0, y1 = 0, 1, 1, 0
+    while a != 0:
+        q, b, a = b // a, a, b % a
+        y0, y1 = y1, y0 - q * y1
+        x0, x1 = x1, x0 - q * x1
+    return b, x0, y0
+
+def collision():
+    x = 1
+    y = 1
+    g = 19
+    h = 24717
+    p = 48611
+    ax = 0
+    bx = 0
+    ay = 0
+    by = 0
+    while True:
+        x, ax, bx = mixer(g,h,x,p,ax,bx)
+        y, ay, by = mixer(g,h,y,p,ay,by)
+        y, ay, by = mixer(g,h,y,p,ay,by)
+        if x == y:
+            break
+    print(x,y, ax, bx, ay, by)
+    u = (ax - ay)%(p-1)
+    v = (by - bx)%(p-1)
+    print(u,v)
+    d, s, t = xgcd(v,p-1)
+    print(d, s, t)
+    s = abs(s)
+    print(s)
+    w = s*u %(p-1)
+    print(w)
+    powers = [int(w/d + k*(p-1)/d) for k in range(0,d-1)]
+    print(powers)
+    for i in powers:
+        if pow(g,i,p) == h%p:
+            log = i
+            break
+    print(i)
+    print(pow(g,log,p))
+</pre>
+<figcaption><span class="type">Listing</span> <span class="codenumber">A.0.2.</span> Pollard rho in \(\F_p\ad\)</figcaption></figure><span class="incontext"><a href="code.html#listing-2">in-context</a></span>
+</body>
+</html>

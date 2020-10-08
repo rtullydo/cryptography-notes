@@ -66,14 +66,14 @@
             30 \cdot 29 \cdot 28 = \frac{30 \cdot 29 \cdot 28 \cdot (27 \cdot \ldots \cdot 1)}{(27 \cdot \ldots \cdot 1)} = \frac{30!}{27!} = \frac{30!}{(30 - 3)!}
           </me></p>
 
-        <p>This motivates the observation that the number of <term>permutations of <m>n</m> objects taken <m>r</m> at a time</term> is 
+        <p>This motivates the observation that the number of <term>permutations of <m>n</m> objects taken <m>r</m> at a time</term> is
           <me>
             n P r = \frac{n!}{(n-r)!}
           </me>.</p>
 
         <p>In many cases, we want to know how many ways to choose <m>r</m> objects from a collection of <m>n</m> total objects, but we aren't concerned with the order of the choosing. For example, playing a card game, typically the cards in the players hand can be ordered in the hand any way the player wishes. This type of unordered selection is called a <term>combination of <m>n</m> objects taken <m>r</m> at a time</term>.</p>
-      </section> 
-      
+      </section>
+
       <section xml:id="section-prime-testing">
         <title>Primality testing</title>
 
@@ -93,7 +93,7 @@
         <me>
           2^9 \equiv 8 \bmod 9
         </me>
-        and so <m>9</m> (shockingly) cannot be prime. This sort of test is exclusive -- we can exclude numbers that fail, but passing the test for a given value of <m>a</m> <em>does not mean that <m>n</m> is prime!</em> For example, 
+        and so <m>9</m> (shockingly) cannot be prime. This sort of test is exclusive -- we can exclude numbers that fail, but passing the test for a given value of <m>a</m> <em>does not mean that <m>n</m> is prime!</em> For example,
         <me>
           6^{21} \equiv 6 \bmod 21
         </me>
@@ -102,13 +102,13 @@
         <p>We take the position that 2 <q>sees</q> the compositeness of 9, but that 6 does not see the compositeness of 21. In this light, we define the notion of a witness of compositeness.</p>
 
         <definition xml:id="def-witness">
-          A number <m>a</m> is said to be a (Fermat) <term>witness</term> for the compositeness of a composite number <m>n</m> if 
+          A number <m>a</m> is said to be a (Fermat) <term>witness</term> for the compositeness of a composite number <m>n</m> if
           <me>
             a^n \neq a \bmod n.
           </me>
         </definition>
 
-        <p>We're left with the following idea: If we suspect that a number <m>n</m> is prime, check lots of numbers <m>a</m> as potential witnesses of the compositeness of <m>n</m>. If we don't find any witnesses, perhaps we could conclude that <m>n</m> is prime. The issue with this approach is the existence of a set of numbers called <em>Carmichael numbers</em>, which have the property of possessing <em>no</em> Fermat witnesses. As an example, <m>n = 531 = 3 \cdot 11 \cdot 17</m> has the property that 
+        <p>We're left with the following idea: If we suspect that a number <m>n</m> is prime, check lots of numbers <m>a</m> as potential witnesses of the compositeness of <m>n</m>. If we don't find any witnesses, perhaps we could conclude that <m>n</m> is prime. The issue with this approach is the existence of a set of numbers called <em>Carmichael numbers</em>, which have the property of possessing <em>no</em> Fermat witnesses. As an example, <m>n = 531 = 3 \cdot 11 \cdot 17</m> has the property that
         <me>
           a^{531} = a \bmod 531
         </me>
@@ -132,7 +132,7 @@
           </ol>
         </theorem>
         <proof>
-          The basic idea of the proof is that <m>\sqrt{1} = \pm 1</m>. By Fermat's theorem, we know that 
+          The basic idea of the proof is that <m>\sqrt{1} = \pm 1</m>. By Fermat's theorem, we know that
           <me>
             a^{2^k q} = a^{p-1} \equiv 1 \mod p.
           </me>
@@ -146,7 +146,7 @@
         The theorem gives the underlying condition for the Miller-Rabin test for compositeness.
 
         <definition xml:id="def-mr-witness">
-          Let <m>n</m> be odd and write <m>n-1 = 2^k q</m> with <m>q</m> odd. An integer <m>a</m> with <m>\gcd(a,n) = 1</m> is a <term>Miller-Rabin witness</term> for the compositeness of <m>n</m> if 
+          Let <m>n</m> be odd and write <m>n-1 = 2^k q</m> with <m>q</m> odd. An integer <m>a</m> with <m>\gcd(a,n) = 1</m> is a <term>Miller-Rabin witness</term> for the compositeness of <m>n</m> if
           <ol>
             <li> <m> a^q \neq 1 \bmod n </m> and </li>
             <li> <m> a^{2^i q} \neq -1 \bmod n</m> for any <m>i = 1, \ldots, k-1</m></li>
@@ -169,7 +169,24 @@
           </ol>
         </algorithm>
 
-        Composite numbers have lots of Miller-Rabin witnesses. 
+        <p>Python note: the method for the step where all of the factors of 2 are pulled out of <m>n-1</m> might seem somewhat unclear. A useful command in this case is <c>divmod</c>, which is the library function for division with remainder. A segment of hint code follows.</p>
+
+        <sage language="python">
+          <input>
+            n = 37
+            m = n -1
+            i, q, r = 0,0,0
+            while True:
+              q, r = divmod(m, 2)
+              if r == 1:
+                break
+              m = q
+              i = i + 1
+            print("%d has the form (2^%d)%d"%(n-1, i, m))
+          </input>
+        </sage>
+
+        <p>Composite numbers have lots of Miller-Rabin witnesses. </p>
 
         <proposition>
           Let <m>n</m> be an odd composite number. Then at least 75% of integers <m>1 \lt a \leq n-1</m> are Miller-Rabin witnesses for the compositeness of <m>n</m>.
@@ -177,7 +194,7 @@
 
         <p>In some sense, we have the basis for a nondeterministic test for the primeness of an integer now. We know that if <m>n</m> is composite, we have at least a 75% chance of finding a witness for any given <m>a</m> that we test. That is, we have a 25% chance at most to fail. If we try lots of values, and they all fail to be witnesses for <m>n</m>, then it becomes increasingly likely that <m>n</m> is prime.</p>
 
-        <p>The situation is slighly complicated by the fact that the probabilities are what as known as <em>conditional</em>: that is, when <m>n</m> is composite, 25% of numbers fail to be witnesses, but when <m>n</m> is prime, 100% of numbers fail to be witnesses. Nevertheless, the basic intuition should be something like <q>If <m>n</m> is composite, then the probability that 10 numbers fail to be Miller-Rabin witnesses for <m>n</m> is <m>.25^10 \approx 10^-6</m>.</q>. That is, getting 10 or 100 or 1000 failed witnesses makes it exceedingly unlikely that <m>n</m> is composite. The exact calculation of the probability will have to wait until we have looked more closely at conditional probability.</p>
+        <p>The situation is slighly complicated by the fact that the probabilities are what as known as <em>conditional</em>: that is, when <m>n</m> is composite, 25% of numbers fail to be witnesses, but when <m>n</m> is prime, 100% of numbers fail to be witnesses. Nevertheless, the basic intuition should be something like <q>If <m>n</m> is composite, then the probability that 10 numbers fail to be Miller-Rabin witnesses for <m>n</m> is <m>.25^{10} \approx 10^{-6}</m></q>. That is, getting 10 or 100 or 1000 failed witnesses makes it exceedingly unlikely that <m>n</m> is composite. The exact calculation of the probability will have to wait until we have looked more closely at conditional probability.</p>
 
         <p>One might reasonably ask if there are efficient ways of generating candidate primes. In fact, there are many formulas that are much more likely to produce a prime than a random number generator. Further, we can exclude many possible values for <m>n</m> with divisibilty rules and quick divisions (say by every number up to 10000) before we apply a computationally expensive MR-test.</p>
 
@@ -194,5 +211,114 @@
             Implement the Miller-Rabin test for compositeness.
           </exercise>
         </exercises>
+      </section>
+
+      <section xml:id="section-pollard-concrete">
+        <title>Pollard's <m>\rho</m> method</title>
+        <p> We now look at a specific implementation of the Pollard <m>\rho</m> method for solving the discrete log problem <m>g^t = h \mod p</m> in <m>\F_p\ad</m>. Our first tool is a function that does a good job of mixing values through <m>\F_p</m>. For a prime <m>p</m>, let <m>f:\F_p \to \F_p</m> be the function
+        <men xml:id="eqn-pollard-f">
+          f(x) = \left\{ \begin{array}{lll}
+          gx \amp \mbox{if } \amp 1 \leq x \lt p/3 \\
+          x^2 \amp \mbox{if } \amp p/3 \leq x \lt 2p/3 \\
+          xh \amp \mbox{if } \amp 2p/3 \leq x \lt p \\
+          \end{array} \right.
+        </men></p>
+
+        <p>Following the abstract version of the rho method, we'll need two <q>lists</q> (remember, we're only storing one element at a time) to keep track of <m>x_i</m> and <m>x_{2i}</m> to find a collision. But we also need to keep track of what operations <m>f</m> has performed as we walk up the rho to find the collision. Since we can't predict what <m>f</m> will do, we will need counters that keep track of how many copies of <m>g</m> and <m>h</m> have been multiplied in by <m>f</m>. Note that because we're in <m>\F_p</m>, we need only to keep track of these exponents modulo <m>p-1</m> by Fermat's little theorem.</p>
+
+        <p>Suppose that we apply <m>f</m> a total of <m>n</m> times to the starting point <m>x_0 = 1</m>. Then
+        <me>
+          f\circ f \circ f \circ \ldots \circ f \circ f (1) = g^{a_n} h^{b_n}
+        </me>
+        We can generate the <q>storage constants</q> as we calculate the list with the conditions
+        <men xml:id="eqn-pollard-a">
+          a_n = \left\{ \begin{array}{lll}
+          a_{n-1} +1 \amp \mbox{if } \amp 1 \leq x \lt p/3 \\
+          2a_{n-1} \amp \mbox{if } \amp p/3 \leq x \lt 2p/3 \\
+          a_{n-1} \amp \mbox{if } \amp 2p/3 \leq x \lt p \\
+          \end{array} \right.
+        </men>
+        and
+        <men xml:id="eqn-pollard-b">
+          b_n = \left\{ \begin{array}{lll}
+          b_{n-1} \amp \mbox{if } \amp 1 \leq x \lt p/3 \\
+          2b_{n-1} \amp \mbox{if } \amp p/3 \leq x \lt 2p/3 \\
+          b_{n-1} +1 \amp \mbox{if } \amp 2p/3 \leq x \lt p \\
+          \end{array} \right.
+        </men></p>
+
+        <p>Consider the collision generating sequences
+        <me>
+          x_{i+1} = f(x_i) \mbox{ and } y_{i+1} = f(f(y_i))
+        </me>
+        with <m>x_0 = 1</m> and <m>y_0 = f(1)</m>. At the termination of the search for a collision, we'll have <m>x_i = x_{2i}</m>. That is, we'll have the equation
+        <me>
+          g^{a_1} h^{b_1} = g^{a_2} h^{b_2} \bmod p
+        </me>. Rearranging this, we get
+        <me>
+          g^{a_1 - a_2} = h^{b_2 - b_1} \bmod p
+        </me>
+        which we can simplify by letting <m>u = a_1 - a_2</m> and <m>v = b_2 - b_1</m> to get
+        <me>
+        g^u = h^v \bmod p.
+        </me></p>
+
+        <p>Note that this is equivalent to the equation
+          <me>
+            v \cdot \log_g(h) = vt = u \bmod (p-1)
+          </me>
+          where we mod by <m>p-1</m> because we've changed to an exponent equation in <m>\F_p</m>. If <m>\gcd(v, p-1) = 1</m>, then <m>v</m> has an inverse, and we can use that to solve for <m>\log_g(h)</m>. Otherwise, an application of the extended Euclidean algorithm to the numbers <m>v</m> and <m>p-1</m> will give an integer <m>s</m> so that
+          <me>
+            s v = d \bmod (p-1)
+          </me>
+          where <m>d = \gcd(v, p-1)</m>. Multiplying through by <m>s</m>, we get
+          <men xml:id="eq-rho-solve">
+            d t = w \bmod (p-1)
+          </men>
+          with <m>w = su</m>.</p>
+
+          <p>An easy argument shows that since <m>d | (p-1)</m>, it must also be the case that <m>d |w</m>. Thus, it is immediately apparent that <m>t = w/d</m> is a solution to equation <xref ref="eq-rho-solve" />. But there are others. Since the equation holds modulo <m>p-1</m>, the complete set of solutions is given by
+          <me>
+            t = \left\{ \frac{w}{d} + k \frac{p-1}{d} : k = 0, \ldots d-1 \right\}.
+          </me>
+          What is left is to try each of these potential solutions to
+          <me>
+            g^t = h \bmod p
+          </me>
+          and find the correct exponent. In practice, the number <m>d</m> will be small, as to be cryptographically secure, <m>p</m> is chosen so that <m>p-1</m> has one very large prime factor that is unlikely to divide <m>d</m>.</p>
+
+          <algorithm xml:id="algo-pollard">
+            <title>Pollard's rho method for <m>\F_p</m></title>
+            Suppose that we want to solve the equivalence <m>g^t = h \bmod p</m>
+            <ol>
+              <li>Initialize constants <m>a_x, b_x, a_y, b_y = 0</m>.</li>
+              <li>Intialize the list elements <m>x = 1, y = 0</m>.</li>
+              <li> Define the mixing function <m>f</m> by <xref ref="eqn-pollard-f" />.</li>
+              <li>Set <m>x = f(x), y = f(f(x))</m>, and update the storage constants according to <xref ref="eqn-pollard-a" /> and <xref ref="eqn-pollard-b" />.</li>
+              <li>If <m>x \neq y</m>, repeat from Step 4.</li>
+              <li>Once a collision is found, set <m>u = a_x - a_y</m>, and <m>v = b_y - b_x</m>.</li>
+              <li>Apply the Euclidean algorith to <m>v, p-1</m> to get <m>s, d</m> so that <m>s v = d \bmod p-1</m> and <m>d = \gcd(v, p-1)</m>.</li>
+              <li>Set <m>w = su</m></li>.
+              <li>For <m>k = 1, \ldots, d-1</m>, calculate
+                <me> t = \frac{w}{d} + k \frac{p-1}{d}</me>
+                and check
+                <me>
+                  g^t = h \bmod p
+                </me>
+              </li>
+            </ol>
+          </algorithm>
+
+          <exercises>
+            <exercise>
+              Let <m>d = \gcd(v, p-1)</m>. Show that if <m>dt = w \bmod (p-1)</m> then <m>d | w</m>.
+            </exercise>
+            <exercise>
+              Implement the rho method with the function <m>f</m> as specified in this section.
+            </exercise>
+            <exercise>
+              Modify Pollard's <m>\rho</m> method to work on the ECDLP. Write out a modified algorithm by hand. Then implement it.
+            </exercise>
+          </exercises>
       </section>
     </chapter>

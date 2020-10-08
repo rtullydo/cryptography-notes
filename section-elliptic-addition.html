@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--**************************************-->
 <!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-04-11T12:56:09-04:00    *-->
+<!--*    on 2019-11-20T16:48:50-05:00    *-->
 <!--*                                    *-->
 <!--*      https://pretextbook.org       *-->
 <!--*                                    *-->
@@ -41,7 +41,7 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.11/pretext.js"></script><script src="https://pretextbook.org/js/0.11/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
@@ -53,7 +53,7 @@ MathJax.Hub.Config({
 var role = 'student';
 var guest_access = true;
 var login_required = false;
-var js_version = 0.11;
+var js_version = 0.12;
 </script>
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
@@ -222,6 +222,17 @@ var js_version = 0.11;
 <li><a href="section-counting.html" data-scroll="section-counting">Counting*</a></li>
 <li><a href="section-perm-comb.html" data-scroll="section-perm-comb">Permutations and combinations*</a></li>
 <li><a href="section-prime-testing.html" data-scroll="section-prime-testing">Primality testing</a></li>
+<li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
+</ul>
+</li>
+<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
+<li class="link">
+<a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
+<li><a href="exercises-21.html" data-scroll="exercises-21">Set 1</a></li>
+<li><a href="exercises-22.html" data-scroll="exercises-22">Set 2</a></li>
+<li><a href="exercises-23.html" data-scroll="exercises-23">Set 3</a></li>
+<li><a href="exercises-24.html" data-scroll="exercises-24">Set 4</a></li>
 </ul>
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
@@ -274,7 +285,7 @@ x^3 - 25x^2 +68x -44 \amp= 0
 <p id="p-140">Putting this together with the fact that \(P \oplus P' = \mathcal O\text{,}\) we see that the reflection \(P'\) of \(P\) is also the <dfn class="terminology">additive inverse</dfn> of \(P\) in the operation \(\oplus\text{.}\) Thus, we can safely use the symbol \(-P = P'\text{,}\) and so we have a notion of subtraction as well. Finally, we denote by \(nP\) the \(n\) times repeated addition \(P \oplus P \oplus \ldots \oplus P\text{.}\)</p>
 <p id="p-141">To summarize, we have shown that the operation \(\oplus\) on \(E\) is well-defined, has an identity, and has inverses. The last required property to be a group operation is that \(\oplus\) must be associative, but to prove that it is would require exhaustive analysis of cases, or deceptively inadequate pictures, or methods that are beyond the scope of this class. For now, we will take it on the assertion of experts that \(\oplus\) is indeed an associative operation.</p>
 <article class="theorem-like" id="thm-elliptic-addition"><h6 class="heading">
-<span class="type">Theorem</span> <span class="codenumber">4.2.1</span>.</h6>Let \(E\) be an elliptic curve. Elliptic curve addition \(\oplus\) has the following properties. <ol class="decimal">
+<span class="type">Theorem</span> <span class="codenumber">4.2.1</span>.</h6>\(E\)\(\oplus\)<ol class="decimal">
 <li id="li-105">There exists an element \(\mathcal O\) so that<div class="displaymath">
 \begin{equation*}
 P \oplus \mathcal O = P
@@ -311,7 +322,7 @@ n(P + Q) \amp= \underbrace{(P+ Q) + \ldots + (P+Q)}_{n \text { times}}\\
 <p id="p-144">Finally, we present a set of implementable formulae that allow easy computation of elliptic curve addition.</p>
 <article class="theorem-like" id="thm-elliptic-add-algo"><h6 class="heading">
 <span class="type">Theorem</span> <span class="codenumber">4.2.2</span>. <span class="title">Elliptic curve addition.</span>
-</h6> Let \(E\) be an elliptic curve, and let \(P, Q\) be points in \(E\text{.}\) <ol class="decimal">
+</h6>\(E\)\(P, Q\)\(E\text{.}\)<ol class="decimal">
 <li id="li-109">If \(P = \mathcal O\text{,}\) then \(P+ Q = Q\text{.}\)</li>
 <li id="li-110">Else, if \(Q = \mathcal O\text{,}\) then \(P + Q = P\text{.}\)</li>
 <li id="li-111">Else, write the coordinates \(P = (x_1, y_1), Q = (x_2, y_2)\text{.}\)</li>
@@ -342,6 +353,6 @@ y_3 = m(x_1 - x_3) - y_1.
 </ol></article></section></div></main>
 </div>
 <div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.11/login.js"></script>
+<script src="https://pretextbook.org/js/0.12/login.js"></script>
 </body>
 </html>

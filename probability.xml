@@ -189,7 +189,7 @@
         <p>Composite numbers have lots of Miller-Rabin witnesses. </p>
 
         <proposition>
-          Let <m>n</m> be an odd composite number. Then at least 75% of integers <m>1 \lt a \leq n-1</m> are Miller-Rabin witnesses for the compositeness of <m>n</m>.
+          <p>Let <m>n</m> be an odd composite number. Then at least 75% of integers <m>1 \lt a \leq n-1</m> are Miller-Rabin witnesses for the compositeness of <m>n</m>.</p>
         </proposition>
 
         <p>In some sense, we have the basis for a nondeterministic test for the primeness of an integer now. We know that if <m>n</m> is composite, we have at least a 75% chance of finding a witness for any given <m>a</m> that we test. That is, we have a 25% chance at most to fail. If we try lots of values, and they all fail to be witnesses for <m>n</m>, then it becomes increasingly likely that <m>n</m> is prime.</p>

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<!--**************************************-->
-<!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-11-20T16:48:50-05:00    *-->
-<!--*                                    *-->
-<!--*      https://pretextbook.org       *-->
-<!--*                                    *-->
-<!--**************************************-->
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2021-08-20T13:10:19-07:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>A simple example: the shift cipher</title>
 <meta name="Keywords" content="Authored in PreTeXt">
-<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     tex2jax: {
@@ -24,7 +26,7 @@ MathJax.Hub.Config({
     jax: ["input/AsciiMath"],
     extensions: ["asciimath2jax.js"],
     TeX: {
-        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
         // scrolling to fragment identifiers is controlled by other Javascript
         positionToHash: false,
         equationNumbers: { autoNumber: "none", useLabelIds: true, },
@@ -41,23 +43,22 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
-<script>var logged_in = false;
-var role = 'student';
-var guest_access = true;
-var login_required = false;
-var js_version = 0.12;
-</script>
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><link href="https://unpkg.com/prismjs@v1.22.0/themes/prism.css" rel="stylesheet">
+<script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
 \DeclareMathOperator{\IM}{Im}
 \DeclareMathOperator{\ess}{ess}
 \DeclareMathOperator{\intr}{int}
@@ -158,7 +159,7 @@ var js_version = 0.12;
 <p class="byline">Ryan Tully-Doyle</p>
 </div>
 </div></div>
-<nav id="primary-navbar" class="navbar"><div class="container">
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="motivation.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-intro.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="chapter-numbertheory.html" title="Next">Next</a></span></div>
 </div>
@@ -166,9 +167,9 @@ var js_version = 0.12;
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="motivation.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-intro.html" title="Up">Up</a><a class="next-button button toolbar-item" href="chapter-numbertheory.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
-<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link frontmatter"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
 <li class="link">
 <a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
 <li><a href="foreward.html" data-scroll="foreward">The course</a></li>
@@ -225,7 +226,7 @@ var js_version = 0.12;
 <li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
 </ul>
 </li>
-<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link backmatter"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
 <li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
 <li class="link">
 <a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
@@ -237,10 +238,10 @@ var js_version = 0.12;
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section class="section" id="shift"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="shift"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">1.3</span> <span class="title">A simple example: the shift cipher</span>
 </h2>
-<a href="shift.html" class="permalink">¶</a><p id="p-7">The <em class="emphasis">shift cipher</em> is a cryptosystem that almost any schoolchild should be familiar with. The basic idea is to take the alphabet and shift the letters, so that A, for example, becomes represented by the letter D, B is represented by E, and so on until we get to Z represented by C. In table form, <figure class="figure-like" id="table-1"><table>
+<p id="p-7">The <em class="emphasis">shift cipher</em> is a cryptosystem that almost any schoolchild should be familiar with. The basic idea is to take the alphabet and shift the letters, so that A, for example, becomes represented by the letter D, B is represented by E, and so on until we get to Z represented by C. In table form, <figure class="table table-like" id="table-1"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">1.3.1<span class="period">.</span></span><span class="space"> </span></figcaption><div class="tabular-box natural-width"><table class="tabular">
 <tr>
 <td class="l m b0 r0 l0 t0 lines">input letter</td>
 <td class="l m b0 r0 l0 t0 lines">A</td>
@@ -248,7 +249,7 @@ var js_version = 0.12;
 <td class="l m b0 r0 l0 t0 lines">C</td>
 <td class="l m b0 r0 l0 t0 lines">D</td>
 <td class="l m b0 r0 l0 t0 lines">\(\ldots\)</td>
-<td class="l m b0 r0 l0 t0 lines">Z</td>
+<td class="l m b0 r0 l0 t0 lines" data-braille="last-cell">Z</td>
 </tr>
 <tr>
 <td class="l m b0 r0 l0 t0 lines">coded letter</td>
@@ -257,10 +258,9 @@ var js_version = 0.12;
 <td class="l m b0 r0 l0 t0 lines">F</td>
 <td class="l m b0 r0 l0 t0 lines">G</td>
 <td class="l m b0 r0 l0 t0 lines">\(\ldots\)</td>
-<td class="l m b0 r0 l0 t0 lines">C</td>
+<td class="l m b0 r0 l0 t0 lines" data-braille="last-cell">C</td>
 </tr>
-</table>
-<figcaption><span class="type">Table</span> <span class="codenumber">1.3.1.</span> </figcaption></figure></p>
+</table></div></figure></p>
 <p id="p-8">Under this scheme, the word BAD becomes EDG, as each letter is replaced by its coded representative. To decode an encrypted text, one reads up the table, replacing the coded letters with the plaintext that each represents. Thus, the ciphertext FED becomes the plaintext CAB.</p>
 <p id="p-9">We will now take this system and represent it in mathematical form. We need the following elements.</p>
 <ol class="decimal">
@@ -275,7 +275,7 @@ var js_version = 0.12;
 </ol>
 </li>
 </ol>
-<p>(We will demand much more from our encryption functions in subsequent discussions.)</p>
+<p data-braille="continuation">(We will demand much more from our encryption functions in subsequent discussions.)</p>
 <p id="p-11">Then the function \(e(M) = M + 3\) seems to provide our encryption function, with the caveat that we need to address cases like \(e(25) = 2\text{.}\) What we want to happen is that the encrypted letters wrap back around to A once we pass Z in the table. This can be accomplished by using clock or <em class="emphasis">modular arithmetic</em>, which will be discussed in more detail in the next chapter. The basic idea is that \(a + b \pmod{26}\) is the remainder of the quotient \((a + b) / 26\text{.}\) That is, in arithmetic modulo 26, \(25 + 3 = 2\) (corresponding to Z + a shift of 3 letters = C). The set of integers \((0, \ldots, 25)\) with arithmetic modulo 26 has the representative symbol \(\mathbb Z_{26}\text{.}\)</p>
 <p id="p-12">We now have enough information to describe our cryptosystem mathematically.</p>
 <ul class="disc">
@@ -288,10 +288,9 @@ var js_version = 0.12;
 <section class="exercises" id="exercises-1"><h3 class="heading hide-type">
 <span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
-<article class="exercise-like" id="exercise-1"><h6 class="heading"><span class="codenumber">1.</span></h6>
+<article class="exercise exercise-like" id="exercise-1"><h6 class="heading"><span class="codenumber">1<span class="period">.</span></span></h6>
 <p id="p-13">Write a python function that takes as input a key \(k\) and a word \(M = M_1 M_2 \ldots M_n\) and produces a shift ciphertext \(C = C_1 C_2 \ldots C_n\text{.}\) Write another function that takes a ciphertext \(C = C_1 C_2 \ldots C_n\) and produces a message \(M = M_1 M_2 \ldots M_n\text{.}\) Test your function for various values of \(k\) and different words.</p></article></section></section></div></main>
 </div>
-<div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.12/login.js"></script>
+<script src="https://unpkg.com/prismjs@v1.22.0/components/prism-core.min.js"></script><script src="https://unpkg.com/prismjs@v1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

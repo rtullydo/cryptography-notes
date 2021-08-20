@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<!--**************************************-->
-<!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-11-20T16:48:50-05:00    *-->
-<!--*                                    *-->
-<!--*      https://pretextbook.org       *-->
-<!--*                                    *-->
-<!--**************************************-->
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2021-08-20T13:10:20-07:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Introduction to elliptic curves</title>
 <meta name="Keywords" content="Authored in PreTeXt">
-<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     tex2jax: {
@@ -24,7 +26,7 @@ MathJax.Hub.Config({
     jax: ["input/AsciiMath"],
     extensions: ["asciimath2jax.js"],
     TeX: {
-        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
         // scrolling to fragment identifiers is controlled by other Javascript
         positionToHash: false,
         equationNumbers: { autoNumber: "none", useLabelIds: true, },
@@ -41,23 +43,22 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
-<script>var logged_in = false;
-var role = 'student';
-var guest_access = true;
-var login_required = false;
-var js_version = 0.12;
-</script>
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><link href="https://unpkg.com/prismjs@v1.22.0/themes/prism.css" rel="stylesheet">
+<script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
 \DeclareMathOperator{\IM}{Im}
 \DeclareMathOperator{\ess}{ess}
 \DeclareMathOperator{\intr}{int}
@@ -158,7 +159,7 @@ var js_version = 0.12;
 <p class="byline">Ryan Tully-Doyle</p>
 </div>
 </div></div>
-<nav id="primary-navbar" class="navbar"><div class="container">
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="chapter-elliptic-curves.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-elliptic-curves.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-elliptic-addition.html" title="Next">Next</a></span></div>
 </div>
@@ -166,9 +167,9 @@ var js_version = 0.12;
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="chapter-elliptic-curves.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-elliptic-curves.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-elliptic-addition.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
-<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link frontmatter"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
 <li class="link">
 <a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
 <li><a href="foreward.html" data-scroll="foreward">The course</a></li>
@@ -225,7 +226,7 @@ var js_version = 0.12;
 <li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
 </ul>
 </li>
-<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link backmatter"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
 <li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
 <li class="link">
 <a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
@@ -237,26 +238,25 @@ var js_version = 0.12;
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-ec-intro"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="section-ec-intro"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">4.1</span> <span class="title">Introduction to elliptic curves</span>
 </h2>
-<a href="section-ec-intro.html" class="permalink">¶</a><p id="p-130">Elliptic curves are one of the most active areas of study in mathematics. A special sort of graph arising from a simple family of polynomials, elliptic curves have proven to be deeply interesting objects of study in number theory, algebraic geometry, and mathematical cryptography. One of the most striking features of elliptic curves is that they provide an example of a group that has an operation that has nothing to do with multiplication or addition on real numbers. Yet the structure of the group allows it to be plugged in to a variety of cryptographic frameworks with little modification, including Diffie-Hellman key exchange and Elgamal encrpytion. As we will see, elliptic curve methods are also in wide use in the area of digital signatures.</p>
+<p id="p-130">Elliptic curves are one of the most active areas of study in mathematics. A special sort of graph arising from a simple family of polynomials, elliptic curves have proven to be deeply interesting objects of study in number theory, algebraic geometry, and mathematical cryptography. One of the most striking features of elliptic curves is that they provide an example of a group that has an operation that has nothing to do with multiplication or addition on real numbers. Yet the structure of the group allows it to be plugged in to a variety of cryptographic frameworks with little modification, including Diffie-Hellman key exchange and Elgamal encrpytion. As we will see, elliptic curve methods are also in wide use in the area of digital signatures.</p>
 <p id="p-131">An elliptic curve is the set of solutions to a polynomial equation of the form</p>
 <div class="displaymath">
 \begin{equation*}
 Y^2 = X^3 + AX + B
 \end{equation*}
 </div>
-<p>where \(A\) and \(B\) are real numbers. We denote the set of solutions \(E\) - that is, the elliptic curve is the set</p>
+<p data-braille="continuation">where \(A\) and \(B\) are real numbers. We denote the set of solutions \(E\) - that is, the elliptic curve is the set</p>
 <div class="displaymath">
 \begin{equation*}
 E = \{(x,y) \in \R^2: y^2 = x^3 + Ax + B\}.
 \end{equation*}
 </div>
-<p>The constants \(A, B\) control certain features of the curve, including if the curve has an “island”. (See the pictures below for some examples.)</p>
-<p id="p-132">As long as the curve \(E\) doesn't self-intersect (and we will see that there is a condition called the discriminant that will let us avoid that), the set of points in \(E\) form a group (see <a data-knowl="./knowl/def-group.html" title="Definition 3.5.1">Definition 3.5.1</a>) but with a very different operation relating the points. It is most natural to use additive notation to describe elliptic curves, though the shift is only notational - the same rules apply, but we use \(0\) for the notion of additive identity and \(-a\) for the notion of additive inverse. While the discrete log problem in \(\F_p\ad\) is to undo a repeated multiplication, in \(E\text{,}\) the problem will be to undo a repeated addition.</p></section></div></main>
+<p data-braille="continuation">The constants \(A, B\) control certain features of the curve, including if the curve has an “island”. (See the pictures below for some examples.)</p>
+<p id="p-132">As long as the curve \(E\) doesn't self-intersect (and we will see that there is a condition called the discriminant that will let us avoid that), the set of points in \(E\) form a group (see <a class="xref" data-knowl="./knowl/def-group.html" title="Definition 3.5.1">Definition 3.5.1</a>) but with a very different operation relating the points. It is most natural to use additive notation to describe elliptic curves, though the shift is only notational - the same rules apply, but we use \(0\) for the notion of additive identity and \(-a\) for the notion of additive inverse. While the discrete log problem in \(\F_p\ad\) is to undo a repeated multiplication, in \(E\text{,}\) the problem will be to undo a repeated addition.</p></section></div></main>
 </div>
-<div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.12/login.js"></script>
+<script src="https://unpkg.com/prismjs@v1.22.0/components/prism-core.min.js"></script><script src="https://unpkg.com/prismjs@v1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<!--**************************************-->
-<!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-11-20T16:48:50-05:00    *-->
-<!--*                                    *-->
-<!--*      https://pretextbook.org       *-->
-<!--*                                    *-->
-<!--**************************************-->
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2021-08-20T13:10:20-07:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Elliptic addition on \(E\text{.}\)</title>
 <meta name="Keywords" content="Authored in PreTeXt">
-<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     tex2jax: {
@@ -24,7 +26,7 @@ MathJax.Hub.Config({
     jax: ["input/AsciiMath"],
     extensions: ["asciimath2jax.js"],
     TeX: {
-        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
         // scrolling to fragment identifiers is controlled by other Javascript
         positionToHash: false,
         equationNumbers: { autoNumber: "none", useLabelIds: true, },
@@ -41,23 +43,22 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
-<script>var logged_in = false;
-var role = 'student';
-var guest_access = true;
-var login_required = false;
-var js_version = 0.12;
-</script>
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><link href="https://unpkg.com/prismjs@v1.22.0/themes/prism.css" rel="stylesheet">
+<script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
 \DeclareMathOperator{\IM}{Im}
 \DeclareMathOperator{\ess}{ess}
 \DeclareMathOperator{\intr}{int}
@@ -158,7 +159,7 @@ var js_version = 0.12;
 <p class="byline">Ryan Tully-Doyle</p>
 </div>
 </div></div>
-<nav id="primary-navbar" class="navbar"><div class="container">
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-ec-intro.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-elliptic-curves.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-ec-finite-fields.html" title="Next">Next</a></span></div>
 </div>
@@ -166,9 +167,9 @@ var js_version = 0.12;
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-ec-intro.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-elliptic-curves.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-ec-finite-fields.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
-<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link frontmatter"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
 <li class="link">
 <a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
 <li><a href="foreward.html" data-scroll="foreward">The course</a></li>
@@ -225,7 +226,7 @@ var js_version = 0.12;
 <li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
 </ul>
 </li>
-<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link backmatter"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
 <li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
 <li class="link">
 <a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
@@ -237,10 +238,10 @@ var js_version = 0.12;
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-elliptic-addition"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="section-elliptic-addition"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">4.2</span> <span class="title">Elliptic addition on \(E\text{.}\)</span>
 </h2>
-<a href="section-elliptic-addition.html" class="permalink">¶</a><p id="p-133">Let us briefly describe the generic case of adding two points in an elliptic curve \(E: Y^2 = X^3 + AX + B\text{.}\) Let \(E\) be a curve that doesn't self-intersect, and let \(P, Q \in E\) be distinct points with different \(x\)-coordinates. A fundamental feature of \(E\) is that the line connecting them passes through the curve \(E\) at precisely one additional point \(R\text{.}\) If the point \(R\) has coordinates \(R = (x,y)\text{,}\) then the reflection of \(R\) across the \(x\)-axis is the point \(R' = (x, -y)\text{.}\) We define the sum of \(P\) and \(Q\) in \(E\) by</p>
+<p id="p-133">Let us briefly describe the generic case of adding two points in an elliptic curve \(E: Y^2 = X^3 + AX + B\text{.}\) Let \(E\) be a curve that doesn't self-intersect, and let \(P, Q \in E\) be distinct points with different \(x\)-coordinates. A fundamental feature of \(E\) is that the line connecting them passes through the curve \(E\) at precisely one additional point \(R\text{.}\) If the point \(R\) has coordinates \(R = (x,y)\text{,}\) then the reflection of \(R\) across the \(x\)-axis is the point \(R' = (x, -y)\text{.}\) We define the sum of \(P\) and \(Q\) in \(E\) by</p>
 <div class="displaymath">
 \begin{equation*}
 P \oplus Q = R'.
@@ -254,7 +255,7 @@ P \oplus Q = R'.
 x^3 - 25x^2 +68x -44 \amp= 0
 \end{align*}
 </div>
-<p>which looks like a total nightmare to factor. But recall that we already know that \(x = 1\) and \(x = 2\) are roots of this equation. So we can use division to factor, and we get</p>
+<p data-braille="continuation">which looks like a total nightmare to factor. But recall that we already know that \(x = 1\) and \(x = 2\) are roots of this equation. So we can use division to factor, and we get</p>
 <div class="displaymath">
 \begin{equation*}
 (x-1)(x-2)(x-22) = 0.
@@ -266,26 +267,27 @@ x^3 - 25x^2 +68x -44 \amp= 0
 <li id="li-103">What is \(P \oplus P\text{?}\) After all, there isn't a way to draw a unique line through \(P\) and itself.</li>
 <li id="li-104">What happens if we add \(P\) to its reflection \(P'\text{?}\) A vertical line won't intersect \(E\) at a third point.</li>
 </ol>
-<p>Both of the questions will need to be addressed in order to establish that the elliptic curve operation \(\oplus\) is actually a group addition.</p>
+<p data-braille="continuation">Both of the questions will need to be addressed in order to establish that the elliptic curve operation \(\oplus\) is actually a group addition.</p>
 <p id="p-137">To answer the first question, imagine that we draw a line from \(P\) to a nearby point \(Q\) and note the intersection \(R\) with the curve \(E\text{.}\) As we slide \(Q\) towards \(P\text{,}\) the line gets closer and closer to the tangent line of the elliptic curve at \(P\text{,}\) and the point \(R\) approaches the intersection of the tangent line at \(P\) with the curve \(E\text{.}\) This is how we define \(P \oplus P\text{.}\) We can use implicit differentiaion to get an expression for the slope of \(E\) at a point \((x,y)\text{.}\)</p>
 <div class="displaymath">
 \begin{equation*}
 2 Y \frac{dY}{dX} = 3X^2 + A
 \end{equation*}
 </div>
-<p>and so</p>
+<p data-braille="continuation">and so</p>
 <div class="displaymath">
 \begin{equation*}
 \frac{dY}{dX} = \frac{3X^2 + A}{2Y}
 \end{equation*}
 </div>
-<p>which gives us the slope of the tangent line at \(P\text{.}\) After writing out the equation of the tangent line, we can use substitution to find the intersection with \(E\) as we did before, but now the \(x\)-coordinate of \(P\) will be double root of the resulting cubic equation.</p>
+<p data-braille="continuation">which gives us the slope of the tangent line at \(P\text{.}\) After writing out the equation of the tangent line, we can use substitution to find the intersection with \(E\) as we did before, but now the \(x\)-coordinate of \(P\) will be double root of the resulting cubic equation.</p>
 <p id="p-138">Finally, we deal with the case of adding a point \(P\) to its reflection \(P'\text{.}\) Since a vertical line will only ever intersect \(E\) at two points, we add a new point \(\mathcal O\text{,}\) called “the point at infinity”, which we imagine to be at the end of every vertical line. Since every vertical line passes through \(\mathcal O\text{,}\) we can use it to fix the problem of \(P \oplus P'\text{.}\) If we take \(P\) and add it to its reflection \(P'\text{,}\) we “intersect” \(E\) at \(\mathcal O\text{.}\) After reflecting \(\mathcal O\) across the \(x\)-axis, we still land at the infinite end of a vertical line, and so we define \(P \oplus P' = \mathcal O\text{.}\)</p>
 <p id="p-139">Since we've introduced a new point, we should see how it interacts with other points and addition. So what is \(P \oplus \mathcal O\text{?}\) The vertical line through \(P\) and \(\mathcal O\) intersects \(E\) at \(P'\text{,}\) the reflection of \(P\text{.}\) When we reflect \(P'\) across the \(x\)-axis, we end up back at \(P\text{.}\) That is to say, \(\mathcal O\) acts like the number 0. In fact, for all \(P\text{,}\) \(P \oplus \mathcal O = P\text{,}\) and so \(\mathcal O\) is the <dfn class="terminology">additive identity</dfn> of the operation \(\oplus\text{.}\)</p>
 <p id="p-140">Putting this together with the fact that \(P \oplus P' = \mathcal O\text{,}\) we see that the reflection \(P'\) of \(P\) is also the <dfn class="terminology">additive inverse</dfn> of \(P\) in the operation \(\oplus\text{.}\) Thus, we can safely use the symbol \(-P = P'\text{,}\) and so we have a notion of subtraction as well. Finally, we denote by \(nP\) the \(n\) times repeated addition \(P \oplus P \oplus \ldots \oplus P\text{.}\)</p>
 <p id="p-141">To summarize, we have shown that the operation \(\oplus\) on \(E\) is well-defined, has an identity, and has inverses. The last required property to be a group operation is that \(\oplus\) must be associative, but to prove that it is would require exhaustive analysis of cases, or deceptively inadequate pictures, or methods that are beyond the scope of this class. For now, we will take it on the assertion of experts that \(\oplus\) is indeed an associative operation.</p>
-<article class="theorem-like" id="thm-elliptic-addition"><h6 class="heading">
-<span class="type">Theorem</span> <span class="codenumber">4.2.1</span>.</h6>\(E\)\(\oplus\)<ol class="decimal">
+<article class="theorem theorem-like" id="thm-elliptic-addition"><h6 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">4.2.1</span><span class="period">.</span>
+</h6>\(E\)\(\oplus\)<ol class="decimal">
 <li id="li-105">There exists an element \(\mathcal O\) so that<div class="displaymath">
 \begin{equation*}
 P \oplus \mathcal O = P
@@ -318,10 +320,10 @@ n(P + Q) \amp= \underbrace{(P+ Q) + \ldots + (P+Q)}_{n \text { times}}\\
 \amp= nP + nQ 
 \end{align*}
 </div>
-<p>and similarly, \((m+n)P = mP + nP\text{.}\)</p>
+<p data-braille="continuation">and similarly, \((m+n)P = mP + nP\text{.}\)</p>
 <p id="p-144">Finally, we present a set of implementable formulae that allow easy computation of elliptic curve addition.</p>
-<article class="theorem-like" id="thm-elliptic-add-algo"><h6 class="heading">
-<span class="type">Theorem</span> <span class="codenumber">4.2.2</span>. <span class="title">Elliptic curve addition.</span>
+<article class="theorem theorem-like" id="thm-elliptic-add-algo"><h6 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">4.2.2</span><span class="period">.</span><span class="space"> </span><span class="title">Elliptic curve addition.</span>
 </h6>\(E\)\(P, Q\)\(E\text{.}\)<ol class="decimal">
 <li id="li-109">If \(P = \mathcal O\text{,}\) then \(P+ Q = Q\text{.}\)</li>
 <li id="li-110">Else, if \(Q = \mathcal O\text{,}\) then \(P + Q = P\text{.}\)</li>
@@ -352,7 +354,6 @@ y_3 = m(x_1 - x_3) - y_1.
 </div>and \(P + Q = (x_3, y_3).\)</li>
 </ol></article></section></div></main>
 </div>
-<div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.12/login.js"></script>
+<script src="https://unpkg.com/prismjs@v1.22.0/components/prism-core.min.js"></script><script src="https://unpkg.com/prismjs@v1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<!--**************************************-->
-<!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-11-20T16:48:50-05:00    *-->
-<!--*                                    *-->
-<!--*      https://pretextbook.org       *-->
-<!--*                                    *-->
-<!--**************************************-->
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2021-08-20T13:10:20-07:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Diffie-Hellman key exchange</title>
 <meta name="Keywords" content="Authored in PreTeXt">
-<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     tex2jax: {
@@ -24,7 +26,7 @@ MathJax.Hub.Config({
     jax: ["input/AsciiMath"],
     extensions: ["asciimath2jax.js"],
     TeX: {
-        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
         // scrolling to fragment identifiers is controlled by other Javascript
         positionToHash: false,
         equationNumbers: { autoNumber: "none", useLabelIds: true, },
@@ -41,23 +43,22 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
-<script>var logged_in = false;
-var role = 'student';
-var guest_access = true;
-var login_required = false;
-var js_version = 0.12;
-</script>
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><link href="https://unpkg.com/prismjs@v1.22.0/themes/prism.css" rel="stylesheet">
+<script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
 \DeclareMathOperator{\IM}{Im}
 \DeclareMathOperator{\ess}{ess}
 \DeclareMathOperator{\intr}{int}
@@ -158,7 +159,7 @@ var js_version = 0.12;
 <p class="byline">Ryan Tully-Doyle</p>
 </div>
 </div></div>
-<nav id="primary-navbar" class="navbar"><div class="container">
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-discretelog.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-groups.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-elgamal.html" title="Next">Next</a></span></div>
 </div>
@@ -166,9 +167,9 @@ var js_version = 0.12;
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-discretelog.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-groups.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-elgamal.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
-<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link frontmatter"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
 <li class="link">
 <a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
 <li><a href="foreward.html" data-scroll="foreward">The course</a></li>
@@ -225,7 +226,7 @@ var js_version = 0.12;
 <li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
 </ul>
 </li>
-<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link backmatter"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
 <li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
 <li class="link">
 <a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
@@ -237,10 +238,10 @@ var js_version = 0.12;
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-dh"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="section-dh"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">3.3</span> <span class="title">Diffie-Hellman key exchange</span>
 </h2>
-<a href="section-dh.html" class="permalink">¶</a><p id="p-93">A central issue in cryptography is how to share the private piece of information (the key) that Alice and Bob will use to send each other information. Once Alice and Bob share a key, they can use one of the many, fast methods of symmetric encryption in use (AES, for example). In their 1978 paper “New Directions in Cryptography”, Diffie and Hellman described a method of sharing a secret key that relies on the difficulty of solving the discrete log problem. The method is now known as <dfn class="terminology">Diffie-Hellman key exchange</dfn>.</p>
+<p id="p-93">A central issue in cryptography is how to share the private piece of information (the key) that Alice and Bob will use to send each other information. Once Alice and Bob share a key, they can use one of the many, fast methods of symmetric encryption in use (AES, for example). In their 1978 paper “New Directions in Cryptography”, Diffie and Hellman described a method of sharing a secret key that relies on the difficulty of solving the discrete log problem. The method is now known as <dfn class="terminology">Diffie-Hellman key exchange</dfn>.</p>
 <p id="p-94">The basic scheme is as follows: Alice and Bob agree to a large prime number \(p\) and an element \(g \in \F_p\ad\) with large prime order. Alice selects a private key \(a \in \F_p\ad\) and likewise Bob chooses \(b \in \F_p\ad\text{.}\) Alice and Bob respectively compute the quantities \(A = g^a\) and \(B = g^b\text{.}\) Alice and Bob send each other these quantities. On receiving \(B\) from Bob, Alice computes \(k = B^a = g^{ab}\) and Bob computes \(k = A^b = g^{ab}\text{.}\) The quantity \(k\) is the shared key.</p>
 <p id="p-95">Suppose that Eve wants to recover the value of \(k\text{.}\) We assume that she knows \(p, g, A\) and \(B\text{.}\) If she could solve the discrete log problem</p>
 <div class="displaymath">
@@ -248,11 +249,12 @@ var js_version = 0.12;
 A = g^x \bmod p 
 \end{equation*}
 </div>
-<p>for \(x\text{,}\) then she would have \(a\) and thus be able to compute \(k\text{.}\) This is quite difficult if the values of the parameters involved are large enough. But this isn't the problem that she actually needs to solve.</p>
-<article class="definition-like" id="definition-10"><h6 class="heading">
-<span class="type">Definition</span> <span class="codenumber">3.3.1</span>.</h6>The <dfn class="terminology">Diffie-Hellman Problem</dfn> in \(\F_p\ad\) is to find, given known values of \(g^a\) and \(g^b\) in \(\F_p\ad\text{,}\) the value of \(g^{ab}\text{.}\)</article><p id="p-96">The DHP provides an excellent illustration of the caution that needs to be taken when designing and evaluating a new cryptographic method. We should convince ourselves that the DHP is at least as difficult as the DLP. If Eve can solve the DLP, then she can obviously solve the DHP, since explicitly finding \(a,b\) would allow her to directly compute \(g^{ab}\text{.}\) That is to say, the DHP is at least as difficult as the DLP. (Note that the converse to this question is still unknown.)</p>
-<article class="theorem-like" id="alg-dh-key"><h6 class="heading">
-<span class="type">Algorithm</span> <span class="codenumber">3.3.2</span>. <span class="title">Diffie-Hellman key exchange.</span>
+<p data-braille="continuation">for \(x\text{,}\) then she would have \(a\) and thus be able to compute \(k\text{.}\) This is quite difficult if the values of the parameters involved are large enough. But this isn't the problem that she actually needs to solve.</p>
+<article class="definition definition-like" id="definition-10"><h6 class="heading">
+<span class="type">Definition</span><span class="space"> </span><span class="codenumber">3.3.1</span><span class="period">.</span>
+</h6>The <dfn class="terminology">Diffie-Hellman Problem</dfn> in \(\F_p\ad\) is to find, given known values of \(g^a\) and \(g^b\) in \(\F_p\ad\text{,}\) the value of \(g^{ab}\text{.}\)</article><p id="p-96">The DHP provides an excellent illustration of the caution that needs to be taken when designing and evaluating a new cryptographic method. We should convince ourselves that the DHP is at least as difficult as the DLP. If Eve can solve the DLP, then she can obviously solve the DHP, since explicitly finding \(a,b\) would allow her to directly compute \(g^{ab}\text{.}\) That is to say, the DHP is at least as difficult as the DLP. (Note that the converse to this question is still unknown.)</p>
+<article class="algorithm theorem-like" id="alg-dh-key"><h6 class="heading">
+<span class="type">Algorithm</span><span class="space"> </span><span class="codenumber">3.3.2</span><span class="period">.</span><span class="space"> </span><span class="title">Diffie-Hellman key exchange.</span>
 </h6>
 <ol class="decimal">
 <li id="li-69">(public) Alice and Bob choose a large prime \(p\) and an element \(g\) of large prime order in \(\F_p\ad\text{.}\)</li>
@@ -262,7 +264,6 @@ A = g^x \bmod p
 <li id="li-73">(private) Alice and Bob now possess a shared secret key \(k\text{.}\)</li>
 </ol></article></section></div></main>
 </div>
-<div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.12/login.js"></script>
+<script src="https://unpkg.com/prismjs@v1.22.0/components/prism-core.min.js"></script><script src="https://unpkg.com/prismjs@v1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html lang="en-US">
-<!--**************************************-->
-<!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-11-20T16:48:51-05:00    *-->
-<!--*                                    *-->
-<!--*      https://pretextbook.org       *-->
-<!--*                                    *-->
-<!--**************************************-->
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2021-08-20T13:10:25-07:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
-<h6 class="heading"><span class="type">Paragraph</span></h6>
-<p>Note that this is equivalent to the equation</p>
-<div class="displaymath">
+<h6 xmlns:svg="http://www.w3.org/2000/svg" class="heading"><span class="type">Paragraph</span></h6>
+<p>Consider the collision generating sequences</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
 \begin{equation*}
-v \cdot \log_g(h) = vt = u \bmod (p-1)
+x_{i+1} = f(x_i) \mbox{ and } y_{i+1} = f(f(y_i))
 \end{equation*}
 </div>
-<p>where we mod by \(p-1\) because we've changed to an exponent equation in \(\F_p\text{.}\) If \(\gcd(v, p-1) = 1\text{,}\) then \(v\) has an inverse, and we can use that to solve for \(\log_g(h)\text{.}\) Otherwise, an application of the extended Euclidean algorithm to the numbers \(v\) and \(p-1\) will give an integer \(s\) so that</p>
-<div class="displaymath">
+<p data-braille="continuation">with \(x_0 = 1\) and \(y_0 = f(1)\text{.}\) At the termination of the search for a collision, we'll have \(x_i = x_{2i}\text{.}\) That is, we'll have the equation</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
 \begin{equation*}
-s v = d \bmod (p-1)
+g^{a_1} h^{b_1} = g^{a_2} h^{b_2} \bmod p\text{.}
 \end{equation*}
 </div>
-<p>where \(d = \gcd(v, p-1)\text{.}\) Multiplying through by \(s\text{,}\) we get</p>
-<div class="displaymath">
-\begin{equation}
-d t = w \bmod (p-1)\tag{6.4.4}
-\end{equation}
+<p data-braille="continuation">Rearranging this, we get</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{equation*}
+g^{a_1 - a_2} = h^{b_2 - b_1} \bmod p
+\end{equation*}
 </div>
-<p>with \(w = su\text{.}\)</p>
+<p data-braille="continuation">which we can simplify by letting \(u = a_1 - a_2\) and \(v = b_2 - b_1\) to get</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{equation*}
+g^u = h^v \bmod p.
+\end{equation*}
+</div>
 <span class="incontext"><a href="section-pollard-concrete.html#p-216">in-context</a></span>
 </body>
 </html>

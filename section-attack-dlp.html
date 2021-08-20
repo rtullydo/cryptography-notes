@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<!--**************************************-->
-<!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-11-20T16:48:50-05:00    *-->
-<!--*                                    *-->
-<!--*      https://pretextbook.org       *-->
-<!--*                                    *-->
-<!--**************************************-->
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2021-08-20T13:10:20-07:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Attacking the discrete log problem</title>
 <meta name="Keywords" content="Authored in PreTeXt">
-<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     tex2jax: {
@@ -24,7 +26,7 @@ MathJax.Hub.Config({
     jax: ["input/AsciiMath"],
     extensions: ["asciimath2jax.js"],
     TeX: {
-        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
         // scrolling to fragment identifiers is controlled by other Javascript
         positionToHash: false,
         equationNumbers: { autoNumber: "none", useLabelIds: true, },
@@ -41,23 +43,22 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
-<script>var logged_in = false;
-var role = 'student';
-var guest_access = true;
-var login_required = false;
-var js_version = 0.12;
-</script>
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><link href="https://unpkg.com/prismjs@v1.22.0/themes/prism.css" rel="stylesheet">
+<script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
 \DeclareMathOperator{\IM}{Im}
 \DeclareMathOperator{\ess}{ess}
 \DeclareMathOperator{\intr}{int}
@@ -158,7 +159,7 @@ var js_version = 0.12;
 <p class="byline">Ryan Tully-Doyle</p>
 </div>
 </div></div>
-<nav id="primary-navbar" class="navbar"><div class="container">
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-groups.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-groups.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-chinese.html" title="Next">Next</a></span></div>
 </div>
@@ -166,9 +167,9 @@ var js_version = 0.12;
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-groups.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-groups.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-chinese.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
-<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link frontmatter"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
 <li class="link">
 <a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
 <li><a href="foreward.html" data-scroll="foreward">The course</a></li>
@@ -225,7 +226,7 @@ var js_version = 0.12;
 <li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
 </ul>
 </li>
-<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link backmatter"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
 <li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
 <li class="link">
 <a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
@@ -237,13 +238,14 @@ var js_version = 0.12;
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-attack-dlp"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="section-attack-dlp"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">3.6</span> <span class="title">Attacking the discrete log problem</span>
 </h2>
-<a href="section-attack-dlp.html" class="permalink">¶</a><p id="p-111">Part of understanding cryptography is understanding how attacks on cryptographic systems are performed. Since this is a mathematical cryptography course, we'll focus on mathematical attacks. Diffie-Hellman key exchange and the related Elgamal encryption system rely on the difficulty of the DLP for security. In this section, we'll look at some of the methods used to reduce the difficulty of attacking the DLP from the brute force case.</p>
+<p id="p-111">Part of understanding cryptography is understanding how attacks on cryptographic systems are performed. Since this is a mathematical cryptography course, we'll focus on mathematical attacks. Diffie-Hellman key exchange and the related Elgamal encryption system rely on the difficulty of the DLP for security. In this section, we'll look at some of the methods used to reduce the difficulty of attacking the DLP from the brute force case.</p>
 <p id="p-112">To make our study of difficulty precise, we need a way to quantify how hard a problem is to solve. In the cryptographic setting, difficulty will always scale in some way with the size of the numbers being used to construct a system, and we need a representation for how that scaling affects methods of solution. We'll use the notion of the <dfn class="terminology">order</dfn> of a function, usually called “big oh notation”, which is used to describe relationships depending on large quanitites. The information contained in a big O relationship is <em class="emphasis">asymptotic</em> - that is, it tells us what happens as values of the inputs get large, but shouldn't be expected to have any bearing on the relationship of quantities in small cases.</p>
-<article class="definition-like" id="definition-14"><h6 class="heading">
-<span class="type">Definition</span> <span class="codenumber">3.6.1</span>.</h6>Let \(f(x)\) and \(g(x)\) be positive functions. Then we say that \(f = \mathcal O(g(x))\) if there exist positive constants \(c, C\) so that<div class="displaymath">
+<article class="definition definition-like" id="definition-14"><h6 class="heading">
+<span class="type">Definition</span><span class="space"> </span><span class="codenumber">3.6.1</span><span class="period">.</span>
+</h6>Let \(f(x)\) and \(g(x)\) be positive functions. Then we say that \(f = \mathcal O(g(x))\) if there exist positive constants \(c, C\) so that<div class="displaymath">
 \begin{equation*}
 f(x) \leq cg(x) \text{ for all } x \geq C.
 \end{equation*}
@@ -254,23 +256,23 @@ f(x) \leq cg(x) \text{ for all } x \geq C.
 <ol class="lower-alpha">
 <li id="li-94">\(A = 1:\) linear time</li>
 <li id="li-95">\(A = 2:\) quadratic time</li>
-<li id="li-96">\(\vdots\)</li>
+<li id="li-96">\(\displaystyle \vdots\)</li>
 </ol>
-<p>Polynomial time computations are “easy”.</p>
+<p data-braille="continuation">Polynomial time computations are “easy”.</p>
 </li>
 <li id="li-97">Exponential time: input \(\mathcal O(k)\text{,}\) output \(\mathcal O(e^{ck})\) for some constant \(c\text{.}\) Exponential time computations are “slow”.</li>
 <li id="li-98">Subexponential time: somewhere in between. Example: output \(\mathcal O(e^{c\sqrt{ k \log k}})\)</li>
 </ol>
 <p id="p-115">The preference in cryptography is for methods that take exponential time to brute force. So how hard is the discrete logarithm problem in \(\F_p\ad\text{?}\)</p>
-<article class="theorem-like" id="algorithm-5"><h6 class="heading">
-<span class="type">Algorithm</span> <span class="codenumber">3.6.2</span>. <span class="title">Naive.</span>
+<article class="algorithm theorem-like" id="algorithm-5"><h6 class="heading">
+<span class="type">Algorithm</span><span class="space"> </span><span class="codenumber">3.6.2</span><span class="period">.</span><span class="space"> </span><span class="title">Naive.</span>
 </h6>\(p\)\(2^k\)\(2^{k+1}\text{.}\)\(\F_p\ad\)\(p, g, h\text{,}\)\(3k\)\(\mathcal O(k)\)\(x\)<div class="displaymath">
 \begin{equation*}
 g^x \equiv h \bmod p,
 \end{equation*}
 </div>\(x\)\(1, \ldots, p-1\text{.}\)\(\mathcal O(k)\)\(\mathcal O(p) = \mathcal O(2^k)\)</article><p id="p-116">The first reduction that we can make is a <dfn class="terminology">collision algorithm</dfn>: we make lists and look for a match that unlocks the problem. The method, due to Shank in the 1960s, prefigures the rise of the DLP as a cryptographic theme.</p>
-<article class="theorem-like" id="algorithm-6"><h6 class="heading">
-<span class="type">Algorithm</span> <span class="codenumber">3.6.3</span>. <span class="title">babystep-giantstep.</span>
+<article class="algorithm theorem-like" id="algorithm-6"><h6 class="heading">
+<span class="type">Algorithm</span><span class="space"> </span><span class="codenumber">3.6.3</span><span class="period">.</span><span class="space"> </span><span class="title">babystep-giantstep.</span>
 </h6>
 <p id="p-117">Let \(G\) be a group, \(g\in G\) an element of order \(N\geq 2\text{.}\) The following procedure solves the DLP \(g^x = h\) in \(\mathcal O(\sqrt{N} \log N)\) steps.</p>
 <ol class="decimal">
@@ -297,21 +299,20 @@ g^i = h\cdot g^{-jn} \text{ for integers } i,j.
 q = \frac{x - r}{n} \lt \frac{N}{n} \lt n
 \end{equation*}
 </div>
-<p>where the last inequality follows from the fact that \(n \gt \sqrt{N}\text{.}\) Then since \(g^x = h\text{,}\) we get \(g^r = h\cdot g^{-nq}\text{,}\) where \(g^r\) is in the babystep list, and \(h \cdot g^{-nq}\) is in the giantstep list.</p>
+<p data-braille="continuation">where the last inequality follows from the fact that \(n \gt \sqrt{N}\text{.}\) Then since \(g^x = h\text{,}\) we get \(g^r = h\cdot g^{-nq}\text{,}\) where \(g^r\) is in the babystep list, and \(h \cdot g^{-nq}\) is in the giantstep list.</p>
 <p id="p-119">The second question concerns the speed of the computation. Step 2 takes \(2n\) multiplications, and sorting the lists in Step 3 to find a match can be done in \(n \log n\) steps. Combined, then, steps 2 and 3 are</p>
 <div class="displaymath">
 \begin{equation*}
 \mathcal O(n) + \mathcal O(n\log n) = \mathcal O(n \log n) = \mathcal O(\sqrt{N}\log\sqrt{N}) = \mathcal O(\sqrt{N} \log N).
 \end{equation*}
 </div>
-<p>Convincing yourself that the estimates above are valid will go along way to clarifying the concept of big O notation.</p>
+<p data-braille="continuation">Convincing yourself that the estimates above are valid will go along way to clarifying the concept of big O notation.</p>
 <p id="p-120">The resulting algorithm is still exponential: since \(N\) is on the order of \(2^k\text{,}\) the routine is \(\mathcal O(\sqrt{2^k} \log 2^k) = \mathcal O(k \cdot 2^{k/2})\text{.}\) However, when dealing with numbers on the order of the constants typically involved in cryptography, \(N\) to \(\sqrt{N}\) is a significant savings.</p>
 <section class="exercises" id="exercises-11"><h3 class="heading hide-type">
 <span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
-<article class="exercise-like" id="exercise-23"><h6 class="heading"><span class="codenumber">1.</span></h6>Implement the babystep-giantstep algorithm. The function should take as input a prime \(p\text{,}\) a base \(g\text{,}\) and a number \(h = g^x\text{,}\) and as output should produce the exponent \(x\text{.}\)</article></section></section></div></main>
+<article class="exercise exercise-like" id="exercise-23"><h6 class="heading"><span class="codenumber">1<span class="period">.</span></span></h6>\(p\)\(g\)\(h = g^x\)\(x\)</article></section></section></div></main>
 </div>
-<div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.12/login.js"></script>
+<script src="https://unpkg.com/prismjs@v1.22.0/components/prism-core.min.js"></script><script src="https://unpkg.com/prismjs@v1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

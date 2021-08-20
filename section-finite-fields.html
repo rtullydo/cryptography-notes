@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<!--**************************************-->
-<!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-11-20T16:48:50-05:00    *-->
-<!--*                                    *-->
-<!--*      https://pretextbook.org       *-->
-<!--*                                    *-->
-<!--**************************************-->
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2021-08-20T13:10:20-07:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Finite fields</title>
 <meta name="Keywords" content="Authored in PreTeXt">
-<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     tex2jax: {
@@ -24,7 +26,7 @@ MathJax.Hub.Config({
     jax: ["input/AsciiMath"],
     extensions: ["asciimath2jax.js"],
     TeX: {
-        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
         // scrolling to fragment identifiers is controlled by other Javascript
         positionToHash: false,
         equationNumbers: { autoNumber: "none", useLabelIds: true, },
@@ -41,23 +43,22 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
-<script>var logged_in = false;
-var role = 'student';
-var guest_access = true;
-var login_required = false;
-var js_version = 0.12;
-</script>
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><link href="https://unpkg.com/prismjs@v1.22.0/themes/prism.css" rel="stylesheet">
+<script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
 \DeclareMathOperator{\IM}{Im}
 \DeclareMathOperator{\ess}{ess}
 \DeclareMathOperator{\intr}{int}
@@ -158,7 +159,7 @@ var js_version = 0.12;
 <p class="byline">Ryan Tully-Doyle</p>
 </div>
 </div></div>
-<nav id="primary-navbar" class="navbar"><div class="container">
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-fastpower.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-numbertheory.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-fermat.html" title="Next">Next</a></span></div>
 </div>
@@ -166,9 +167,9 @@ var js_version = 0.12;
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-fastpower.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-numbertheory.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-fermat.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
-<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link frontmatter"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
 <li class="link">
 <a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
 <li><a href="foreward.html" data-scroll="foreward">The course</a></li>
@@ -225,7 +226,7 @@ var js_version = 0.12;
 <li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
 </ul>
 </li>
-<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link backmatter"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
 <li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
 <li class="link">
 <a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
@@ -237,43 +238,46 @@ var js_version = 0.12;
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-finite-fields"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="section-finite-fields"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">2.5</span> <span class="title">Finite fields</span>
 </h2>
-<a href="section-finite-fields.html" class="permalink">¶</a><p id="p-70">Prime numbers underlie a significant amount of modern cryptographic methods. We introduce them here to establish the concept of finite fields. We begin with a standard definition.</p>
-<article class="definition-like" id="definition-7"><h6 class="heading">
-<span class="type">Definition</span> <span class="codenumber">2.5.1</span>.</h6>A positive integer \(p\) is called <dfn class="terminology">prime</dfn> if its only positive divisors are \(1\) and \(p\text{.}\) That is, for a prime \(p\text{,}\) if \(d \mid p\) then \(d = 1\) or \(d = p\text{.}\)</article><p id="p-71">It is fortunate that the supply of primes cannot be exhausted. The following theorem is ancient, and appears in Euclid's <em class="emphasis">Elements</em>.</p>
-<article class="theorem-like" id="theorem-5"><h6 class="heading">
-<span class="type">Theorem</span> <span class="codenumber">2.5.2</span>.</h6></article><article class="example-like" id="question-2"><a data-knowl="" class="id-ref" data-refid="hk-question-2"><h6 class="heading">
-<span class="type">Question</span> <span class="codenumber">2.5.3</span>.</h6></a></article><div id="hk-question-2" class="hidden-content tex2jax_ignore"><article class="example-like">There are many proofs of the following theorem, but perhaps the most standard is a proof by contradiction that uses the definition of divisibility. Look up a proof of the following theorem and try to explain it in plain language to a friend. You will have succeeded if they understand your argument.</article></div>
+<p id="p-70">Prime numbers underlie a significant amount of modern cryptographic methods. We introduce them here to establish the concept of finite fields. We begin with a standard definition.</p>
+<article class="definition definition-like" id="definition-7"><h6 class="heading">
+<span class="type">Definition</span><span class="space"> </span><span class="codenumber">2.5.1</span><span class="period">.</span>
+</h6>A positive integer \(p\) is called <dfn class="terminology">prime</dfn> if its only positive divisors are \(1\) and \(p\text{.}\) That is, for a prime \(p\text{,}\) if \(d \mid p\) then \(d = 1\) or \(d = p\text{.}\)</article><p id="p-71">It is fortunate that the supply of primes cannot be exhausted. The following theorem is ancient, and appears in Euclid's <em class="emphasis">Elements</em>.</p>
+<article class="theorem theorem-like" id="theorem-5"><h6 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">2.5.2</span><span class="period">.</span>
+</h6></article><article class="question example-like" id="question-2"><a data-knowl="" class="id-ref question-knowl original" data-refid="hk-question-2"><h6 class="heading">
+<span class="type">Question</span><span class="space"> </span><span class="codenumber">2.5.3</span><span class="period">.</span>
+</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-question-2"><article class="question example-like">There are many proofs of the following theorem, but perhaps the most standard is a proof by contradiction that uses the definition of divisibility. Look up a proof of the following theorem and try to explain it in plain language to a friend. You will have succeeded if they understand your argument.</article></div>
 <p id="p-72">When \(p\) is prime, the ring of integers \(\Z_p\) has the property that every nonzero integer modulo \(p\) has a multiplicative inverse, which means that arithmetic becomes completely consistent: we can add, subtract, multiply <em class="emphasis">and divide</em> just like in the real numbers.</p>
-<article class="theorem-like" id="theorem-6"><h6 class="heading">
-<span class="type">Theorem</span> <span class="codenumber">2.5.4</span>.</h6>\(p\)\(a \in \Z_p\)\(b\)<div class="displaymath">
+<article class="theorem theorem-like" id="theorem-6"><h6 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">2.5.4</span><span class="period">.</span>
+</h6>\(p\)\(a \in \Z_p\)\(b\)<div class="displaymath">
 \begin{equation*}
 ab \equiv 1 \bmod p.
 \end{equation*}
-</div>\(b\)\(b\)\(a\inv \bmod p\)\(a\inv\)</article><article class="hiddenproof" id="proof-1"><a data-knowl="" class="id-ref" data-refid="hk-proof-1"><h6 class="heading"><span class="type">Proof.</span></h6></a></article><div id="hk-proof-1" class="hidden-content tex2jax_ignore"><article class="hiddenproof">If \(a \in \Z_p\) is nonzero, then \(0 \lt a \lt p\text{.}\) Since \(p\) is prime, we have \(\gcd(a,p) = 1\text{,}\) which implies that \(a\) has an inverse mod \(p\text{.}\)</article></div>
+</div>\(b\)\(b\)\(a\inv \bmod p\)\(a\inv\)</article><article class="hiddenproof" id="proof-1"><a data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-1"><h6 class="heading"><span class="type">Proof<span class="period">.</span></span></h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-1"><article class="hiddenproof">If \(a \in \Z_p\) is nonzero, then \(0 \lt a \lt p\text{.}\) Since \(p\) is prime, we have \(\gcd(a,p) = 1\text{,}\) which implies that \(a\) has an inverse mod \(p\text{.}\)</article></div>
 <p id="p-73">You should notice that you can use the extended Euclidean algorithm to compute the inverse of \(a \bmod p\text{:}\) Since \(\gcd{a,p} = 1\text{,}\) there exists \(u, v\) so that</p>
 <div class="displaymath">
 \begin{equation*}
 au + pv \equiv 1 \bmod p.
 \end{equation*}
 </div>
-<p>But then \(p \mid (1 - au)\) (why?) and so by the definition of congruence,</p>
+<p data-braille="continuation">But then \(p \mid (1 - au)\) (why?) and so by the definition of congruence,</p>
 <div class="displaymath">
 \begin{equation*}
 au \equiv 1 \bmod p.
 \end{equation*}
 </div>
-<p>Thus, we can take \(a\inv = u\text{.}\)</p>
+<p data-braille="continuation">Thus, we can take \(a\inv = u\text{.}\)</p>
 <p id="p-74">\(\Z_p\) is a (commutative) ring with the property that every nonzero element has a multiplicative inverse. Such an object is called a <dfn class="terminology">field</dfn> (examples include the real numbers \(\R\text{,}\) the rational numbers \(\mathbb Q\text{,}\) and the complex numbers \(\C\)). Because \(\Z_p\) has only \(p\) elements, it is an example of a <dfn class="terminology">finite field</dfn>, and usually denoted \(\F_p\text{.}\) Finite fields are an area of study of enormous importance in both pure and applied mathematics, and understanding them is one of the labors of mastering high level cryptography.</p>
 <p id="p-75">From \(\F_p\text{,}\) we can form the group of units \(\F_p\ad\) by just removing \(0\text{,}\) since every nonzero element in \(\F_p\) has a multiplicative inverse modulo \(p\text{.}\) The group of units \(\F_p\ad\) is perhaps the <em class="emphasis">central</em> object of study for the next part of the course.</p>
 <section class="exercises" id="exercises-6"><h3 class="heading hide-type">
 <span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
-<article class="exercise-like" id="exercise-13"><h6 class="heading"><span class="codenumber">1.</span></h6>Prove the prime number theorem. Try to write the proof so that you could convince a non-mathematical friend that it was true.</article><article class="exercise-like" id="exercise-14"><h6 class="heading"><span class="codenumber">2.</span></h6>Use the function you wrote to calculate \(u\) and \(v\) in the extended Euclidean algorithm to find the inverse of \(a \bmod p\) given \(a\) and a prime \(p\text{.}\)</article></section></section></div></main>
+<article class="exercise exercise-like" id="exercise-13"><h6 class="heading"><span class="codenumber">1<span class="period">.</span></span></h6></article><article class="exercise exercise-like" id="exercise-14"><h6 class="heading"><span class="codenumber">2<span class="period">.</span></span></h6>\(u\)\(v\)\(a \bmod p\)\(a\)\(p\)</article></section></section></div></main>
 </div>
-<div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.12/login.js"></script>
+<script src="https://unpkg.com/prismjs@v1.22.0/components/prism-core.min.js"></script><script src="https://unpkg.com/prismjs@v1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

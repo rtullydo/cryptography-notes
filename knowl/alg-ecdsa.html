@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html lang="en-US">
-<!--**************************************-->
-<!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-11-20T16:48:51-05:00    *-->
-<!--*                                    *-->
-<!--*      https://pretextbook.org       *-->
-<!--*                                    *-->
-<!--**************************************-->
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2021-08-20T13:10:24-07:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
-<article class="theorem-like"><h6 class="heading">
-<span class="type">Algorithm</span> <span class="codenumber">5.4.2</span>. <span class="title">Elliptic Curve Digital Signature Algorithm (ECDSA).</span>
+<article class="algorithm theorem-like"><h6 xmlns:svg="http://www.w3.org/2000/svg" class="heading">
+<span class="type">Algorithm</span><span class="space"> </span><span class="codenumber">5.4.2</span><span class="period">.</span><span class="space"> </span><span class="title">Elliptic Curve Digital Signature Algorithm (ECDSA).</span>
 </h6>
 <ol class="decimal">
 <li>(public parameters) Sam chooses an elliptic curve over a finite field \(E(\F_p)\) and a point \(G \in E(\F_p)\) of large prime order \(q\text{.}\)</li>
 <li>(private) Sam chooses a private key \(1 \lt a \lt q-1\) and computes \(A = sG\text{.}\)</li>
 <li>(public) Sam publishes \(p,q, G, A\text{.}\)</li>
-<li>(private) Sam wishes to sign a document \(D\) where \(1 \leq D \lt q\text{.}\) She picks a random element \(1 \lt k \lt q\text{.}\) She computes<div class="displaymath">
+<li>(private) Sam wishes to sign a document \(D\) where \(1 \leq D \lt q\text{.}\) She picks a random element \(1 \lt k \lt q\text{.}\) She computes<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
 \begin{equation*}
 kG = (x_k, y_k)
 \end{equation*}
-</div>and then sets<div class="displaymath">
+</div>and then sets<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
 \begin{equation*}
 s_1 = x_k, \hspace{.5cm} s_2 = (D + ax_k)k\inv \bmod q.
 \end{equation*}
 </div>Her signature is the pair \(D^{sig} = (s_1, s_2)\text{.}\)</li>
 <li>(private) Vera receives the document \(D\text{,}\) the signature \(D^{sig}\) and the public signing key \(p,q, G, A\text{.}\) She wants to verify that the document comes from Sam.</li>
-<li>(private) Vera computes the verification constants<div class="displaymath">
+<li>(private) Vera computes the verification constants<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
 \begin{equation*}
 v_1 = D s_2\inv,\hspace{.5cm} v_2 = x s_2\inv
 \end{equation*}
 </div>
 </li>
-<li>Vera's verification question is:<div class="displaymath">
+<li>Vera's verification question is:<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
 \begin{equation}
 \text{Is } (v_1 G + v_2 A) \bmod q = x \text{?}\tag{5.4.2}
 \end{equation}

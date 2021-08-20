@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<!--**************************************-->
-<!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-11-20T16:48:50-05:00    *-->
-<!--*                                    *-->
-<!--*      https://pretextbook.org       *-->
-<!--*                                    *-->
-<!--**************************************-->
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2021-08-20T13:10:20-07:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Homomorphisms and the lunchtime attack</title>
 <meta name="Keywords" content="Authored in PreTeXt">
-<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     tex2jax: {
@@ -24,7 +26,7 @@ MathJax.Hub.Config({
     jax: ["input/AsciiMath"],
     extensions: ["asciimath2jax.js"],
     TeX: {
-        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
         // scrolling to fragment identifiers is controlled by other Javascript
         positionToHash: false,
         equationNumbers: { autoNumber: "none", useLabelIds: true, },
@@ -41,23 +43,22 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
-<script>var logged_in = false;
-var role = 'student';
-var guest_access = true;
-var login_required = false;
-var js_version = 0.12;
-</script>
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><link href="https://unpkg.com/prismjs@v1.22.0/themes/prism.css" rel="stylesheet">
+<script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
 \DeclareMathOperator{\IM}{Im}
 \DeclareMathOperator{\ess}{ess}
 \DeclareMathOperator{\intr}{int}
@@ -158,7 +159,7 @@ var js_version = 0.12;
 <p class="byline">Ryan Tully-Doyle</p>
 </div>
 </div></div>
-<nav id="primary-navbar" class="navbar"><div class="container">
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-chinese.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-groups.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="chapter-elliptic-curves.html" title="Next">Next</a></span></div>
 </div>
@@ -166,9 +167,9 @@ var js_version = 0.12;
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-chinese.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-groups.html" title="Up">Up</a><a class="next-button button toolbar-item" href="chapter-elliptic-curves.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
-<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link frontmatter"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
 <li class="link">
 <a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
 <li><a href="foreward.html" data-scroll="foreward">The course</a></li>
@@ -225,7 +226,7 @@ var js_version = 0.12;
 <li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
 </ul>
 </li>
-<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link backmatter"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
 <li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
 <li class="link">
 <a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
@@ -237,12 +238,13 @@ var js_version = 0.12;
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-homomorphism"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="section-homomorphism"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">3.8</span> <span class="title">Homomorphisms and the lunchtime attack</span>
 </h2>
-<a href="section-homomorphism.html" class="permalink">¶</a><p id="p-121">Let \(G\) and \(G'\) be groups. We're going to introduce the notion of a very special type of function that relates the two groups, a function that <em class="emphasis">preserves the structure</em> of the first group in the second.</p>
-<article class="definition-like" id="definition-15"><h6 class="heading">
-<span class="type">Definition</span> <span class="codenumber">3.8.1</span>.</h6>Let \(G, G'\) be groups with operations \(\star_G, \star_{G'}\) respectively (viewed in the multiplicative sense). A function \(f:G \to G'\) is called a <dfn class="terminology">homomorphism</dfn> if for all \(a, b \in G\text{,}\)<div class="displaymath">
+<p id="p-121">Let \(G\) and \(G'\) be groups. We're going to introduce the notion of a very special type of function that relates the two groups, a function that <em class="emphasis">preserves the structure</em> of the first group in the second.</p>
+<article class="definition definition-like" id="definition-15"><h6 class="heading">
+<span class="type">Definition</span><span class="space"> </span><span class="codenumber">3.8.1</span><span class="period">.</span>
+</h6>Let \(G, G'\) be groups with operations \(\star_G, \star_{G'}\) respectively (viewed in the multiplicative sense). A function \(f:G \to G'\) is called a <dfn class="terminology">homomorphism</dfn> if for all \(a, b \in G\text{,}\)<div class="displaymath">
 \begin{equation*}
 f(a \star_G b) = f(a) \star_{G'} f(b).
 \end{equation*}
@@ -252,7 +254,7 @@ f(a \star_G b) = f(a) \star_{G'} f(b).
 f(m+n) = 2(m+n) = 2m + 2n = f(m) + f(n),
 \end{equation*}
 </div>
-<p>which shows that \(f\) is a homomorphism. That is, we can add before or after applying \(f\) and get the same result.</p>
+<p data-braille="continuation">which shows that \(f\) is a homomorphism. That is, we can add before or after applying \(f\) and get the same result.</p>
 <p id="p-123">Homomorphisms are one of the most important tools for understanding the relationships between different groups and also studying the structure of groups. It turns out that certain cryptographic functions also have the property of acting like homomorphisms, a property that is both useful and potentially dangerous, as it leads directly to some mathematically founded attacks in certain contexts.</p>
 <p id="p-124">Elgamal encryption can be seen to have a homomorphic property, in the following sense. Let \(m_1, m_2\) be plaintext messages, and suppose that \(e_k(m)\) is the Elgamal encrpytion function on \(F_p\ad\) for some large prime \(p\) and base \(g\text{.}\) Then</p>
 <div class="displaymath">
@@ -267,14 +269,14 @@ e_{k_2}(m_2) = (g^{k_2}, m_2 A^{k_2})
 e(m_1)\star e(m_2) = (g^{k_1}, m_1 A^{k_1}) \star (g^{k_2}, m_1 A^{k_2}) = (g^{k_1+ k_2}, m_1 m_2 A^{k_1 + k_2}) = e_{k_1 + k_2}(m_1 m_2).
 \end{equation*}
 </div>
-<p>That is, the product of the encryptions of \(m_1, m_2\) is the encrpytion of the product \(m_1 m_2\text{.}\) In this sense, we say that Elgamal encrpytion has the <dfn class="terminology">homomorphic property</dfn>. (In fact, this is also posessed by RSA).</p>
+<p data-braille="continuation">That is, the product of the encryptions of \(m_1, m_2\) is the encrpytion of the product \(m_1 m_2\text{.}\) In this sense, we say that Elgamal encrpytion has the <dfn class="terminology">homomorphic property</dfn>. (In fact, this is also posessed by RSA).</p>
 <p id="p-126">The homomorphic property has potentially many interesting uses. For example, consider the construction of a secure, anonymous voting system. A vote counter program produces an encrpytion \(e(1)\) of the number one. Each voter runs a program that produces \(e(2)\) if they vote yes and \(e(1)\) of they vote no, and they send their vote to the vote counter. The vote counter multiplies all of the pairs together</p>
 <div class="displaymath">
 \begin{equation*}
 e(v_1)e(v_2)\ldots(v_n) = e(v_1 v_2 \ldots v_n) = e(2^i).
 \end{equation*}
 </div>
-<p>On decrypting the final pair, the vote counter recovers an expression of the form \(2^i\) where \(i\) is the number of yes votes.</p>
+<p data-braille="continuation">On decrypting the final pair, the vote counter recovers an expression of the form \(2^i\) where \(i\) is the number of yes votes.</p>
 <p id="p-127">The homomorphic property allows many such applications to be designed that allow inputs to be contributed to a total without allowing any of the contributors to see the data. For example, multiple companies may wish to adjust the price of a product (taxes, customs, exchange rates) but without having access to the actual price of the product being adjusted.</p>
 <p id="p-128">Here again we see one of the main tensions in cryptograpy. Almost always when we gain convenience, we sacrifice security. The tradeoff for the utility of the homomorphic property is that cryptosystems that possess it become vulnerable to what is known as a <em class="emphasis">lunchtime</em> or <dfn class="terminology">chosen ciphertext attack</dfn>. (There are actually two forms of chosen ciphertext attack. The example we give here is a nonadapative chosen ciphertext attack and presumes a limited window (a lunchtime) for the attacker Eve.)</p>
 <p id="p-129">Suppose that Eve has access to an Elgamal decryption oracle (like Alice's unlocked computer, for example). Then Eve can decrypt any ciphertext \((c_1, c_2)\) sent to Alice (even if the messages are in a list of previously decrypted texts are so are rejected by the oracle) by exploiting the homomorphic property. What should Eve send the oracle? Eve selects a plaintext \(m_e\) and encrypts it using Alice's parameters \(p, g, A\) to get \(e(m_e)\text{.}\) Using the homomorphic property, she multiplies the pairs</p>
@@ -283,19 +285,18 @@ e(v_1)e(v_2)\ldots(v_n) = e(v_1 v_2 \ldots v_n) = e(2^i).
 e(m_e) e(m) = e(m_e m)
 \end{equation*}
 </div>
-<p>and gets a valid encryption. She submits the encrpytion to the oracle and receives the output \(m' = m_e m\text{.}\) Finally, since she knows the value of \(m_e\text{,}\) she computes</p>
+<p data-braille="continuation">and gets a valid encryption. She submits the encrpytion to the oracle and receives the output \(m' = m_e m\text{.}\) Finally, since she knows the value of \(m_e\text{,}\) she computes</p>
 <div class="displaymath">
 \begin{equation*}
 m' \cdot m_e\inv = m_e \cdot m\cdot m_e\inv = m
 \end{equation*}
 </div>
-<p>and recovers the message \(m\text{.}\)</p>
+<p data-braille="continuation">and recovers the message \(m\text{.}\)</p>
 <section class="exercises" id="exercises-12"><h3 class="heading hide-type">
 <span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
-<article class="exercise-like" id="exercise-24"><h6 class="heading"><span class="codenumber">1.</span></h6>Write a short program that implements a lunchtime attack against Elgamal. You can assume the existence of an Elgamal oracle to provide input. You might consider using your own Elgamal decrpyter to serve in that role.</article></section></section></div></main>
+<article class="exercise exercise-like" id="exercise-24"><h6 class="heading"><span class="codenumber">1<span class="period">.</span></span></h6></article></section></section></div></main>
 </div>
-<div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.12/login.js"></script>
+<script src="https://unpkg.com/prismjs@v1.22.0/components/prism-core.min.js"></script><script src="https://unpkg.com/prismjs@v1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

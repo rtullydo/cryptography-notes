@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<!--**************************************-->
-<!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-11-20T16:48:50-05:00    *-->
-<!--*                                    *-->
-<!--*      https://pretextbook.org       *-->
-<!--*                                    *-->
-<!--**************************************-->
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2021-08-20T13:10:21-07:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Primality testing</title>
 <meta name="Keywords" content="Authored in PreTeXt">
-<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     tex2jax: {
@@ -24,7 +26,7 @@ MathJax.Hub.Config({
     jax: ["input/AsciiMath"],
     extensions: ["asciimath2jax.js"],
     TeX: {
-        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
         // scrolling to fragment identifiers is controlled by other Javascript
         positionToHash: false,
         equationNumbers: { autoNumber: "none", useLabelIds: true, },
@@ -57,23 +59,22 @@ MathJax.Hub.Config({
                            languages: ['python'],
                            evalButtonText: 'Evaluate (Python)'});
 });
-</script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
-<script>var logged_in = false;
-var role = 'student';
-var guest_access = true;
-var login_required = false;
-var js_version = 0.12;
-</script>
+</script><link href="https://unpkg.com/prismjs@v1.22.0/themes/prism.css" rel="stylesheet">
+<script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
 \DeclareMathOperator{\IM}{Im}
 \DeclareMathOperator{\ess}{ess}
 \DeclareMathOperator{\intr}{int}
@@ -174,7 +175,7 @@ var js_version = 0.12;
 <p class="byline">Ryan Tully-Doyle</p>
 </div>
 </div></div>
-<nav id="primary-navbar" class="navbar"><div class="container">
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-perm-comb.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-pollard-concrete.html" title="Next">Next</a></span></div>
 </div>
@@ -182,9 +183,9 @@ var js_version = 0.12;
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-perm-comb.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-probability.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-pollard-concrete.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
-<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link frontmatter"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
 <li class="link">
 <a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
 <li><a href="foreward.html" data-scroll="foreward">The course</a></li>
@@ -241,7 +242,7 @@ var js_version = 0.12;
 <li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
 </ul>
 </li>
-<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link backmatter"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
 <li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
 <li class="link">
 <a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
@@ -253,13 +254,13 @@ var js_version = 0.12;
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-prime-testing"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="section-prime-testing"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">6.3</span> <span class="title">Primality testing</span>
 </h2>
-<a href="section-prime-testing.html" class="permalink">¶</a><p id="p-199">One of the most important areas where non-deterministic methods are used in cryptography is in the area of producing and testing numbers that are highly likely to be prime - that is, it is quite expensive to determine with absolute certainty that a number \(n\) is prime, but it can be checked to any amount of desired likelihood. (Such primes are sometimes referred to as <dfn class="terminology">industrial-grade primes</dfn> - that is, good enough for application.) The idea is that even if the tests miss an occasional number that isn't prime, it happens so infrequently that the economic cost of looking for one is prohibitive.</p>
-<p id="p-200">Recall that a <dfn class="terminology">composite number</dfn> is a number that has two or more non-trivial factors. We'll begin by looking at conditions that prime numbers <em class="emphasis">always</em> satisfy. What springs to mind is Fermat's little theorem <a data-knowl="./knowl/thm-fermat.html" title="Theorem 2.6.1: (Fermat's little theorem)">Theorem 2.6.1</a>. We will adopt a slightly modified version that removes the restrictions on \(a\text{.}\)</p>
-<article class="theorem-like" id="thm-fermat-2"><h6 class="heading">
-<span class="type">Theorem</span> <span class="codenumber">6.3.1</span>. <span class="title">Modified Fermat's theorem.</span>
+<p id="p-199">One of the most important areas where non-deterministic methods are used in cryptography is in the area of producing and testing numbers that are highly likely to be prime - that is, it is quite expensive to determine with absolute certainty that a number \(n\) is prime, but it can be checked to any amount of desired likelihood. (Such primes are sometimes referred to as <dfn class="terminology">industrial-grade primes</dfn> - that is, good enough for application.) The idea is that even if the tests miss an occasional number that isn't prime, it happens so infrequently that the economic cost of looking for one is prohibitive.</p>
+<p id="p-200">Recall that a <dfn class="terminology">composite number</dfn> is a number that has two or more non-trivial factors. We'll begin by looking at conditions that prime numbers <em class="emphasis">always</em> satisfy. What springs to mind is Fermat's little theorem <a class="xref" data-knowl="./knowl/thm-fermat.html" title="Theorem 2.6.1: (Fermat's little theorem)">Theorem 2.6.1</a>. We will adopt a slightly modified version that removes the restrictions on \(a\text{.}\)</p>
+<article class="theorem theorem-like" id="thm-fermat-2"><h6 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">6.3.1</span><span class="period">.</span><span class="space"> </span><span class="title">Modified Fermat's theorem.</span>
 </h6>\(p\)\(a\)<div class="displaymath">
 \begin{equation*}
 a^p \equiv a \bmod p.
@@ -270,16 +271,17 @@ a^p \equiv a \bmod p.
 2^9 \equiv 8 \bmod 9
 \end{equation*}
 </div>
-<p>and so \(9\) (shockingly) cannot be prime. This sort of test is exclusive -- we can exclude numbers that fail, but passing the test for a given value of \(a\) <em class="emphasis">does not mean that \(n\) is prime!</em> For example,</p>
+<p data-braille="continuation">and so \(9\) (shockingly) cannot be prime. This sort of test is exclusive -- we can exclude numbers that fail, but passing the test for a given value of \(a\) <em class="emphasis">does not mean that \(n\) is prime!</em> For example,</p>
 <div class="displaymath">
 \begin{equation*}
 6^{21} \equiv 6 \bmod 21
 \end{equation*}
 </div>
-<p>and yet 21 is obviously not prime.</p>
+<p data-braille="continuation">and yet 21 is obviously not prime.</p>
 <p id="p-202">We take the position that 2 “sees” the compositeness of 9, but that 6 does not see the compositeness of 21. In this light, we define the notion of a witness of compositeness.</p>
-<article class="definition-like" id="def-witness"><h6 class="heading">
-<span class="type">Definition</span> <span class="codenumber">6.3.2</span>.</h6>A number \(a\) is said to be a (Fermat) <dfn class="terminology">witness</dfn> for the compositeness of a composite number \(n\) if<div class="displaymath">
+<article class="definition definition-like" id="def-witness"><h6 class="heading">
+<span class="type">Definition</span><span class="space"> </span><span class="codenumber">6.3.2</span><span class="period">.</span>
+</h6>A number \(a\) is said to be a (Fermat) <dfn class="terminology">witness</dfn> for the compositeness of a composite number \(n\) if<div class="displaymath">
 \begin{equation*}
 a^n \neq a \bmod n.
 \end{equation*}
@@ -289,21 +291,22 @@ a^n \neq a \bmod n.
 a^{531} = a \bmod 531
 \end{equation*}
 </div>
-<p>for <em class="emphasis">every</em> integer \(a\text{,}\) and thus has no witnesses to the fact that it is composite. There are infintely many Carmichael numbers, and so it behooves us to develop a test so that every composite \(n\) has lots of witnesses.</p>
+<p data-braille="continuation">for <em class="emphasis">every</em> integer \(a\text{,}\) and thus has no witnesses to the fact that it is composite. There are infintely many Carmichael numbers, and so it behooves us to develop a test so that every composite \(n\) has lots of witnesses.</p>
 <p id="p-204">One such test is called the Miller-Rabin test, which relies on Fermat's little theorem as its background assumption but provides a further discrimination that gives every composite number lots of witnesses.</p>
-<article class="theorem-like" id="thm-mr-condition"><h6 class="heading">
-<span class="type">Theorem</span> <span class="codenumber">6.3.3</span>.</h6>\(p\)<div class="displaymath">
+<article class="theorem theorem-like" id="thm-mr-condition"><h6 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">6.3.3</span><span class="period">.</span>
+</h6>\(p\)<div class="displaymath">
 \begin{equation*}
 p - 1 = 2^k q \text{ where } q \text{ is odd.}
 \end{equation*}
 </div>\(a\)\(p \nmid a\text{.}\)<ol class="decimal">
-<li id="li-187">\(a^q \equiv 1 \bmod p;\)</li>
+<li id="li-187">\(\displaystyle a^q \equiv 1 \bmod p;\)</li>
 <li id="li-188">A number in the list<div class="displaymath">
 \begin{equation}
 a^q, a^{2q}, a^{4q} \ldots, a^{2^{k-1}q}\label{eq-mr-list}\tag{6.3.1}
 \end{equation}
 </div>is congruent to \(-1 \bmod p\text{.}\)</li>
-</ol></article><article class="hiddenproof" id="proof-7"><a data-knowl="" class="id-ref" data-refid="hk-proof-7"><h6 class="heading"><span class="type">Proof.</span></h6></a></article><div id="hk-proof-7" class="hidden-content tex2jax_ignore"><article class="hiddenproof">The basic idea of the proof is that \(\sqrt{1} = \pm 1\text{.}\) By Fermat's theorem, we know that<div class="displaymath">
+</ol></article><article class="hiddenproof" id="proof-7"><a data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-7"><h6 class="heading"><span class="type">Proof<span class="period">.</span></span></h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-7"><article class="hiddenproof">The basic idea of the proof is that \(\sqrt{1} = \pm 1\text{.}\) By Fermat's theorem, we know that<div class="displaymath">
 \begin{equation*}
 a^{2^k q} = a^{p-1} \equiv 1 \mod p.
 \end{equation*}
@@ -311,13 +314,15 @@ a^{2^k q} = a^{p-1} \equiv 1 \mod p.
 \begin{equation*}
 a^q, a^{2q}, \ldots, a^{2^{k-1}q}, a^{2^k q} = 1
 \end{equation*}
-</div>is a list of repeated squarings. Since the last number is 1, the previous number must have been 1 or -1. If the previous number is -1, we're finished. If the previous number is 1, then the number prior to that much have been 1 or -1 and so on down the chain. If we reach the first number in the list, it must be 1 or -1 because the next number was 1. If it is -1, then we're done. If it is 1, we're in the first condition, completing the proof.</article></div> The theorem gives the underlying condition for the Miller-Rabin test for compositeness. <article class="definition-like" id="def-mr-witness"><h6 class="heading">
-<span class="type">Definition</span> <span class="codenumber">6.3.4</span>.</h6>Let \(n\) be odd and write \(n-1 = 2^k q\) with \(q\) odd. An integer \(a\) with \(\gcd(a,n) = 1\) is a <dfn class="terminology">Miller-Rabin witness</dfn> for the compositeness of \(n\) if <ol class="decimal">
+</div>is a list of repeated squarings. Since the last number is 1, the previous number must have been 1 or -1. If the previous number is -1, we're finished. If the previous number is 1, then the number prior to that much have been 1 or -1 and so on down the chain. If we reach the first number in the list, it must be 1 or -1 because the next number was 1. If it is -1, then we're done. If it is 1, we're in the first condition, completing the proof.</article></div> The theorem gives the underlying condition for the Miller-Rabin test for compositeness. <article class="definition definition-like" id="def-mr-witness"><h6 class="heading">
+<span class="type">Definition</span><span class="space"> </span><span class="codenumber">6.3.4</span><span class="period">.</span>
+</h6>Let \(n\) be odd and write \(n-1 = 2^k q\) with \(q\) odd. An integer \(a\) with \(\gcd(a,n) = 1\) is a <dfn class="terminology">Miller-Rabin witness</dfn> for the compositeness of \(n\) if <ol class="decimal">
 <li id="li-189">\(a^q \neq 1 \bmod n \) and</li>
 <li id="li-190">\(a^{2^i q} \neq -1 \bmod n\) for any \(i = 1, \ldots, k-1\)</li>
-</ol></article><p id="p-205">By <a data-knowl="./knowl/thm-mr-condition.html" title="Theorem 6.3.3">Theorem 6.3.3</a>, if \(n\) has a Miller-Rabin witness then it must be composite. Thus, we can formulate the Miller-Rabin test:</p>
-<article class="theorem-like" id="algo-mr"><h6 class="heading">
-<span class="type">Algorithm</span> <span class="codenumber">6.3.5</span>.</h6>\(n\)\(a\)<ol class="decimal">
+</ol></article><p id="p-205">By <a class="xref" data-knowl="./knowl/thm-mr-condition.html" title="Theorem 6.3.3">Theorem 6.3.3</a>, if \(n\) has a Miller-Rabin witness then it must be composite. Thus, we can formulate the Miller-Rabin test:</p>
+<article class="algorithm theorem-like" id="algo-mr"><h6 class="heading">
+<span class="type">Algorithm</span><span class="space"> </span><span class="codenumber">6.3.5</span><span class="period">.</span>
+</h6>\(n\)\(a\)<ol class="decimal">
 <li id="li-191">If \(n\) is even, then \(n\) is composite.</li>
 <li id="li-192">If \(1 \lt \gcd(a, n) \lt n\text{,}\) then \(n\) is composite.</li>
 <li id="li-193">Write \(n - 1 = 2^k q\)</li>
@@ -339,17 +344,18 @@ while True:
 print("%d has the form (2^%d)%d"%(n-1, i, m))
 </script></div>
 <p id="p-207">Composite numbers have lots of Miller-Rabin witnesses.</p>
-<article class="theorem-like" id="proposition-4"><h6 class="heading">
-<span class="type">Proposition</span> <span class="codenumber">6.3.6</span>.</h6>\(n\)\(1 \lt a \leq n-1\)\(n\text{.}\)</article><p id="p-208">In some sense, we have the basis for a nondeterministic test for the primeness of an integer now. We know that if \(n\) is composite, we have at least a 75% chance of finding a witness for any given \(a\) that we test. That is, we have a 25% chance at most to fail. If we try lots of values, and they all fail to be witnesses for \(n\text{,}\) then it becomes increasingly likely that \(n\) is prime.</p>
-<p id="p-209">The situation is slighly complicated by the fact that the probabilities are what as known as <em class="emphasis">conditional</em>: that is, when \(n\) is composite, 25% of numbers fail to be witnesses, but when \(n\) is prime, 100% of numbers fail to be witnesses. Nevertheless, the basic intuition should be something like “If \(n\) is composite, then the probability that 10 numbers fail to be Miller-Rabin witnesses for \(n\) is \(.25^{10} \approx 10^{-6}\)”. That is, getting 10 or 100 or 1000 failed witnesses makes it exceedingly unlikely that \(n\) is composite. The exact calculation of the probability will have to wait until we have looked more closely at conditional probability.</p>
-<p id="p-210">One might reasonably ask if there are efficient ways of generating candidate primes. In fact, there are many formulas that are much more likely to produce a prime than a random number generator. Further, we can exclude many possible values for \(n\) with divisibilty rules and quick divisions (say by every number up to 10000) before we apply a computationally expensive MR-test.</p>
-<p id="p-211">Finally, I'll point out that there are deterministic methods for checking that a number is prime that run in polynomial time <em class="emphasis">but</em> these algorithms require that we assume the truth of perhaps the most famous and important unsolved problems in mathematics, the <dfn class="terminology">Riemann hypothesis</dfn>, which concerns the distribution of prime numbers in the real line. More than 150 years of work has gone into proving or disproving the hypothesis, which to the present has resisted giving up its secrets.</p>
+<article class="proposition theorem-like" id="proposition-4"><h6 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">6.3.6</span><span class="period">.</span>
+</h6>
+<p id="p-208">Let \(n\) be an odd composite number. Then at least 75% of integers \(1 \lt a \leq n-1\) are Miller-Rabin witnesses for the compositeness of \(n\text{.}\)</p></article><p id="p-209">In some sense, we have the basis for a nondeterministic test for the primeness of an integer now. We know that if \(n\) is composite, we have at least a 75% chance of finding a witness for any given \(a\) that we test. That is, we have a 25% chance at most to fail. If we try lots of values, and they all fail to be witnesses for \(n\text{,}\) then it becomes increasingly likely that \(n\) is prime.</p>
+<p id="p-210">The situation is slighly complicated by the fact that the probabilities are what as known as <em class="emphasis">conditional</em>: that is, when \(n\) is composite, 25% of numbers fail to be witnesses, but when \(n\) is prime, 100% of numbers fail to be witnesses. Nevertheless, the basic intuition should be something like “If \(n\) is composite, then the probability that 10 numbers fail to be Miller-Rabin witnesses for \(n\) is \(.25^{10} \approx 10^{-6}\)”. That is, getting 10 or 100 or 1000 failed witnesses makes it exceedingly unlikely that \(n\) is composite. The exact calculation of the probability will have to wait until we have looked more closely at conditional probability.</p>
+<p id="p-211">One might reasonably ask if there are efficient ways of generating candidate primes. In fact, there are many formulas that are much more likely to produce a prime than a random number generator. Further, we can exclude many possible values for \(n\) with divisibilty rules and quick divisions (say by every number up to 10000) before we apply a computationally expensive MR-test.</p>
+<p id="p-212">Finally, I'll point out that there are deterministic methods for checking that a number is prime that run in polynomial time <em class="emphasis">but</em> these algorithms require that we assume the truth of perhaps the most famous and important unsolved problems in mathematics, the <dfn class="terminology">Riemann hypothesis</dfn>, which concerns the distribution of prime numbers in the real line. More than 150 years of work has gone into proving or disproving the hypothesis, which to the present has resisted giving up its secrets.</p>
 <section class="exercises" id="exercises-19"><h3 class="heading hide-type">
 <span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
-<article class="exercise-like" id="exercise-38"><h6 class="heading"><span class="codenumber">1.</span></h6>One naive way to deterministically check if a number \(n\) is prime is to divide it by every number between \(1\) and \(n-1\text{.}\) Show that you only need to check the integers \(1 \lt d \leq \sqrt{n}\text{.}\)</article><article class="exercise-like" id="exercise-39"><h6 class="heading"><span class="codenumber">2.</span></h6>Write a program to show that \(n = 1105\) is a Carmichael number.</article><article class="exercise-like" id="exercise-40"><h6 class="heading"><span class="codenumber">3.</span></h6>Implement the Miller-Rabin test for compositeness.</article></section></section></div></main>
+<article class="exercise exercise-like" id="exercise-38"><h6 class="heading"><span class="codenumber">1<span class="period">.</span></span></h6>\(n\)\(1\)\(n-1\)\(1 \lt d \leq \sqrt{n}\)</article><article class="exercise exercise-like" id="exercise-39"><h6 class="heading"><span class="codenumber">2<span class="period">.</span></span></h6>\(n = 1105\)</article><article class="exercise exercise-like" id="exercise-40"><h6 class="heading"><span class="codenumber">3<span class="period">.</span></span></h6></article></section></section></div></main>
 </div>
-<div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.12/login.js"></script>
+<script src="https://unpkg.com/prismjs@v1.22.0/components/prism-core.min.js"></script><script src="https://unpkg.com/prismjs@v1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

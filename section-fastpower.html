@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<!--**************************************-->
-<!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-11-20T16:48:50-05:00    *-->
-<!--*                                    *-->
-<!--*      https://pretextbook.org       *-->
-<!--*                                    *-->
-<!--**************************************-->
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2021-08-20T13:10:20-07:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>The fast powering algorithm</title>
 <meta name="Keywords" content="Authored in PreTeXt">
-<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     tex2jax: {
@@ -24,7 +26,7 @@ MathJax.Hub.Config({
     jax: ["input/AsciiMath"],
     extensions: ["asciimath2jax.js"],
     TeX: {
-        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
         // scrolling to fragment identifiers is controlled by other Javascript
         positionToHash: false,
         equationNumbers: { autoNumber: "none", useLabelIds: true, },
@@ -57,23 +59,22 @@ MathJax.Hub.Config({
                            languages: ['python'],
                            evalButtonText: 'Evaluate (Python)'});
 });
-</script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
-<script>var logged_in = false;
-var role = 'student';
-var guest_access = true;
-var login_required = false;
-var js_version = 0.12;
-</script>
+</script><link href="https://unpkg.com/prismjs@v1.22.0/themes/prism.css" rel="stylesheet">
+<script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
 \DeclareMathOperator{\IM}{Im}
 \DeclareMathOperator{\ess}{ess}
 \DeclareMathOperator{\intr}{int}
@@ -174,7 +175,7 @@ var js_version = 0.12;
 <p class="byline">Ryan Tully-Doyle</p>
 </div>
 </div></div>
-<nav id="primary-navbar" class="navbar"><div class="container">
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-modular.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-numbertheory.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-finite-fields.html" title="Next">Next</a></span></div>
 </div>
@@ -182,9 +183,9 @@ var js_version = 0.12;
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-modular.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-numbertheory.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-finite-fields.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
-<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link frontmatter"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
 <li class="link">
 <a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
 <li><a href="foreward.html" data-scroll="foreward">The course</a></li>
@@ -241,7 +242,7 @@ var js_version = 0.12;
 <li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
 </ul>
 </li>
-<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link backmatter"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
 <li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
 <li class="link">
 <a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
@@ -253,10 +254,10 @@ var js_version = 0.12;
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-fastpower"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="section-fastpower"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">2.4</span> <span class="title">The fast powering algorithm</span>
 </h2>
-<a href="section-fastpower.html" class="permalink">¶</a><p id="p-54">Cryptosystems depend on operations with deeply asymmetric computability: in one direction we want the computations to be “easy” and in the other, essentially impossible. We will see that one such operation is taking repeated multiplications by the same integer \(g\text{,}\) the process of exponentiation. The idea is to take an integer \(g\) inside of \(\Z_n\) and raise \(g\) to some large power \(M\text{.}\)</p>
+<p id="p-54">Cryptosystems depend on operations with deeply asymmetric computability: in one direction we want the computations to be “easy” and in the other, essentially impossible. We will see that one such operation is taking repeated multiplications by the same integer \(g\text{,}\) the process of exponentiation. The idea is to take an integer \(g\) inside of \(\Z_n\) and raise \(g\) to some large power \(M\text{.}\)</p>
 <p id="p-55">The naive approach to this problem is to performs this process recursively: \(g_1 = g, g_2 = g\cdot g_1, \ldots, g_k = g \cdot g_{k-1} = g^k\text{.}\)</p>
 <p id="p-56">When the exponent in question is large, say on the order of \(2^{1000}\text{,}\) this process requires lengths of time on the order of the age of the universe. Indeed, this quality is why it is difficult to reverse a modular exponent (a process called a discrete logarithm that we will discuss in more detail soon).</p>
 <p id="p-57">To perform exponentiation quickly, we will use a binary expansion of the exponent combined with the observation that we can use repeated squarings to compute the total exponent. For example, consider the problem of computing \(3^{11} \bmod 13\text{.}\) First, we decompose the exponent \(11\) into a binary representation (this can by done in python with the <code class="code-inline tex2jax_ignore">bin</code> command, which gives the binary form of the number).</p>
@@ -265,26 +266,26 @@ var js_version = 0.12;
 11 = 2^0 + 2^1 + 2^3.
 \end{equation*}
 </div>
-<p>Thus,</p>
+<p data-braille="continuation">Thus,</p>
 <div class="displaymath">
 \begin{equation*}
 3^{11} = 3^{2^0 + 2^1 + 2^3} = 3^{2^0} \cdot 3^{2^1} \cdot 3^{2^3}.
 \end{equation*}
 </div>
-<p>It is easy to compute the sequence</p>
+<p data-braille="continuation">It is easy to compute the sequence</p>
 <div class="displaymath">
 \begin{equation*}
 3^{2^0}, 3^{2^1}, 3^{2^2}, \ldots
 \end{equation*}
 </div>
-<p>because each term is the square of the previous term. Furthermore, while exponential functions grow in size very quickly (easily outside the typical storage available in a computer in as few as 200 or so squarings), we can take the results mod 13 at each step.</p>
+<p data-braille="continuation">because each term is the square of the previous term. Furthermore, while exponential functions grow in size very quickly (easily outside the typical storage available in a computer in as few as 200 or so squarings), we can take the results mod 13 at each step.</p>
 <p id="p-59">Thus, our sequence would read</p>
 <div class="displaymath">
 \begin{equation*}
 3^{2^0} = 3, \hspace{10pt} 3^{2^1} = 3^2 = 9, \hspace{10pt} 3^{2^2} = 9^2 = 81 = 3, \hspace{10pt} 3^{2^3} = 3^2 = 9.
 \end{equation*}
 </div>
-<p>Now, we perform the computation</p>
+<p data-braille="continuation">Now, we perform the computation</p>
 <div class="displaymath">
 \begin{equation*}
 3^{11} = 3^{2^0} \cdot 3^{2^1} \cdot 3^{2^3} = 3 \cdot 9 \cdot 9 \bmod 13 = 9 \bmod 13.
@@ -292,8 +293,8 @@ var js_version = 0.12;
 </div>
 <p id="p-60">Now, look at the result of the same computation in python using the <code class="code-inline tex2jax_ignore">bin</code> command:</p>
 <p id="p-61">We can codify this idea in the Fast Powering Algorithm:</p>
-<article class="theorem-like" id="alg-fast-power"><h6 class="heading">
-<span class="type">Algorithm</span> <span class="codenumber">2.4.1</span>. <span class="title">(Fast Powering Algorithm).</span>
+<article class="algorithm theorem-like" id="alg-fast-power"><h6 class="heading">
+<span class="type">Algorithm</span><span class="space"> </span><span class="codenumber">2.4.1</span><span class="period">.</span><span class="space"> </span><span class="title">(Fast Powering Algorithm).</span>
 </h6>
 <p id="p-62">Consider the exponential \(g^k \bmod N\text{.}\)</p>
 <ol class="decimal">
@@ -304,7 +305,7 @@ var js_version = 0.12;
 k = k_0 + k_1 \cdot 2 + k_2 \cdot 2^2 + \ldots + k_r \cdot 2^r
 \end{equation*}
 </div>
-<p>where the coefficients \(k_i\) can be either 0 or 1, and we assume that \(k_r = 1\text{.}\)</p>
+<p data-braille="continuation">where the coefficients \(k_i\) can be either 0 or 1, and we assume that \(k_r = 1\text{.}\)</p>
 </li>
 <li id="li-48">
 <p id="p-64">Compute the powers \(g^{2^i} \bmod N\) for \(0 \leq i \leq r\) by repeating squaring:</p>
@@ -325,7 +326,7 @@ a_r \amp= a_{r-1}^2 = g^{2^r} \bmod N.
 g^k = a_0^{k_0} \cdot a_1^{k_1} \cdot \ldots \cdot a_r^{k_r}
 \end{equation*}
 </div>
-<p>where the exponents \(k_i\) determine if a particular power of \(g\) is present in the computation, as \(k_i\) is either 1 or 0.</p>
+<p data-braille="continuation">where the exponents \(k_i\) determine if a particular power of \(g\) is present in the computation, as \(k_i\) is either 1 or 0.</p>
 </li>
 </ol></article><p id="p-66">In python, using the example of \(3^{11} \bmod 13\text{,}\) we could write the following program:</p>
 <div class="sagecell-python" id="sage-2"><script type="text/x-sage">n = 11;
@@ -349,10 +350,9 @@ print(total)
 <section class="exercises" id="exercises-5"><h3 class="heading hide-type">
 <span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
-<article class="exercise-like" id="exercise-12"><h6 class="heading"><span class="codenumber">1.</span></h6>
+<article class="exercise exercise-like" id="exercise-12"><h6 class="heading"><span class="codenumber">1<span class="period">.</span></span></h6>
 <p id="p-69">Implement the fast powering algorithm in python as a function that takes as input a base \(g\text{,}\) a power \(x\text{,}\) and a mod \(n\) and produces as output \(g^x \bmod n\text{.}\) You may wish to use the python function <code class="code-inline tex2jax_ignore">bin(n)</code> which returns the binary representation as a string of 1s and 0s. (You can view this string as the values of the coefficients \(k_i\) in the description of the algorithm above. )</p></article></section></section></div></main>
 </div>
-<div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.12/login.js"></script>
+<script src="https://unpkg.com/prismjs@v1.22.0/components/prism-core.min.js"></script><script src="https://unpkg.com/prismjs@v1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

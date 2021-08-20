@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<!--**************************************-->
-<!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-11-20T16:48:50-05:00    *-->
-<!--*                                    *-->
-<!--*      https://pretextbook.org       *-->
-<!--*                                    *-->
-<!--**************************************-->
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2021-08-20T13:10:20-07:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Discrete logs and the ECDLP</title>
 <meta name="Keywords" content="Authored in PreTeXt">
-<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     tex2jax: {
@@ -24,7 +26,7 @@ MathJax.Hub.Config({
     jax: ["input/AsciiMath"],
     extensions: ["asciimath2jax.js"],
     TeX: {
-        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
         // scrolling to fragment identifiers is controlled by other Javascript
         positionToHash: false,
         equationNumbers: { autoNumber: "none", useLabelIds: true, },
@@ -41,23 +43,22 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
-<script>var logged_in = false;
-var role = 'student';
-var guest_access = true;
-var login_required = false;
-var js_version = 0.12;
-</script>
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><link href="https://unpkg.com/prismjs@v1.22.0/themes/prism.css" rel="stylesheet">
+<script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
 \DeclareMathOperator{\IM}{Im}
 \DeclareMathOperator{\ess}{ess}
 \DeclareMathOperator{\intr}{int}
@@ -158,7 +159,7 @@ var js_version = 0.12;
 <p class="byline">Ryan Tully-Doyle</p>
 </div>
 </div></div>
-<nav id="primary-navbar" class="navbar"><div class="container">
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-ec-finite-fields.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-elliptic-curves.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-ec-elgamal.html" title="Next">Next</a></span></div>
 </div>
@@ -166,9 +167,9 @@ var js_version = 0.12;
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-ec-finite-fields.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-elliptic-curves.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-ec-elgamal.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
-<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link frontmatter"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
 <li class="link">
 <a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
 <li><a href="foreward.html" data-scroll="foreward">The course</a></li>
@@ -225,7 +226,7 @@ var js_version = 0.12;
 <li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
 </ul>
 </li>
-<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link backmatter"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
 <li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
 <li class="link">
 <a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
@@ -237,19 +238,19 @@ var js_version = 0.12;
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-ecdlp"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="section-ecdlp"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">4.4</span> <span class="title">Discrete logs and the ECDLP</span>
 </h2>
-<a href="section-ecdlp.html" class="permalink">¶</a><p id="p-157">What will be the hard problem at the center of elliptic curve cryptographic methods? We'll take the discrete log problem in \(F_p\ad\) and modify it to take account of the additive structure of \(E(\F_p)\text{.}\) We begin with a computational algorithm.</p>
+<p id="p-157">What will be the hard problem at the center of elliptic curve cryptographic methods? We'll take the discrete log problem in \(F_p\ad\) and modify it to take account of the additive structure of \(E(\F_p)\text{.}\) We begin with a computational algorithm.</p>
 <p id="p-158">Recall that</p>
 <div class="displaymath">
 \begin{equation*}
 nP = \underbrace{P + P + \ldots + P}_{n \text{ times}}.
 \end{equation*}
 </div>
-<p>The <dfn class="terminology">double-and-add</dfn> algorithm is the exact analogue of the square-and-multiply fast powering algorithm presented in <a data-knowl="./knowl/alg-fast-power.html" title="Algorithm 2.4.1: (Fast Powering Algorithm)">Algorithm 2.4.1</a>.</p>
-<article class="theorem-like" id="algo-double-add"><h6 class="heading">
-<span class="type">Algorithm</span> <span class="codenumber">4.4.1</span>. <span class="title">Double-and-add.</span>
+<p data-braille="continuation">The <dfn class="terminology">double-and-add</dfn> algorithm is the exact analogue of the square-and-multiply fast powering algorithm presented in <a class="xref" data-knowl="./knowl/alg-fast-power.html" title="Algorithm 2.4.1: (Fast Powering Algorithm)">Algorithm 2.4.1</a>.</p>
+<article class="algorithm theorem-like" id="algo-double-add"><h6 class="heading">
+<span class="type">Algorithm</span><span class="space"> </span><span class="codenumber">4.4.1</span><span class="period">.</span><span class="space"> </span><span class="title">Double-and-add.</span>
 </h6>\(E(\F_p)\)\(\F_p\text{.}\)\(P \in E(\F_p)\)\(nP\text{.}\)<ol class="decimal">
 <li id="li-128">Compute the binary expansion of \(n\text{:}\)<div class="displaymath">
 \begin{equation*}
@@ -272,8 +273,9 @@ nP = n_0 A_0 + n_1 A_1 + \ldots + n_r A_r
 \end{equation*}
 </div>where the coeffients \(n_i\) determine if a particular term is present in the expansion of \(m\text{.}\)</li>
 </ol></article><p id="p-159">This algorithm provides the basis for using elliptic curves in cryptographic applications. On the one hand, the forward computation of \(nP\) given knowledge of \(n, P\) is easy. On the other hand, we have another discrete log problem.</p>
-<article class="definition-like" id="definition-17"><h6 class="heading">
-<span class="type">Definition</span> <span class="codenumber">4.4.2</span>.</h6>The <dfn class="terminology">elliptic curve discrete log problem</dfn> is to find, given points \(P, Q \in E(\F_p)\text{,}\) a number \(n\) so that<div class="displaymath">
+<article class="definition definition-like" id="definition-17"><h6 class="heading">
+<span class="type">Definition</span><span class="space"> </span><span class="codenumber">4.4.2</span><span class="period">.</span>
+</h6>The <dfn class="terminology">elliptic curve discrete log problem</dfn> is to find, given points \(P, Q \in E(\F_p)\text{,}\) a number \(n\) so that<div class="displaymath">
 \begin{equation*}
 Q = nP \in E(\F_p).
 \end{equation*}
@@ -288,27 +290,27 @@ n = \log_P Q.
 P, 2P, 3P, \ldots.
 \end{equation*}
 </div>
-<p>At some point, an element in the list must repeat, since \(E(\F_p)\) is a finite set. Suppose that the repeat happens for integers \(j,k\) so that \(jP = kP\text{.}\) Then it must be the case that \((k-j)P = \mathcal O\text{,}\) and so \(s = k-j\) is a solution to \(s P = \mathcal O\text{.}\)The smallest such \(s\) is called the <dfn class="terminology">order</dfn> of \(P\) in \(E(\F_p)\text{.}\)</p>
+<p data-braille="continuation">At some point, an element in the list must repeat, since \(E(\F_p)\) is a finite set. Suppose that the repeat happens for integers \(j,k\) so that \(jP = kP\text{.}\) Then it must be the case that \((k-j)P = \mathcal O\text{,}\) and so \(s = k-j\) is a solution to \(s P = \mathcal O\text{.}\)The smallest such \(s\) is called the <dfn class="terminology">order</dfn> of \(P\) in \(E(\F_p)\text{.}\)</p>
 <p id="p-162">Now suppose that for some \(n_0\text{,}\) we have \(n_0 P = \mathcal Q\) (that is, that \(n_0\) is a discrete log of \(Q\) with respect to \(P\)). For any integer \(k\text{,}\) we have</p>
 <div class="displaymath">
 \begin{equation*}
 (n_0 + ks)P = n_0 P + ks P = Q + k(sP) = Q + \mathcal O = q
 \end{equation*}
 </div>
-<p>and so \(n_0 + ks\) is also a discrete log of \(Q\) with respect to \(P\) for all \(k \in \Z\text{.}\) That is, in the elliptic curve setting, logarithms live in \(\Z_s\text{.}\) With this observation, we can justify the name “logarithm” by showing the (odd looking) property</p>
+<p data-braille="continuation">and so \(n_0 + ks\) is also a discrete log of \(Q\) with respect to \(P\) for all \(k \in \Z\text{.}\) That is, in the elliptic curve setting, logarithms live in \(\Z_s\text{.}\) With this observation, we can justify the name “logarithm” by showing the (odd looking) property</p>
 <div class="displaymath">
 \begin{equation}
 \log_P (Q_1 + Q_2) = \log_P Q_1 + \log_P Q_2\label{eq-eclog}\tag{4.4.1}
 \end{equation}
 </div>
-<p>where the proof is left as an exercise. (The usual logarithm satisfies \(\log(xy) = \log x + \log y\text{:}\) the difference in this case is that we're working in an additive group.)</p>
+<p data-braille="continuation">where the proof is left as an exercise. (The usual logarithm satisfies \(\log(xy) = \log x + \log y\text{:}\) the difference in this case is that we're working in an additive group.)</p>
 <p id="p-163">We should make some points about why elliptic curves are a tempting universe in which to do cryptography. First, unlike in \(\F_p\ad\text{,}\) inverses are trivial: if \(P = (x,y)\) then \(-P = (x, -y)\text{,}\) which makes computations much faster in Elgamal type settings. Second, and more importantly, unlike systems build on the integers and factoring problems, the fastest known algorithms that solve the ECDLP are exponential (on the order of \(O(\sqrt{N})\)), which allows the keyspace to be much smaller than methods amenable to attack by index calculus techniques (to be discussed after we talk about RSA).</p>
 <section class="exercises" id="exercises-14"><h3 class="heading hide-type">
 <span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
-<article class="exercise-like" id="exercise-27"><h6 class="heading"><span class="codenumber">1.</span></h6>Show that the elliptic curve discrete log has the additive property in <a data-knowl="./knowl/eq-eclog.html" title="Equation 4.4.1">(4.4.1)</a>.</article><article class="exercise-like" id="exercise-28"><h6 class="heading"><span class="codenumber">2.</span></h6>Implement the double-and-add function. The function should use your elliptic addition function as the core routine. It should accept \(n \in \Z\) and \(P \in E(\F_p)\) and return \(Q = nP\text{.}\)</article></section></section></div></main>
+<article class="exercise exercise-like" id="exercise-27"><h6 class="heading"><span class="codenumber">1<span class="period">.</span></span></h6>
+<a class="xref" data-knowl="./knowl/eq-eclog.html" title="Equation 4.4.1">(4.4.1)</a></article><article class="exercise exercise-like" id="exercise-28"><h6 class="heading"><span class="codenumber">2<span class="period">.</span></span></h6>\(n \in \Z\)\(P \in E(\F_p)\)\(Q = nP\)</article></section></section></div></main>
 </div>
-<div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.12/login.js"></script>
+<script src="https://unpkg.com/prismjs@v1.22.0/components/prism-core.min.js"></script><script src="https://unpkg.com/prismjs@v1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

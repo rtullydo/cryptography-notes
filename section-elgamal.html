@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<!--**************************************-->
-<!--*    Generated from PreTeXt source   *-->
-<!--*    on 2019-11-20T16:48:50-05:00    *-->
-<!--*                                    *-->
-<!--*      https://pretextbook.org       *-->
-<!--*                                    *-->
-<!--**************************************-->
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2021-08-20T13:10:20-07:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>The Elgamal cryptosystem</title>
 <meta name="Keywords" content="Authored in PreTeXt">
-<meta name="viewport" content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     tex2jax: {
@@ -24,7 +26,7 @@ MathJax.Hub.Config({
     jax: ["input/AsciiMath"],
     extensions: ["asciimath2jax.js"],
     TeX: {
-        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", ],
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
         // scrolling to fragment identifiers is controlled by other Javascript
         positionToHash: false,
         equationNumbers: { autoNumber: "none", useLabelIds: true, },
@@ -41,23 +43,22 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.12/pretext.js"></script><script src="https://pretextbook.org/js/0.12/pretext_add_on.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/toc.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/setcolors.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.2/features.css" rel="stylesheet" type="text/css">
-<script>var logged_in = false;
-var role = 'student';
-var guest_access = true;
-var login_required = false;
-var js_version = 0.12;
-</script>
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><link href="https://unpkg.com/prismjs@v1.22.0/themes/prism.css" rel="stylesheet">
+<script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mathbook-book has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" class="hidden-content" style="display:none">\(\DeclareMathOperator{\RE}{Re}
 \DeclareMathOperator{\IM}{Im}
 \DeclareMathOperator{\ess}{ess}
 \DeclareMathOperator{\intr}{int}
@@ -158,7 +159,7 @@ var js_version = 0.12;
 <p class="byline">Ryan Tully-Doyle</p>
 </div>
 </div></div>
-<nav id="primary-navbar" class="navbar"><div class="container">
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="section-dh.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="chapter-groups.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="section-groups.html" title="Next">Next</a></span></div>
 </div>
@@ -166,9 +167,9 @@ var js_version = 0.12;
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="section-dh.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="chapter-groups.html" title="Up">Up</a><a class="next-button button toolbar-item" href="section-groups.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
-<li class="link"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
+<li class="link frontmatter"><a href="frontmatter-1.html" data-scroll="frontmatter-1"><span class="title">Front Matter</span></a></li>
 <li class="link">
 <a href="chapter-intro.html" data-scroll="chapter-intro"><span class="codenumber">1</span> <span class="title">Preliminaries</span></a><ul>
 <li><a href="foreward.html" data-scroll="foreward">The course</a></li>
@@ -225,7 +226,7 @@ var js_version = 0.12;
 <li><a href="section-pollard-concrete.html" data-scroll="section-pollard-concrete">Pollard's \(\rho\) method</a></li>
 </ul>
 </li>
-<li class="link"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
+<li class="link backmatter"><a href="backmatter-1.html" data-scroll="backmatter-1"><span class="title">Back Matter</span></a></li>
 <li class="link"><a href="code.html" data-scroll="code"><span class="codenumber">A</span> <span class="title">Code repository</span></a></li>
 <li class="link">
 <a href="chapter-7.html" data-scroll="chapter-7"><span class="codenumber">7</span> <span class="title">Exercises</span></a><ul>
@@ -237,10 +238,10 @@ var js_version = 0.12;
 </li>
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section class="section" id="section-elgamal"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="section-elgamal"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">3.4</span> <span class="title">The Elgamal cryptosystem</span>
 </h2>
-<a href="section-elgamal.html" class="permalink">¶</a><p id="p-97">In their 1978 paper, Diffie and Hellman proposed a scheme called public key encryption, though they didn't provide an implementation. Two successful schemes that followed immediately from their work are the RSA family of methods (which are based on modular square roots) and the Elgamal family of methods (which are based on modular exponentiation). While RSA came first historically, the Elgamal cryptosystem is directly related to Diffie-Hellman key exchange, and so we are motivated to discuss it first. The Elgamal system is also readily adapted to more complicated setups, like groups on elliptic curves, which will be discussed later in this chapter.</p>
+<p id="p-97">In their 1978 paper, Diffie and Hellman proposed a scheme called public key encryption, though they didn't provide an implementation. Two successful schemes that followed immediately from their work are the RSA family of methods (which are based on modular square roots) and the Elgamal family of methods (which are based on modular exponentiation). While RSA came first historically, the Elgamal cryptosystem is directly related to Diffie-Hellman key exchange, and so we are motivated to discuss it first. The Elgamal system is also readily adapted to more complicated setups, like groups on elliptic curves, which will be discussed later in this chapter.</p>
 <p id="p-98">An <dfn class="terminology">asymmetric</dfn> or <dfn class="terminology">public key</dfn> system is a one-way encrpytion scheme. That is, Alice provides certain information - the particular algorithm to be used, information about the keyspace and message space, and a public key \(k_{pub}\text{.}\) Bob uses that information to encrypt a message \(m\) as a ciphertext \(c\) that he sends to Alice. Alice then uses a piece of secret information, the private key \(k_{priv}\text{,}\) to decrypt the ciphertext back into the message.</p>
 <p id="p-99">The Elgamal system works as follows: Alice chooses a large prime \(p\) and an element \(g\) of large prime order in \(\F_p\ad\text{.}\) She then selects her private key, \(a \in \F_p\ad\text{.}\) She uses her key to compute her public key \(A = g^a\) and publishes \(p, g, A\text{.}\)</p>
 <p id="p-100">Bob chooses a plaintext \(m \in \F_p\ad\text{.}\) He generates a <em class="emphasis">one-use only</em> random element \(k \in F_p\ad\) (to emphasize that this is to be used only once, we sometimes refer to it as an <em class="emphasis">ephemeral key</em>), and he computes \(c_1 = g^k\) and \(c_2 = mA^k\text{.}\) He then sends the pair \((c_1, c_2)\) to Alice.</p>
@@ -250,9 +251,9 @@ var js_version = 0.12;
 c_2 (c_1^a)\inv = m'.
 \end{equation*}
 </div>
-<p>Then \(m' = m\text{.}\)</p>
-<article class="theorem-like" id="alg-elgamal"><h6 class="heading">
-<span class="type">Algorithm</span> <span class="codenumber">3.4.1</span>. <span class="title">Elgamal.</span>
+<p data-braille="continuation">Then \(m' = m\text{.}\)</p>
+<article class="algorithm theorem-like" id="alg-elgamal"><h6 class="heading">
+<span class="type">Algorithm</span><span class="space"> </span><span class="codenumber">3.4.1</span><span class="period">.</span><span class="space"> </span><span class="title">Elgamal.</span>
 </h6>
 <ol class="decimal">
 <li id="li-74">Alice chooses a large prime \(p\text{,}\) \(g \in F_p\ad\) of large prime order and \(a \in F_p\ad\text{.}\)</li>
@@ -263,16 +264,16 @@ c_2 (c_1^a)\inv = m'.
 <li id="li-79">Bob sends \((c_1, c_2)\) to Alice.</li>
 <li id="li-80">Alice computes \(c_2 (c_1^a)\inv\text{.}\)</li>
 </ol></article><p id="p-102">How do we decide if the Elgamal system is secure? One method of proof is to show that the problem is equivalent in difficulty to the DHP, which we know to be at least as hard as the DLP. To prove this, we will use the concept of an <dfn class="terminology">oracle</dfn>, a thought-experiement black box that we can endow with any particular ability that we choose. For the purpose of the next argument, we will posit the existence of an Elgamal oracle - that is, a function that takes as input \(p, g, A, (c_1, c_2)\) and produces a plaintext \(m\text{.}\) (Notice that the magic of the oracle is in not requiring knowledge of the private key \(a\text{.}\))</p>
-<article class="theorem-like" id="proposition-2"><h6 class="heading">
-<span class="type">Proposition</span> <span class="codenumber">3.4.2</span>.</h6>\(p, g\text{.}\)</article><article class="hiddenproof" id="proof-3"><a data-knowl="" class="id-ref" data-refid="hk-proof-3"><h6 class="heading"><span class="type">Proof.</span></h6></a></article><div id="hk-proof-3" class="hidden-content tex2jax_ignore"><article class="hiddenproof"><p id="p-103">Suppose that Eve has an Elgamal oracle, and that she wishes to compute the value of \(g^{ab}\) given known values of \(g^a\) and \(g^b\text{.}\) She knows that if she feeds the oracle a ciphertext \((c_1, c_2)\) that the oracle will return the quantity \(c2 (c_1^a)\inv\text{.}\) If Eve feeds the oracle the ciphertext \((g^b, 1)\text{,}\) then the oracle will return the quantity \(1\cdot(g^{ab})\inv.\) The fast inverse computation methods will allow Eve to calculate \(g^{ab}\) with little difficulty.</p>
+<article class="proposition theorem-like" id="proposition-2"><h6 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">3.4.2</span><span class="period">.</span>
+</h6>\(p, g\text{.}\)</article><article class="hiddenproof" id="proof-3"><a data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-3"><h6 class="heading"><span class="type">Proof<span class="period">.</span></span></h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-3"><article class="hiddenproof"><p id="p-103">Suppose that Eve has an Elgamal oracle, and that she wishes to compute the value of \(g^{ab}\) given known values of \(g^a\) and \(g^b\text{.}\) She knows that if she feeds the oracle a ciphertext \((c_1, c_2)\) that the oracle will return the quantity \(c2 (c_1^a)\inv\text{.}\) If Eve feeds the oracle the ciphertext \((g^b, 1)\text{,}\) then the oracle will return the quantity \(1\cdot(g^{ab})\inv.\) The fast inverse computation methods will allow Eve to calculate \(g^{ab}\) with little difficulty.</p>
 <p id="p-104">On the other hand, if Eve can solve the DHP, then she can compute \(g^{ak}\) from \(c_1 = g^k\) and \(A = g^a\text{.}\) Then it is straightforward for her to compute \(c_2 \cdot (g^{ak})\inv = m\text{.}\)</p>
 <p id="p-105">Thus, breaking Elgamal has equivalent difficulty to solving the DHP.</p></article></div>
 <section class="exercises" id="exercises-9"><h3 class="heading hide-type">
 <span class="type">Exercises</span> <span class="codenumber"></span> <span class="title">Exercises</span>
 </h3>
-<article class="exercise-like" id="exercise-18"><h6 class="heading"><span class="codenumber">1.</span></h6>Prove that \(m' = m\) in the Elgamal cryptosystem.</article><article class="exercise-like" id="exercise-19"><h6 class="heading"><span class="codenumber">2.</span></h6>Implement the Elgamal system in python. You should have an encryption function \(e\) that takes \(g, p, A, m\) and produces a pair \((c_1, c_2)\text{.}\) You should have a decryption function \(d\) that takes as input \(g, p, a, (c_1, c_2)\) and produces a plaintext \(m\text{.}\) The implementation should use your previous implementations of the fast powering algorithm and the inverse finding algorithm.</article></section></section></div></main>
+<article class="exercise exercise-like" id="exercise-18"><h6 class="heading"><span class="codenumber">1<span class="period">.</span></span></h6>\(m' = m\)</article><article class="exercise exercise-like" id="exercise-19"><h6 class="heading"><span class="codenumber">2<span class="period">.</span></span></h6>\(e\)\(g, p, A, m\)\((c_1, c_2)\)\(d\)\(g, p, a, (c_1, c_2)\)\(m\)</article></section></section></div></main>
 </div>
-<div class="login-link"><span id="loginlogout" class="login">login</span></div>
-<script src="https://pretextbook.org/js/0.12/login.js"></script>
+<script src="https://unpkg.com/prismjs@v1.22.0/components/prism-core.min.js"></script><script src="https://unpkg.com/prismjs@v1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>
